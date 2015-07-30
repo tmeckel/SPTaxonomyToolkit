@@ -1,0 +1,1062 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Taxonomy Toolkit
+    Copyright (c) Microsoft Corporation
+    All rights reserved. 
+    http://taxonomytoolkit.codeplex.com/
+
+    MIT License
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+    associated documentation files (the "Software"), to deal in the Software without restriction, 
+    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or 
+    substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+    NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<TestData>
+    <TestDataSection name="DownloadAllProperties">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 3]" Contact="[user 2]">
+                            <LocalizedName Language="1036">TermSetA - French</LocalizedName>
+                            <Description>Description for TermSetA</Description>
+                            <Property Name="Property1">Value1</Property>
+                            <Property Name="Property2">Value2</Property>
+                            <CustomSortOrder>
+                                <Item Id="{ffffffff-ffff-0001-000a-200000000000}" />
+                                <Item Id="{ffffffff-ffff-0003-000e-600000000000}" />
+                                <Item Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            </CustomSortOrder>
+                            <Stakeholder>[user 4]</Stakeholder>
+                            <Term Name="TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 1]" />
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 1]">
+                                <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                <LocalizedDescription Language="1036">Description for TermA1 - French</LocalizedDescription>
+                                <Label>TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">TermA1 - French</Label>
+                                <Term Name="TermA1_2" Id="{ffffffff-ffff-0001-000a-120000000000}" InOrder="true" Owner="[user 1]" />
+                                <Term Name="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 1]" />
+                                <Term Name="TermA1_3" Id="{ffffffff-ffff-0001-000a-130000000000}" Owner="[user 1]" IsDeprecated="true" />
+                            </Term>
+                            <Term Name="TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 1]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <Description>Reused Term Scenarios</Description>
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" Owner="[user 1]">
+                            <Term Name="TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" IsAvailableForTagging="false" Owner="[user 1]">
+                                <Property Name="Property3">Value3</Property>
+                                <LocalProperty Name="LocalProperty4">Value4 in TermSetB</LocalProperty>
+                                <LocalProperty Name="LocalProperty5">Value5 in TermSetB</LocalProperty>
+                            </Term>
+                            <TermLink NameHint="TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" IsAvailableForTagging="false" />
+                        </TermSet>
+                        <TermSet Name="TermSetC" Id="{ffffffff-ffff-0002-000c-000000000000}" Owner="[user 1]">
+                            <TermLink NameHint="TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}">
+                                <LocalProperty Name="LocalProperty4">Value4 in TermSetC</LocalProperty>
+                                <LocalProperty Name="LocalProperty6">Value6 in TermSetC</LocalProperty>
+                            </TermLink>
+                            <Term Name="TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" Owner="[user 1]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <Description>Pinned Term Scenarios</Description>
+                        <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 1]">
+                            <TermLink NameHint="TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}" IsPinnedRoot="true">
+                                <TermLink NameHint="TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" />
+                                <TermLink NameHint="TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="TermSetE" Id="{ffffffff-ffff-0003-000e-000000000000}" Owner="[user 1]">
+                            <Term Name="TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}" Owner="[user 1]">
+                                <Term Name="TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" Owner="[user 1]" />
+                                <Term Name="TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" Owner="[user 1]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="DownloadWithCsomTrace">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 1]">
+                            <LocalizedName Language="1036">TermSetA - French</LocalizedName>
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 1]">
+                                <LocalizedDescription>Description for TermA1</LocalizedDescription>
+                                <LocalizedDescription Language="1036">Description for TermA1 - French</LocalizedDescription>
+                                <Label>TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">TermA1 - French</Label>
+                                <Term Name="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 1]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="CsomRequests">
+            <Requests>
+                <Request Number="0">
+                    <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
+                        <Actions>
+                            <ObjectPath Id="1002" ObjectPathId="1001" />
+                            <ObjectIdentityQuery Id="1003" ObjectPathId="1001" />
+                            <ObjectPath Id="1005" ObjectPathId="1004" />
+                            <ExceptionHandlingScope Id="1006">
+                                <TryScope Id="1008">
+                                    <ObjectPath Id="1011" ObjectPathId="1010" />
+                                    <ObjectIdentityQuery Id="1012" ObjectPathId="1010" />
+                                </TryScope>
+                                <CatchScope Id="1014" />
+                            </ExceptionHandlingScope>
+                        </Actions>
+                        <ObjectPaths>
+                            <StaticMethod Id="1001" Name="GetTaxonomySession" TypeId="{981cbc68-9edc-4f8d-872f-71146fcbb84f}" />
+                            <Property Id="1004" ParentId="1001" Name="TermStores" />
+                            <Method Id="1010" ParentId="1004" Name="GetById">
+                                <Parameters>
+                                    <Parameter Type="Guid">[term store]</Parameter>
+                                </Parameters>
+                            </Method>
+                        </ObjectPaths>
+                    </Request>
+                </Request>
+                <Request Number="1">
+                    <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
+                        <Actions>
+                            <Query Id="1020" ObjectPathId="1010">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="IsOnline" ScalarProperty="true" />
+                                        <Property Name="Languages" ScalarProperty="true" />
+                                        <Property Name="DefaultLanguage" ScalarProperty="true" />
+                                        <Property Name="WorkingLanguage" ScalarProperty="true" />
+                                        <Property Name="SystemGroup">
+                                            <Query SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                </Properties>
+                                            </Query>
+                                        </Property>
+                                        <Property Name="OrphanedTermsTermSet">
+                                            <Query SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                </Properties>
+                                            </Query>
+                                        </Property>
+                                        <Property Name="KeywordsTermSet">
+                                            <Query SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                </Properties>
+                                            </Query>
+                                        </Property>
+                                        <Property Name="Groups">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                    <Property Name="IsSiteCollectionGroup" ScalarProperty="true" />
+                                                    <Property Name="IsSystemGroup" ScalarProperty="true" />
+                                                </Properties>
+                                                <QueryableExpression>
+                                                    <Where>
+                                                        <Test>
+                                                            <Parameters>
+                                                                <Parameter Name="termGroup" />
+                                                            </Parameters>
+                                                            <Body>
+                                                                <OR>
+                                                                    <OR>
+                                                                        <EQ>
+                                                                            <ExpressionProperty Name="Id">
+                                                                                <ExpressionParameter Name="termGroup" />
+                                                                            </ExpressionProperty>
+                                                                            <ExpressionConstant Type="Guid">{ffffffff-ffff-0001-0000-000000000000}</ExpressionConstant>
+                                                                        </EQ>
+                                                                        <EQ>
+                                                                            <ExpressionProperty Name="Id">
+                                                                                <ExpressionParameter Name="termGroup" />
+                                                                            </ExpressionProperty>
+                                                                            <ExpressionConstant Type="Guid">{ffffffff-ffff-0002-0000-000000000000}</ExpressionConstant>
+                                                                        </EQ>
+                                                                    </OR>
+                                                                    <EQ>
+                                                                        <ExpressionProperty Name="Id">
+                                                                            <ExpressionParameter Name="termGroup" />
+                                                                        </ExpressionProperty>
+                                                                        <ExpressionConstant Type="Guid">{ffffffff-ffff-0003-0000-000000000000}</ExpressionConstant>
+                                                                    </EQ>
+                                                                </OR>
+                                                            </Body>
+                                                        </Test>
+                                                        <Object>
+                                                            <QueryableObject />
+                                                        </Object>
+                                                    </Where>
+                                                </QueryableExpression>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                        </Actions>
+                        <ObjectPaths>
+                            <Identity Id="1010" Name="[type=st, guids=[term store]]" />
+                        </ObjectPaths>
+                    </Request>
+                </Request>
+                <Request Number="2">
+                    <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
+                        <Actions>
+                            <Query Id="1035" ObjectPathId="1034">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="IsSiteCollectionGroup" ScalarProperty="true" />
+                                        <Property Name="IsSystemGroup" ScalarProperty="true" />
+                                        <Property Name="Description" ScalarProperty="true" />
+                                        <Property Name="TermSets">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                </Properties>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                        </Actions>
+                        <ObjectPaths>
+                            <Identity Id="1034" Name="[type=gr, guids=[term store], ffffffff-ffff-0001-0000-000000000000]" />
+                        </ObjectPaths>
+                    </Request>
+                </Request>
+                <Request Number="3">
+                    <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
+                        <Actions>
+                            <Query Id="1041" ObjectPathId="1040">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="Contact" ScalarProperty="true" />
+                                        <Property Name="CustomSortOrder" ScalarProperty="true" />
+                                        <Property Name="Description" ScalarProperty="true" />
+                                        <Property Name="IsAvailableForTagging" ScalarProperty="true" />
+                                        <Property Name="IsOpenForTermCreation" ScalarProperty="true" />
+                                        <Property Name="Owner" ScalarProperty="true" />
+                                        <Property Name="CustomProperties" ScalarProperty="true" />
+                                        <Property Name="Stakeholders" ScalarProperty="true" />
+                                    </Properties>
+                                </Query>
+                            </Query>
+                            <SetProperty Id="1042" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1036</Parameter>
+                            </SetProperty>
+                            <Query Id="1043" ObjectPathId="1040">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Name" ScalarProperty="true" />
+                                    </Properties>
+                                </Query>
+                            </Query>
+                            <SetProperty Id="1044" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1033</Parameter>
+                            </SetProperty>
+                            <Query Id="1045" ObjectPathId="1040">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="Terms">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                    <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                                    <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                                </Properties>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                        </Actions>
+                        <ObjectPaths>
+                            <Identity Id="1040" Name="[type=se, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000]" />
+                            <Identity Id="1010" Name="[type=st, guids=[term store]]" />
+                        </ObjectPaths>
+                    </Request>
+                </Request>
+                <Request Number="4">
+                    <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
+                        <Actions>
+                            <Query Id="1053" ObjectPathId="1052">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                        <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                        <Property Name="CustomSortOrder" ScalarProperty="true" />
+                                        <Property Name="IsAvailableForTagging" ScalarProperty="true" />
+                                        <Property Name="LocalCustomProperties" ScalarProperty="true" />
+                                        <Property Name="IsDeprecated" ScalarProperty="true" />
+                                        <Property Name="Owner" ScalarProperty="true" />
+                                        <Property Name="CustomProperties" ScalarProperty="true" />
+                                        <Property Name="Description" ScalarProperty="true" />
+                                        <Property Name="Labels">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="IsDefaultForLanguage" ScalarProperty="true" />
+                                                    <Property Name="Language" ScalarProperty="true" />
+                                                    <Property Name="Value" ScalarProperty="true" />
+                                                </Properties>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                            <Method Name="GetDescription" Id="1056" ObjectPathId="1052">
+                                <Parameters>
+                                    <Parameter Type="Int32">1036</Parameter>
+                                </Parameters>
+                            </Method>
+                            <Query Id="1057" ObjectPathId="1052">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                        <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                        <Property Name="Terms">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                    <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                                    <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                                </Properties>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                        </Actions>
+                        <ObjectPaths>
+                            <Identity Id="1052" Name="[type=te, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000, ffffffff-ffff-0001-000a-100000000000]" />
+                        </ObjectPaths>
+                    </Request>
+                </Request>
+                <Request Number="5">
+                    <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
+                        <Actions>
+                            <Query Id="1068" ObjectPathId="1067">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                        <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                        <Property Name="CustomSortOrder" ScalarProperty="true" />
+                                        <Property Name="IsAvailableForTagging" ScalarProperty="true" />
+                                        <Property Name="LocalCustomProperties" ScalarProperty="true" />
+                                        <Property Name="IsDeprecated" ScalarProperty="true" />
+                                        <Property Name="Owner" ScalarProperty="true" />
+                                        <Property Name="CustomProperties" ScalarProperty="true" />
+                                        <Property Name="Description" ScalarProperty="true" />
+                                        <Property Name="Labels">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="IsDefaultForLanguage" ScalarProperty="true" />
+                                                    <Property Name="Language" ScalarProperty="true" />
+                                                    <Property Name="Value" ScalarProperty="true" />
+                                                </Properties>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                            <Method Name="GetDescription" Id="1071" ObjectPathId="1067">
+                                <Parameters>
+                                    <Parameter Type="Int32">1036</Parameter>
+                                </Parameters>
+                            </Method>
+                            <Query Id="1072" ObjectPathId="1067">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                        <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                        <Property Name="Terms">
+                                            <Query SelectAllProperties="false">
+                                                <Properties />
+                                            </Query>
+                                            <ChildItemQuery SelectAllProperties="false">
+                                                <Properties>
+                                                    <Property Name="Id" ScalarProperty="true" />
+                                                    <Property Name="Name" ScalarProperty="true" />
+                                                    <Property Name="IsSourceTerm" ScalarProperty="true" />
+                                                    <Property Name="IsPinnedRoot" ScalarProperty="true" />
+                                                </Properties>
+                                            </ChildItemQuery>
+                                        </Property>
+                                    </Properties>
+                                </Query>
+                            </Query>
+                        </Actions>
+                        <ObjectPaths>
+                            <Identity Id="1067" Name="[type=te, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000, ffffffff-ffff-0001-000a-110000000000]" />
+                        </ObjectPaths>
+                    </Request>
+                </Request>
+            </Requests>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="UploadAllProperties">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="InitialInput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 2]" Contact="[user 3]">
+                            <LocalizedName Language="1036">TermSetA - French</LocalizedName>
+                            <Description>Description for TermSetA</Description>
+                            <Property Name="Property1">Value1</Property>
+                            <Property Name="Property2">Value2</Property>
+                            <CustomSortOrder>
+                                <Item Id="{ffffffff-ffff-0001-000a-200000000000}" />
+                                <Item Id="{ffffffff-ffff-0003-000e-600000000000}" />
+                                <Item Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            </CustomSortOrder>
+                            <Stakeholder>[user 4]</Stakeholder>
+                            <Term Name="TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 4]" />
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                <LocalizedDescription Language="1036">Description for TermA1 - French</LocalizedDescription>
+                                <Label>TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">TermA1 - French</Label>
+                                <Term Name="TermA1_2" Id="{ffffffff-ffff-0001-000a-120000000000}" InOrder="true" Owner="[user 3]" />
+                                <Term Name="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 4]" />
+                                <Term Name="TermA1_3" Id="{ffffffff-ffff-0001-000a-130000000000}" Owner="[user 2]" IsDeprecated="true" />
+                            </Term>
+                            <Term Name="TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 3]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <Description>Reused Term Scenarios</Description>
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" Owner="[user 4]">
+                            <Term Name="TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" IsAvailableForTagging="false" Owner="[user 2]">
+                                <Property Name="Property3">Value3</Property>
+                                <LocalProperty Name="LocalProperty4">Value4 in TermSetB</LocalProperty>
+                                <LocalProperty Name="LocalProperty5">Value5 in TermSetB</LocalProperty>
+                            </Term>
+                            <TermLink NameHint="TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" IsAvailableForTagging="false" />
+                        </TermSet>
+                        <TermSet Name="TermSetC" Id="{ffffffff-ffff-0002-000c-000000000000}" Owner="[user 3]">
+                            <TermLink NameHint="TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}">
+                                <LocalProperty Name="LocalProperty4">Value4 in TermSetC</LocalProperty>
+                                <LocalProperty Name="LocalProperty6">Value6 in TermSetC</LocalProperty>
+                            </TermLink>
+                            <Term Name="TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" Owner="[user 4]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <Description>Pinned Term Scenarios</Description>
+                        <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 2]">
+                            <!-- IsPinnedRoot="true" not implemented yet -->
+                            <TermLink NameHint="TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}">
+                                <TermLink NameHint="TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" />
+                                <TermLink NameHint="TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="TermSetE" Id="{ffffffff-ffff-0003-000e-000000000000}" Owner="[user 3]">
+                            <Term Name="TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}" Owner="[user 4]">
+                                <Term Name="TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" Owner="[user 2]" />
+                                <Term Name="TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" Owner="[user 3]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="InitialOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 2]" Contact="[user 3]">
+                            <LocalizedName Language="1036">TermSetA - French</LocalizedName>
+                            <Description>Description for TermSetA</Description>
+                            <Property Name="Property1">Value1</Property>
+                            <Property Name="Property2">Value2</Property>
+                            <CustomSortOrder>
+                                <Item Id="{ffffffff-ffff-0001-000a-200000000000}" />
+                                <Item Id="{ffffffff-ffff-0003-000e-600000000000}" />
+                                <Item Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            </CustomSortOrder>
+                            <Stakeholder>[user 4]</Stakeholder>
+                            <Term Name="TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 4]" />
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                <LocalizedDescription Language="1036">Description for TermA1 - French</LocalizedDescription>
+                                <Label>TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">TermA1 - French</Label>
+                                <Term Name="TermA1_2" Id="{ffffffff-ffff-0001-000a-120000000000}" InOrder="true" Owner="[user 3]" />
+                                <Term Name="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 4]" />
+                                <Term Name="TermA1_3" Id="{ffffffff-ffff-0001-000a-130000000000}" Owner="[user 2]" IsDeprecated="true" />
+                            </Term>
+                            <Term Name="TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 3]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <Description>Reused Term Scenarios</Description>
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" Owner="[user 4]">
+                            <Term Name="TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" IsAvailableForTagging="false" Owner="[user 2]">
+                                <Property Name="Property3">Value3</Property>
+                                <LocalProperty Name="LocalProperty4">Value4 in TermSetB</LocalProperty>
+                                <LocalProperty Name="LocalProperty5">Value5 in TermSetB</LocalProperty>
+                            </Term>
+                            <TermLink NameHint="TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" IsAvailableForTagging="false" />
+                        </TermSet>
+                        <TermSet Name="TermSetC" Id="{ffffffff-ffff-0002-000c-000000000000}" Owner="[user 3]">
+                            <TermLink NameHint="TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}">
+                                <LocalProperty Name="LocalProperty4">Value4 in TermSetC</LocalProperty>
+                                <LocalProperty Name="LocalProperty6">Value6 in TermSetC</LocalProperty>
+                            </TermLink>
+                            <Term Name="TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" Owner="[user 4]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <Description>Pinned Term Scenarios</Description>
+                        <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 2]">
+                            <TermLink NameHint="TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}">
+                                <TermLink NameHint="TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" />
+                                <TermLink NameHint="TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="TermSetE" Id="{ffffffff-ffff-0003-000e-000000000000}" Owner="[user 3]">
+                            <Term Name="TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}" Owner="[user 4]">
+                                <Term Name="TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" Owner="[user 2]" />
+                                <Term Name="TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" Owner="[user 3]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="ModifiedInput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="# TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description># Description for TestGroup1</Description>
+                        <TermSet Name="# TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 3]" Contact="[user 4]">
+                            <LocalizedName Language="1036"># TermSetA - French</LocalizedName>
+                            <Description># Description for TermSetA</Description>
+                            <Property Name="# Property1">Value1</Property>
+                            <Property Name="Property2"># Value2</Property>
+                            <CustomSortOrder>
+                                <Item Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                                <Item Id="{ffffffff-ffff-0003-000e-600000000000}" />
+                                <Item Id="{ffffffff-ffff-0001-000a-200000000000}" />
+                            </CustomSortOrder>
+                            <Stakeholder>[user 4]</Stakeholder>
+                            <Term Name="# TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 3]">
+                                <LocalizedDescription># Description for TermA1_1</LocalizedDescription>
+                                <LocalizedDescription Language="1036"># Description for TermA1 - French</LocalizedDescription>
+                                <Label># TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true"># TermA1 - French</Label>
+                                <Term Name="# TermA1_2" Id="{ffffffff-ffff-0001-000a-120000000000}" InOrder="true" Owner="[user 4]" />
+                                <Term Name="# TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 2]" IsDeprecated="true" />
+                                <Term Name="# TermA1_3" Id="{ffffffff-ffff-0001-000a-130000000000}" Owner="[user 3]" />
+                            </Term>
+                            <Term Name="# TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 2]" />
+                            <Term Name="# TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 4]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="# TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <Description># Reused Term Scenarios</Description>
+                        <TermSet Name="# TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 2]">
+                            <Term Name="# TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" Owner="[user 3]">
+                                <Property Name="Property3"># Value3</Property>
+                                <LocalProperty Name="# LocalProperty4">Value4 in TermSetB</LocalProperty>
+                                <LocalProperty Name="LocalProperty5"># Value5 in TermSetB</LocalProperty>
+                            </Term>
+                            <TermLink NameHint="# TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" />
+                        </TermSet>
+                        <TermSet Name="# TermSetC" Id="{ffffffff-ffff-0002-000c-000000000000}" Owner="[user 4]">
+                            <TermLink NameHint="# TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" IsAvailableForTagging="false">
+                                <LocalProperty Name="# LocalProperty4"># Value4 in TermSetC</LocalProperty>
+                                <LocalProperty Name="LocalProperty6">Value6 in TermSetC</LocalProperty>
+                            </TermLink>
+                            <Term Name="# TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" IsAvailableForTagging="false" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="# TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <Description># Pinned Term Scenarios</Description>
+                        <TermSet Name="# TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 3]">
+                            <!-- IsPinnedRoot="true" not implemented yet -->
+                            <TermLink NameHint="# TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}">
+                                <TermLink NameHint="# TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" />
+                                <TermLink NameHint="# TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="# TermSetE" Id="{ffffffff-ffff-0003-000e-000000000000}" Owner="[user 4]">
+                            <Term Name="# TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}" Owner="[user 2]">
+                                <Term Name="# TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" Owner="[user 3]" />
+                                <Term Name="# TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" Owner="[user 4]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="ModifiedOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="# TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description># Description for TestGroup1</Description>
+                        <TermSet Name="# TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 3]" Contact="[user 4]">
+                            <LocalizedName Language="1036"># TermSetA - French</LocalizedName>
+                            <Description># Description for TermSetA</Description>
+                            <Property Name="# Property1">Value1</Property>
+                            <Property Name="Property2"># Value2</Property>
+                            <CustomSortOrder>
+                                <Item Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                                <Item Id="{ffffffff-ffff-0003-000e-600000000000}" />
+                                <Item Id="{ffffffff-ffff-0001-000a-200000000000}" />
+                            </CustomSortOrder>
+                            <Stakeholder>[user 4]</Stakeholder>
+                            <Term Name="# TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 3]">
+                                <LocalizedDescription># Description for TermA1_1</LocalizedDescription>
+                                <LocalizedDescription Language="1036"># Description for TermA1 - French</LocalizedDescription>
+                                <Label># TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true"># TermA1 - French</Label>
+                                <Term Name="# TermA1_2" Id="{ffffffff-ffff-0001-000a-120000000000}" InOrder="true" Owner="[user 4]" />
+                                <Term Name="# TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 2]" IsDeprecated="true" />
+                                <Term Name="# TermA1_3" Id="{ffffffff-ffff-0001-000a-130000000000}" Owner="[user 3]" />
+                            </Term>
+                            <Term Name="# TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 2]" />
+                            <Term Name="# TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 4]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="# TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <Description># Reused Term Scenarios</Description>
+                        <TermSet Name="# TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 2]">
+                            <Term Name="# TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" Owner="[user 3]">
+                                <Property Name="Property3"># Value3</Property>
+                                <LocalProperty Name="# LocalProperty4">Value4 in TermSetB</LocalProperty>
+                                <LocalProperty Name="LocalProperty5"># Value5 in TermSetB</LocalProperty>
+                            </Term>
+                            <TermLink NameHint="# TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" />
+                        </TermSet>
+                        <TermSet Name="# TermSetC" Id="{ffffffff-ffff-0002-000c-000000000000}" Owner="[user 4]">
+                            <TermLink NameHint="# TermB4" Id="{ffffffff-ffff-0002-000b-400000000000}" IsAvailableForTagging="false">
+                                <LocalProperty Name="# LocalProperty4"># Value4 in TermSetC</LocalProperty>
+                                <LocalProperty Name="LocalProperty6">Value6 in TermSetC</LocalProperty>
+                            </TermLink>
+                            <Term Name="# TermC5" Id="{ffffffff-ffff-0002-000c-500000000000}" IsAvailableForTagging="false" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="# TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <Description># Pinned Term Scenarios</Description>
+                        <TermSet Name="# TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 3]">
+                            <TermLink NameHint="# TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}">
+                                <TermLink NameHint="# TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" />
+                                <TermLink NameHint="# TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="# TermSetE" Id="{ffffffff-ffff-0003-000e-000000000000}" Owner="[user 4]">
+                            <Term Name="# TermE6" Id="{ffffffff-ffff-0003-000e-600000000000}" Owner="[user 2]">
+                                <Term Name="# TermE6_1" Id="{ffffffff-ffff-0003-000e-610000000000}" Owner="[user 3]" />
+                                <Term Name="# TermE6_1_1" Id="{ffffffff-ffff-0003-000e-611000000000}" Owner="[user 4]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="CreateAndUpdateByName">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="InitialInput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <!-- NOTE: We can't omit the group ID here because the test cleanup relies on it. -->
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Owner="[user 2]">
+                            <Description>Description for TermSetA</Description>
+                            <Term Name="TermA2" Owner="[user 2]" />
+                            <Term Name="TermA1" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                <Term Name="TermA1_1" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                </Term>
+                                <Term Name="TermA1_2" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                </Term>
+                            </Term>
+                        </TermSet>
+                        <TermSet Name="TermSetB" Owner="[user 2]"></TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}"></TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="InitialOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{dddddddd-0000-0000-0000-000000000001}" Owner="[user 2]">
+                            <Description>Description for TermSetA</Description>
+                            <Term Name="TermA1" Id="{dddddddd-0000-0000-0000-000000000004}" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                <Term Name="TermA1_1" Id="{dddddddd-0000-0000-0000-000000000005}" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                </Term>
+                                <Term Name="TermA1_2" Id="{dddddddd-0000-0000-0000-000000000006}" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1</LocalizedDescription>
+                                </Term>
+                            </Term>
+                            <Term Name="TermA2" Id="{dddddddd-0000-0000-0000-000000000003}" Owner="[user 2]" />
+                        </TermSet>
+                        <TermSet Name="TermSetB" Id="{dddddddd-0000-0000-0000-000000000002}" Owner="[user 2]" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}" />
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="ModifiedInput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1">
+                        <Description>Description for TestGroup1 MODIFIED</Description>
+                        <TermSet Name="TermSetA" Owner="[user 2]">
+                            <Description>Description for TermSetA MODIFIED</Description>
+                            <Term Name="TermA2" Owner="[user 2]" />
+                            <Term Name="TermA1" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1_1 MODIFIED</LocalizedDescription>
+                                <Term Name="TermA1_1" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1 MODIFIED</LocalizedDescription>
+                                </Term>
+                                <Term Name="TermA1_2" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1 MODIFIED</LocalizedDescription>
+                                </Term>
+                            </Term>
+                        </TermSet>
+                        <TermSet Name="TermSetB" Owner="[user 2]"></TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}"></TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="ModifiedOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1 MODIFIED</Description>
+                        <TermSet Name="TermSetA" Id="{dddddddd-0000-0000-0000-000000000001}" Owner="[user 2]">
+                            <Description>Description for TermSetA MODIFIED</Description>
+                            <Term Name="TermA1" Id="{dddddddd-0000-0000-0000-000000000004}" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1_1 MODIFIED</LocalizedDescription>
+                                <Term Name="TermA1_1" Id="{dddddddd-0000-0000-0000-000000000005}" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1 MODIFIED</LocalizedDescription>
+                                </Term>
+                                <Term Name="TermA1_2" Id="{dddddddd-0000-0000-0000-000000000006}" Owner="[user 2]">
+                                    <LocalizedDescription>Description for TermA1_1 MODIFIED</LocalizedDescription>
+                                </Term>
+                            </Term>
+                            <Term Name="TermA2" Id="{dddddddd-0000-0000-0000-000000000003}" Owner="[user 2]" />
+                        </TermSet>
+                        <TermSet Name="TermSetB" Id="{dddddddd-0000-0000-0000-000000000002}" Owner="[user 2]" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}" />
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="ReassignSourceTerm">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Start">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}">
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <TermLink NameHint="TermB1" Id="{ffffffff-ffff-0001-000b-100000000000}" />
+                        </TermSet>
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0001-000b-000000000000}">
+                            <TermLink NameHint="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <Term Name="TermB1" Id="{ffffffff-ffff-0001-000b-100000000000}" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <SyncAction IfMissing="Error" IfPresent="Update" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}">
+                            <TermLink NameHint="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <Term Name="TermB1" Id="{ffffffff-ffff-0001-000b-100000000000}" />
+                        </TermSet>
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0001-000b-000000000000}">
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <TermLink NameHint="TermB1" Id="{ffffffff-ffff-0001-000b-100000000000}" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}">
+                            <TermLink NameHint="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <Term Name="TermB1" Id="{ffffffff-ffff-0001-000b-100000000000}" />
+                        </TermSet>
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0001-000b-000000000000}">
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <TermLink NameHint="TermB1" Id="{ffffffff-ffff-0001-000b-100000000000}" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="UploadBatchingTest">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]" />
+                            <Term Name="TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 2]" />
+                            <Term Name="TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" Owner="[user 2]">
+                            <Term Name="TermB1" Id="{ffffffff-ffff-0002-000b-100000000000}" Owner="[user 2]" />
+                            <Term Name="TermB2" Id="{ffffffff-ffff-0002-000b-200000000000}" Owner="[user 2]" />
+                            <Term Name="TermB3" Id="{ffffffff-ffff-0002-000b-300000000000}" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <TermSet Name="TermSetC" Id="{ffffffff-ffff-0003-000c-000000000000}" Owner="[user 2]">
+                            <Term Name="TermC1" Id="{ffffffff-ffff-0003-000c-100000000000}" Owner="[user 2]" />
+                            <Term Name="TermC2" Id="{ffffffff-ffff-0003-000c-200000000000}" Owner="[user 2]" />
+                            <Term Name="TermC3" Id="{ffffffff-ffff-0003-000c-300000000000}" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]" />
+                            <Term Name="TermA2" Id="{ffffffff-ffff-0001-000a-200000000000}" Owner="[user 2]" />
+                            <Term Name="TermA3" Id="{ffffffff-ffff-0001-000a-300000000000}" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <TermSet Name="TermSetB" Id="{ffffffff-ffff-0002-000b-000000000000}" Owner="[user 2]">
+                            <Term Name="TermB1" Id="{ffffffff-ffff-0002-000b-100000000000}" Owner="[user 2]" />
+                            <Term Name="TermB2" Id="{ffffffff-ffff-0002-000b-200000000000}" Owner="[user 2]" />
+                            <Term Name="TermB3" Id="{ffffffff-ffff-0002-000b-300000000000}" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <TermSet Name="TermSetC" Id="{ffffffff-ffff-0003-000c-000000000000}" Owner="[user 2]">
+                            <Term Name="TermC1" Id="{ffffffff-ffff-0003-000c-100000000000}" Owner="[user 2]" />
+                            <Term Name="TermC2" Id="{ffffffff-ffff-0003-000c-200000000000}" Owner="[user 2]" />
+                            <Term Name="TermC3" Id="{ffffffff-ffff-0003-000c-300000000000}" Owner="[user 2]" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="UploadWithTermLinkSourcePath">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Start">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
+                            <LocalizedName Language="1036">TermSetA - French</LocalizedName>
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1</LocalizedDescription>
+                                <LocalizedDescription Language="1036">Description for TermA1 - French</LocalizedDescription>
+                                <Label>TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">TermA1 - French</Label>
+                                <Term Name="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 2]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <TermSet Name="TermSetC">
+                            <Term Name="TermC1">
+                                <Term Name="TermC1_1" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <SyncAction IfMissing="Create" IfPresent="OnlyUpdateChildItems" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    <!-- NOTE: We can't omit the group ID here because the test cleanup relies on it. -->
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <TermSet Name="TermSetB">
+                            <Term Name="TermB1">
+                                <Term Name="TermB1_1" />
+                            </Term>
+                        </TermSet>
+                        <TermSet Name="TermSetC" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 2]">
+                            <!-- Group=Server; TermSet=Server; ParentTerm=Server; ChildTerm=Server -->
+                            <TermLink TermLinkSourcePath="TaxonomyToolkit - TestGroup1;TermSetA;TermA1;TermA1_1" />
+                            <!-- Group=Server; TermSet=Server; ParentTerm=Server; -->
+                            <TermLink TermLinkSourcePath="TaxonomyToolkit - TestGroup1;TermSetA;TermA1" />
+                            <!-- Group=Taxml;  TermSet=Taxml;  ParentTerm=Taxml;  ChildTerm=Taxml -->
+                            <TermLink TermLinkSourcePath="TaxonomyToolkit - TestGroup2;TermSetB;TermB1" />
+                            <!-- Group=Taxml;  TermSet=Taxml;  ParentTerm=Taxml;  ChildTerm=Taxml -->
+                            <TermLink TermLinkSourcePath="TaxonomyToolkit - TestGroup2;TermSetB;TermB1;TermB1_1" />
+                            <!-- Group=Taxml;  TermSet=Taxml;  ParentTerm=Server; ChildTerm=Server -->
+                            <TermLink TermLinkSourcePath="TaxonomyToolkit - TestGroup2;TermSetC;TermC1;TermC1_1" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
+                        <Description>Description for TestGroup1</Description>
+                        <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
+                            <LocalizedName Language="1036">TermSetA - French</LocalizedName>
+                            <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]">
+                                <LocalizedDescription>Description for TermA1</LocalizedDescription>
+                                <LocalizedDescription Language="1036">Description for TermA1 - French</LocalizedDescription>
+                                <Label>TermA1 - Synonym</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">TermA1 - French</Label>
+                                <Term Name="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" Owner="[user 2]" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup2" Id="{ffffffff-ffff-0002-0000-000000000000}">
+                        <TermSet Name="TermSetB" Id="{dddddddd-0000-0000-0000-000000000004}">
+                            <Term Name="TermB1" Id="{dddddddd-0000-0000-0000-000000000005}">
+                                <Term Name="TermB1_1" Id="{dddddddd-0000-0000-0000-000000000006}" />
+                            </Term>
+                        </TermSet>
+                        <TermSet Name="TermSetC" Id="{dddddddd-0000-0000-0000-000000000001}">
+                            <Term Name="TermC1" Id="{dddddddd-0000-0000-0000-000000000002}">
+                                <Term Name="TermC1_1" Id="{dddddddd-0000-0000-0000-000000000003}" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 2]">
+                            <TermLink NameHint="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
+                            <TermLink NameHint="TermA1_1" Id="{ffffffff-ffff-0001-000a-110000000000}" />
+                            <TermLink NameHint="TermB1" Id="{dddddddd-0000-0000-0000-000000000005}" />
+                            <TermLink NameHint="TermB1_1" Id="{dddddddd-0000-0000-0000-000000000006}" />
+                            <TermLink NameHint="TermC1_1" Id="{dddddddd-0000-0000-0000-000000000003}" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="UploadWithTermLinkSourcePath_NotFoundError">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
+                        <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 2]">
+                            <!-- Group=Server; TermSet=Server; ParentTerm=Server; ChildTerm=Server -->
+                            <TermLink TermLinkSourcePath="TaxonomyToolkit - TestGroup1;TermSetA;TermA1;NonExistentTerm" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+</TestData>

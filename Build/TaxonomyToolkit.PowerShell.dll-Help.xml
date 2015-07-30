@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?><helpItems xmlns="http://msh" schema="maml">
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+	<command:details>
+		<command:name>Export-Taxml</command:name>
+		<maml:description>
+			<maml:para>Exports taxonomy objects from a SharePoint server to a TAXML file.</maml:para>
+		</maml:description>
+		<maml:copyright>
+			<maml:para />
+		</maml:copyright>
+		<command:verb>Export</command:verb>
+		<command:noun>Taxml</command:noun>
+		<dev:version />
+	</command:details>
+	<maml:description>
+	<!--This is the Description section-->
+		<maml:para>Export-Taxml communicates with Microsoft SharePoint Server 2013.  It reads taxonomy items from the Managed Metadata Service and writes them to a TAXML output file.  TAXML is an XML file format defined by the &quot;TaxmlFile.xsd&quot; schema included with this toolkit.</maml:para>
+	</maml:description>
+	<command:syntax>
+		<command:syntaxItem>
+			<maml:name>Export-Taxml</maml:name>
+			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Path</maml:name>
+				<maml:description>
+					<maml:para>The filename where the TAXML output will be written.  If the &quot;.taxml&quot; file extension is omitted, it will be appended automatically.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>SiteUrl</maml:name>
+				<maml:description>
+					<maml:para>The URL of a SharePoint site collection (SPSite) used to communicate with the SharePoint Managed Metadata Service.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="false" position="named">
+				<maml:name>GroupIdFilter</maml:name>
+				<maml:description>
+					<maml:para>An array of Taxonomy group identifiers.  If this is specified, the Export-Taxml command will only export objects belonging to these groups; otherwise, all objects will be exported.  In the SharePoint &quot;Term Store Management Tool&quot;, this identifier is shown under the &quot;Unique Identifier&quot; heading when clicking on a group.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="true">Guid[]</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>TermStoreId</maml:name>
+				<maml:description>
+					<maml:para>Specifies the term store to be exported.  This parameter is required if the server has more than one term store.  (In the Term Store Management Tool for SharePoint 2013, this identifier can be found under the &quot;Unique Identifier&quot; heading when clicking on the root of the tree.)</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Credential</maml:name>
+				<maml:description>
+					<maml:para>Specifies a user account that has permission to perform the action.  By default the current Windows login will be used.  To specify a different user name and password, provide a PSCredential object which can be constructed using the Get-Credential cmdlet.
+
+For an on-prem server, the user name should use the &quot;domain\alias&quot; format.  For a cloud server, use the &quot;alias@example.com&quot; format and include the -CloudCredential switch.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>CloudCredential</maml:name>
+				<maml:description>
+					<maml:para>This switch must be included when accessing a site hosted by the SharePoint Online cloud service.  It indicates that authentication should be performed using the special Microsoft Online Service library, which is distributed as part of the SharePoint Client Components SDK.
+
+Note: A copy of the library is bundled with this toolkit; however, if a version of the library was installed with your operating system, it will be used instead and may need to be upgraded.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+		</command:syntaxItem>
+	</command:syntax>
+	<command:parameters>
+		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Path</maml:name>
+			<maml:description>
+				<maml:para>The filename where the TAXML output will be written.  If the &quot;.taxml&quot; file extension is omitted, it will be appended automatically.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			<dev:type>
+				<maml:name>String</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>SiteUrl</maml:name>
+			<maml:description>
+				<maml:para>The URL of a SharePoint site collection (SPSite) used to communicate with the SharePoint Managed Metadata Service.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			<dev:type>
+				<maml:name>String</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="true" globbing="false" pipelineInput="false" position="named">
+			<maml:name>GroupIdFilter</maml:name>
+			<maml:description>
+				<maml:para>An array of Taxonomy group identifiers.  If this is specified, the Export-Taxml command will only export objects belonging to these groups; otherwise, all objects will be exported.  In the SharePoint &quot;Term Store Management Tool&quot;, this identifier is shown under the &quot;Unique Identifier&quot; heading when clicking on a group.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="true">Guid[]</command:parameterValue>
+			<dev:type>
+				<maml:name>Guid[]</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>TermStoreId</maml:name>
+			<maml:description>
+				<maml:para>Specifies the term store to be exported.  This parameter is required if the server has more than one term store.  (In the Term Store Management Tool for SharePoint 2013, this identifier can be found under the &quot;Unique Identifier&quot; heading when clicking on the root of the tree.)</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+			<dev:type>
+				<maml:name>Guid</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Credential</maml:name>
+			<maml:description>
+				<maml:para>Specifies a user account that has permission to perform the action.  By default the current Windows login will be used.  To specify a different user name and password, provide a PSCredential object which can be constructed using the Get-Credential cmdlet.
+
+For an on-prem server, the user name should use the &quot;domain\alias&quot; format.  For a cloud server, use the &quot;alias@example.com&quot; format and include the -CloudCredential switch.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+			<dev:type>
+				<maml:name>PSCredential</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>CloudCredential</maml:name>
+			<maml:description>
+				<maml:para>This switch must be included when accessing a site hosted by the SharePoint Online cloud service.  It indicates that authentication should be performed using the special Microsoft Online Service library, which is distributed as part of the SharePoint Client Components SDK.
+
+Note: A copy of the library is bundled with this toolkit; however, if a version of the library was installed with your operating system, it will be used instead and may need to be upgraded.</maml:para>
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+	</command:parameters>
+	<command:inputTypes>
+		<command:inputType>
+			<dev:type>
+				<maml:name>None</maml:name>
+				<maml:uri/>
+				<maml:description>
+					<maml:para></maml:para>
+				</maml:description>
+			</dev:type>
+			<maml:description></maml:description>
+		</command:inputType>
+	</command:inputTypes>
+	<command:returnValues>
+		<command:returnValue>
+			<dev:type>
+				<maml:name></maml:name>
+				<maml:uri/>
+				<maml:description>
+					<maml:para></maml:para>
+				</maml:description>
+			</dev:type>
+			<maml:description></maml:description>
+	</command:returnValue>
+		</command:returnValues>
+	<command:terminatingErrors></command:terminatingErrors>
+	<command:nonTerminatingErrors></command:nonTerminatingErrors>
+	<maml:alertSet>
+		<maml:title></maml:title>
+		<maml:alert>
+			<maml:para>Use the -Verbose flag to see additional details about the export operation.
+
+Export-Taxml communicates with the server using the Client Side Object Model (CSOM) and is affected by its authentication requirements and throttling.  If the site is hosted by the SharePoint Online cloud service, some objects cannot be exported unless you specify the tenant admin URL instead of a regular site collection URL.</maml:para>
+		</maml:alert>
+	</maml:alertSet>
+	<command:examples>
+		<command:example>
+			<maml:title>--------------------------  Example 1  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:para></maml:para>
+			</maml:introduction>
+			<dev:code>PS C:\&gt; Export-Taxml -Path Output.taxml -SiteUrl http://www.example.com/sites/main -Verbose</dev:code>
+			<dev:remarks>
+				<maml:para>Exports all taxonomy items from the specified SharePoint site, with verbose progress reporting.</maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText></command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
+		<command:example>
+			<maml:title>--------------------------  Example 2  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:para></maml:para>
+			</maml:introduction>
+			<dev:code>PS C:\&gt; Export-Taxml -Path Output.taxml -SiteUrl http://www.example.com/sites/main
+-TermStoreId &apos;2B20F80B-C981-4159-8976-879B81E4346E&apos; -GroupIdFilter @(&apos;C3152636-B385-4FF6-86D6-D7BD67FF59D0&apos;, &apos;887C80BA-4CB9-409C-9BCF-490ECFE3D4F6&apos;)</dev:code>
+			<dev:remarks>
+				<maml:para>Only export items belonging to the two groups indicated by the &quot;-GroupIdFilter&quot; parameter, from the specified term store.</maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText></command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
+		<command:example>
+			<maml:title>--------------------------  Example 3  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:para></maml:para>
+			</maml:introduction>
+			<dev:code>PS C:\&gt; Export-Taxml -Path Output.taxml -SiteUrl https://example-admin.sharepoint.com/ -Credential (Get-Credential -UserName &apos;name@example.com&apos; -Message &apos;Enter password:&apos;) -CloudCredential</dev:code>
+			<dev:remarks>
+				<maml:para>Exports taxonomy items from a site hosted by the SharePoint Online cloud service.  A dialog box is displayed to prompt for the user&#39;s password.  Note that the tenant admin URL (&quot;example-admin&quot;) is used instead of a regular site URL.</maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText></command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
+	</command:examples>
+	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>Taxonomy Toolkit</maml:linkText>
+			<maml:uri>http://taxonomytoolkit.codeplex.com/</maml:uri>
+		</maml:navigationLink>
+	</maml:relatedLinks>
+</command:command>
+<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+	<command:details>
+		<command:name>Import-Taxml</command:name>
+		<maml:description>
+			<maml:para>Imports taxonomy objects from a TAXML file to a SharePoint server.</maml:para>
+		</maml:description>
+		<maml:copyright>
+			<maml:para />
+		</maml:copyright>
+		<command:verb>Import</command:verb>
+		<command:noun>Taxml</command:noun>
+		<dev:version />
+	</command:details>
+	<maml:description>
+	<!--This is the Description section-->
+		<maml:para>Import-Taxml communicates with Microsoft SharePoint Server 2013.  It reads taxonomy items from a TAXML input file and writes them to the Managed Metadata Service.  TAXML is an XML file format defined by the &quot;TaxmlFile.xsd&quot; schema included with this toolkit.</maml:para>
+	</maml:description>
+	<command:syntax>
+		<command:syntaxItem>
+			<maml:name>Import-Taxml</maml:name>
+			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Path</maml:name>
+				<maml:description>
+					<maml:para>The filename that the TAXML input will be read from.  If the &quot;.taxml&quot; file extension is omitted, it will be appended automatically.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>SiteUrl</maml:name>
+				<maml:description>
+					<maml:para>The URL of a SharePoint site collection (SPSite) used to communicate with the SharePoint Managed Metadata Service.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>TermStoreId</maml:name>
+				<maml:description>
+					<maml:para>Specifies the target term store for the import operation.  This parameter is required if the server has more than one term store.  (In the Term Store Management Tool for SharePoint 2013, this identifier can be found under the &quot;Unique Identifier&quot; heading when clicking on the root of the tree.)</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>MaximumBatchSize</maml:name>
+				<maml:description>
+					<maml:para>Specifies the maximum number of operations that can be combined as a batch into a single Client Side Object Model (CSOM) server request.  Larger values typically improve performance, but also increase the risk of failures that may occur if the network transaction takes too long to complete or exceeds the maximum number of bytes permitted by the server.
+
+The definition of an &quot;operation&quot; is complex, but roughly corresponds to finding, creating, updating, or deleting a taxonomy group, term set, or term.  The actual batch size may be much smaller than MaximumBatchSize, since the dependency graph restricts which operations can be combined in a single transaction.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>Credential</maml:name>
+				<maml:description>
+					<maml:para>Specifies a user account that has permission to perform the action.  By default the current Windows login will be used.  To specify a different user name and password, provide a PSCredential object which can be constructed using the Get-Credential cmdlet.
+
+For an on-prem server, the user name should use the &quot;domain\alias&quot; format.  For a cloud server, use the &quot;alias@example.com&quot; format and include the -CloudCredential switch.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+			</command:parameter>
+			<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+				<maml:name>CloudCredential</maml:name>
+				<maml:description>
+					<maml:para>This switch must be included when accessing a site hosted by the SharePoint Online cloud service.  It indicates that authentication should be performed using the special Microsoft Online Service library, which is distributed as part of the SharePoint Client Components SDK.
+
+Note: A copy of the library is bundled with this toolkit; however, if a version of the library was installed with your operating system, it will be used instead and may need to be upgraded.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			</command:parameter>
+		</command:syntaxItem>
+	</command:syntax>
+	<command:parameters>
+		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Path</maml:name>
+			<maml:description>
+				<maml:para>The filename that the TAXML input will be read from.  If the &quot;.taxml&quot; file extension is omitted, it will be appended automatically.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			<dev:type>
+				<maml:name>String</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="true" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>SiteUrl</maml:name>
+			<maml:description>
+				<maml:para>The URL of a SharePoint site collection (SPSite) used to communicate with the SharePoint Managed Metadata Service.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+			<dev:type>
+				<maml:name>String</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>TermStoreId</maml:name>
+			<maml:description>
+				<maml:para>Specifies the target term store for the import operation.  This parameter is required if the server has more than one term store.  (In the Term Store Management Tool for SharePoint 2013, this identifier can be found under the &quot;Unique Identifier&quot; heading when clicking on the root of the tree.)</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">Guid</command:parameterValue>
+			<dev:type>
+				<maml:name>Guid</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>MaximumBatchSize</maml:name>
+			<maml:description>
+				<maml:para>Specifies the maximum number of operations that can be combined as a batch into a single Client Side Object Model (CSOM) server request.  Larger values typically improve performance, but also increase the risk of failures that may occur if the network transaction takes too long to complete or exceeds the maximum number of bytes permitted by the server.
+
+The definition of an &quot;operation&quot; is complex, but roughly corresponds to finding, creating, updating, or deleting a taxonomy group, term set, or term.  The actual batch size may be much smaller than MaximumBatchSize, since the dependency graph restricts which operations can be combined in a single transaction.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+			<dev:type>
+				<maml:name>Int32</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue>100</dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>Credential</maml:name>
+			<maml:description>
+				<maml:para>Specifies a user account that has permission to perform the action.  By default the current Windows login will be used.  To specify a different user name and password, provide a PSCredential object which can be constructed using the Get-Credential cmdlet.
+
+For an on-prem server, the user name should use the &quot;domain\alias&quot; format.  For a cloud server, use the &quot;alias@example.com&quot; format and include the -CloudCredential switch.</maml:para>
+			</maml:description>
+			<command:parameterValue required="true" variableLength="false">PSCredential</command:parameterValue>
+			<dev:type>
+				<maml:name>PSCredential</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+		<command:parameter required="false" variableLength="false" globbing="false" pipelineInput="false" position="named">
+			<maml:name>CloudCredential</maml:name>
+			<maml:description>
+				<maml:para>This switch must be included when accessing a site hosted by the SharePoint Online cloud service.  It indicates that authentication should be performed using the special Microsoft Online Service library, which is distributed as part of the SharePoint Client Components SDK.
+
+Note: A copy of the library is bundled with this toolkit; however, if a version of the library was installed with your operating system, it will be used instead and may need to be upgraded.</maml:para>
+			</maml:description>
+			<command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+			<dev:type>
+				<maml:name>SwitchParameter</maml:name>
+				<maml:uri/>
+			</dev:type>
+			<dev:defaultValue></dev:defaultValue>
+		</command:parameter>
+	</command:parameters>
+	<command:inputTypes>
+		<command:inputType>
+			<dev:type>
+				<maml:name>None</maml:name>
+				<maml:uri/>
+				<maml:description>
+					<maml:para></maml:para>
+				</maml:description>
+			</dev:type>
+			<maml:description></maml:description>
+		</command:inputType>
+	</command:inputTypes>
+	<command:returnValues>
+		<command:returnValue>
+			<dev:type>
+				<maml:name></maml:name>
+				<maml:uri/>
+				<maml:description>
+					<maml:para></maml:para>
+				</maml:description>
+			</dev:type>
+			<maml:description></maml:description>
+	</command:returnValue>
+		</command:returnValues>
+	<command:terminatingErrors></command:terminatingErrors>
+	<command:nonTerminatingErrors></command:nonTerminatingErrors>
+	<maml:alertSet>
+		<maml:title></maml:title>
+		<maml:alert>
+			<maml:para>Use the -Verbose flag to see additional details about the import operation.
+
+Import-Taxml communicates with the server using the Client Side Object Model (CSOM) and is affected by its authentication requirements and throttling.  If the site is hosted by the SharePoint Online cloud service, some objects cannot be imported unless you specify the tenant admin URL instead of a regular site collection URL.</maml:para>
+		</maml:alert>
+	</maml:alertSet>
+	<command:examples>
+		<command:example>
+			<maml:title>--------------------------  Example 1  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:para></maml:para>
+			</maml:introduction>
+			<dev:code>PS C:\&gt; Import-Taxml -Path Input.taxml -SiteUrl http://www.example.com/sites/main</dev:code>
+			<dev:remarks>
+				<maml:para>Import taxonomy items to a SharePoint site.</maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText></command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
+		<command:example>
+			<maml:title>--------------------------  Example 2  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:para></maml:para>
+			</maml:introduction>
+			<dev:code>PS C:\&gt; Import-Taxml -Path Input.taxml -SiteUrl http://www.example.com/sites/main -TermStoreId &apos;2B20F80B-C981-4159-8976-879B81E4346E&apos;</dev:code>
+			<dev:remarks>
+				<maml:para>Import taxonomy items to a specific term store for the SharePoint site.</maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText></command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
+		<command:example>
+			<maml:title>--------------------------  Example 3  --------------------------</maml:title>
+			<maml:introduction>
+				<maml:para></maml:para>
+			</maml:introduction>
+			<dev:code>PS C:\&gt; Import-Taxml -Path Input.taxml -SiteUrl https://example-admin.sharepoint.com/ -Credential (Get-Credential -UserName &apos;name@example.com&apos; -Message &apos;Enter password:&apos;) -CloudCredential</dev:code>
+			<dev:remarks>
+				<maml:para>Import taxonomy items to a site hosted by the SharePoint Online cloud service.  A dialog box is displayed to prompt for the user&#39;s password.  Note that the tenant admin URL &quot;example-admin&quot; is used instead of a regular site URL.</maml:para>
+			</dev:remarks>
+			<command:commandLines>
+				<command:commandLine>
+					<command:commandText></command:commandText>
+				</command:commandLine>
+			</command:commandLines>
+		</command:example>
+	</command:examples>
+	<maml:relatedLinks>
+		<maml:navigationLink>
+			<maml:linkText>Taxonomy Toolkit</maml:linkText>
+			<maml:uri>http://taxonomytoolkit.codeplex.com/</maml:uri>
+		</maml:navigationLink>
+	</maml:relatedLinks>
+</command:command>
+</helpItems>

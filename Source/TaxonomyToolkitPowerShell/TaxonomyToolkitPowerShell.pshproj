@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+<ModuleObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>TaxonomyToolkit.PowerShell</Name>
+  <ModuleType>Binary</ModuleType>
+  <Version>1.0</Version>
+  <Description />
+  <ModuleClass>External</ModuleClass>
+  <ModulePath>..\..\Build\TaxonomyToolkit.PowerShell.psd1</ModulePath>
+  <UseSupports>false</UseSupports>
+  <OverridePostCount>false</OverridePostCount>
+  <FetchPostCount xsi:nil="true" />
+  <Cmdlets>
+    <CmdletObject>
+      <Name>Export-Taxml</Name>
+      <Verb>Export</Verb>
+      <Noun>Taxml</Noun>
+      <GeneralHelp>
+        <Synopsis>Exports taxonomy objects from a SharePoint server to a TAXML file.</Synopsis>
+        <Description>Export-Taxml communicates with Microsoft SharePoint Server 2013.  It reads taxonomy items from the Managed Metadata Service and writes them to a TAXML output file.  TAXML is an XML file format defined by the "TaxmlFile.xsd" schema included with this toolkit.</Description>
+        <Notes>Use the -Verbose flag to see additional details about the export operation.
+
+Export-Taxml communicates with the server using the Client Side Object Model (CSOM) and is affected by its authentication requirements and throttling.  If the site is hosted by the SharePoint Online cloud service, some objects cannot be exported unless you specify the tenant admin URL instead of a regular site collection URL.</Notes>
+        <InputType>None</InputType>
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <Syntax>
+        <string>Export-Taxml -Path &lt;String&gt; -SiteUrl &lt;String&gt; [-GroupIdFilter &lt;Guid[]&gt;] [-TermStoreId &lt;Guid&gt;] [-Credential &lt;PSCredential&gt;] [-CloudCredential]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription>
+          <Name>Path</Name>
+          <Type>String</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>true</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The filename where the TAXML output will be written.  If the ".taxml" file extension is omitted, it will be appended automatically.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>SiteUrl</Name>
+          <Type>String</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>true</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The URL of a SharePoint site collection (SPSite) used to communicate with the SharePoint Managed Metadata Service.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>GroupIdFilter</Name>
+          <Type>Guid[]</Type>
+          <AcceptsArray>true</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>An array of Taxonomy group identifiers.  If this is specified, the Export-Taxml command will only export objects belonging to these groups; otherwise, all objects will be exported.  In the SharePoint "Term Store Management Tool", this identifier is shown under the "Unique Identifier" heading when clicking on a group.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>TermStoreId</Name>
+          <Type>Guid</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Specifies the term store to be exported.  This parameter is required if the server has more than one term store.  (In the Term Store Management Tool for SharePoint 2013, this identifier can be found under the "Unique Identifier" heading when clicking on the root of the tree.)</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>Credential</Name>
+          <Type>PSCredential</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.CredentialAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Specifies a user account that has permission to perform the action.  By default the current Windows login will be used.  To specify a different user name and password, provide a PSCredential object which can be constructed using the Get-Credential cmdlet.
+
+For an on-prem server, the user name should use the "domain\alias" format.  For a cloud server, use the "alias@example.com" format and include the -CloudCredential switch.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>CloudCredential</Name>
+          <Type>SwitchParameter</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This switch must be included when accessing a site hosted by the SharePoint Online cloud service.  It indicates that authentication should be performed using the special Microsoft Online Service library, which is distributed as part of the SharePoint Client Components SDK.
+
+Note: A copy of the library is bundled with this toolkit; however, if a version of the library was installed with your operating system, it will be used instead and may need to be upgraded.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>PS C:\&gt; Export-Taxml -Path Output.taxml -SiteUrl http://www.example.com/sites/main -Verbose</Cmd>
+          <Description>Exports all taxonomy items from the specified SharePoint site, with verbose progress reporting.</Description>
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>PS C:\&gt; Export-Taxml -Path Output.taxml -SiteUrl http://www.example.com/sites/main
+-TermStoreId '2B20F80B-C981-4159-8976-879B81E4346E' -GroupIdFilter @('C3152636-B385-4FF6-86D6-D7BD67FF59D0', '887C80BA-4CB9-409C-9BCF-490ECFE3D4F6')</Cmd>
+          <Description>Only export items belonging to the two groups indicated by the "-GroupIdFilter" parameter, from the specified term store.</Description>
+        </Example>
+        <Example>
+          <Name>Example 3</Name>
+          <Cmd>PS C:\&gt; Export-Taxml -Path Output.taxml -SiteUrl https://example-admin.sharepoint.com/ -Credential (Get-Credential -UserName 'name@example.com' -Message 'Enter password:') -CloudCredential</Cmd>
+          <Description>Exports taxonomy items from a site hosted by the SharePoint Online cloud service.  A dialog box is displayed to prompt for the user's password.  Note that the tenant admin URL ("example-admin") is used instead of a regular site URL.</Description>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Taxonomy Toolkit</LinkText>
+          <LinkUrl>http://taxonomytoolkit.codeplex.com/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation>
+        <ADChecked>false</ADChecked>
+        <RsatChecked>false</RsatChecked>
+        <Ps2Checked>false</Ps2Checked>
+        <Ps3Checked>false</Ps3Checked>
+        <Ps4Checked>false</Ps4Checked>
+        <WinXpChecked>false</WinXpChecked>
+        <WinVistaChecked>false</WinVistaChecked>
+        <Win7Checked>false</Win7Checked>
+        <Win8Checked>false</Win8Checked>
+        <Win81Checked>false</Win81Checked>
+        <Win2003Checked>false</Win2003Checked>
+        <Win2003StdChecked>false</Win2003StdChecked>
+        <Win2003EEChecked>false</Win2003EEChecked>
+        <Win2003DCChecked>false</Win2003DCChecked>
+        <Win2008Checked>false</Win2008Checked>
+        <Win2008StdChecked>false</Win2008StdChecked>
+        <Win2008EEChecked>false</Win2008EEChecked>
+        <Win2008DCChecked>false</Win2008DCChecked>
+        <Win2008R2Checked>false</Win2008R2Checked>
+        <Win2008R2StdChecked>false</Win2008R2StdChecked>
+        <Win2008R2EEChecked>false</Win2008R2EEChecked>
+        <Win2008R2DCChecked>false</Win2008R2DCChecked>
+        <Win2012Checked>false</Win2012Checked>
+        <Win2012StdChecked>false</Win2012StdChecked>
+        <Win2012DCChecked>false</Win2012DCChecked>
+        <Win2012R2Checked>false</Win2012R2Checked>
+        <Win2012R2StdChecked>false</Win2012R2StdChecked>
+        <Win2012R2DCChecked>false</Win2012R2DCChecked>
+      </SupportInformation>
+      <Publish>false</Publish>
+    </CmdletObject>
+    <CmdletObject>
+      <Name>Import-Taxml</Name>
+      <Verb>Import</Verb>
+      <Noun>Taxml</Noun>
+      <GeneralHelp>
+        <Synopsis>Imports taxonomy objects from a TAXML file to a SharePoint server.</Synopsis>
+        <Description>Import-Taxml communicates with Microsoft SharePoint Server 2013.  It reads taxonomy items from a TAXML input file and writes them to the Managed Metadata Service.  TAXML is an XML file format defined by the "TaxmlFile.xsd" schema included with this toolkit.</Description>
+        <Notes>Use the -Verbose flag to see additional details about the import operation.
+
+Import-Taxml communicates with the server using the Client Side Object Model (CSOM) and is affected by its authentication requirements and throttling.  If the site is hosted by the SharePoint Online cloud service, some objects cannot be imported unless you specify the tenant admin URL instead of a regular site collection URL.</Notes>
+        <InputType>None</InputType>
+        <InputTypeDescription />
+        <ReturnType />
+        <ReturnTypeDescription />
+      </GeneralHelp>
+      <Syntax>
+        <string>Import-Taxml -Path &lt;String&gt; -SiteUrl &lt;String&gt; [-TermStoreId &lt;Guid&gt;] [-MaximumBatchSize &lt;Int32&gt;] [-Credential &lt;PSCredential&gt;] [-CloudCredential]</string>
+      </Syntax>
+      <Parameters>
+        <ParameterDescription>
+          <Name>Path</Name>
+          <Type>String</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>true</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The filename that the TAXML input will be read from.  If the ".taxml" file extension is omitted, it will be appended automatically.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>SiteUrl</Name>
+          <Type>String</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>true</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>The URL of a SharePoint site collection (SPSite) used to communicate with the SharePoint Managed Metadata Service.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>TermStoreId</Name>
+          <Type>Guid</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Specifies the target term store for the import operation.  This parameter is required if the server has more than one term store.  (In the Term Store Management Tool for SharePoint 2013, this identifier can be found under the "Unique Identifier" heading when clicking on the root of the tree.)</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>MaximumBatchSize</Name>
+          <Type>Int32</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.ComponentModel.DefaultValueAttribute</string>
+            <string>System.Management.Automation.ValidateRangeAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Specifies the maximum number of operations that can be combined as a batch into a single Client Side Object Model (CSOM) server request.  Larger values typically improve performance, but also increase the risk of failures that may occur if the network transaction takes too long to complete or exceeds the maximum number of bytes permitted by the server.
+
+The definition of an "operation" is complex, but roughly corresponds to finding, creating, updating, or deleting a taxonomy group, term set, or term.  The actual batch size may be much smaller than MaximumBatchSize, since the dependency graph restricts which operations can be combined in a single transaction.</Description>
+          <DefaultValue>100</DefaultValue>
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>Credential</Name>
+          <Type>PSCredential</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+            <string>System.Management.Automation.CredentialAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>Specifies a user account that has permission to perform the action.  By default the current Windows login will be used.  To specify a different user name and password, provide a PSCredential object which can be constructed using the Get-Credential cmdlet.
+
+For an on-prem server, the user name should use the "domain\alias" format.  For a cloud server, use the "alias@example.com" format and include the -CloudCredential switch.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+        <ParameterDescription>
+          <Name>CloudCredential</Name>
+          <Type>SwitchParameter</Type>
+          <AcceptsArray>false</AcceptsArray>
+          <Mandatory>false</Mandatory>
+          <Dynamic>false</Dynamic>
+          <RemainingArgs>false</RemainingArgs>
+          <Pipeline>false</Pipeline>
+          <PipelinePropertyName>false</PipelinePropertyName>
+          <Positional>false</Positional>
+          <Position>named</Position>
+          <Attributes>
+            <string>System.Management.Automation.ParameterAttribute</string>
+          </Attributes>
+          <Aliases />
+          <Description>This switch must be included when accessing a site hosted by the SharePoint Online cloud service.  It indicates that authentication should be performed using the special Microsoft Online Service library, which is distributed as part of the SharePoint Client Components SDK.
+
+Note: A copy of the library is bundled with this toolkit; however, if a version of the library was installed with your operating system, it will be used instead and may need to be upgraded.</Description>
+          <DefaultValue />
+          <Globbing>false</Globbing>
+        </ParameterDescription>
+      </Parameters>
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>PS C:\&gt; Import-Taxml -Path Input.taxml -SiteUrl http://www.example.com/sites/main</Cmd>
+          <Description>Import taxonomy items to a SharePoint site.</Description>
+        </Example>
+        <Example>
+          <Name>Example 2</Name>
+          <Cmd>PS C:\&gt; Import-Taxml -Path Input.taxml -SiteUrl http://www.example.com/sites/main -TermStoreId '2B20F80B-C981-4159-8976-879B81E4346E'</Cmd>
+          <Description>Import taxonomy items to a specific term store for the SharePoint site.</Description>
+        </Example>
+        <Example>
+          <Name>Example 3</Name>
+          <Cmd>PS C:\&gt; Import-Taxml -Path Input.taxml -SiteUrl https://example-admin.sharepoint.com/ -Credential (Get-Credential -UserName 'name@example.com' -Message 'Enter password:') -CloudCredential</Cmd>
+          <Description>Import taxonomy items to a site hosted by the SharePoint Online cloud service.  A dialog box is displayed to prompt for the user's password.  Note that the tenant admin URL "example-admin" is used instead of a regular site URL.</Description>
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>Taxonomy Toolkit</LinkText>
+          <LinkUrl>http://taxonomytoolkit.codeplex.com/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
+      <SupportInformation>
+        <ADChecked>false</ADChecked>
+        <RsatChecked>false</RsatChecked>
+        <Ps2Checked>false</Ps2Checked>
+        <Ps3Checked>false</Ps3Checked>
+        <Ps4Checked>false</Ps4Checked>
+        <WinXpChecked>false</WinXpChecked>
+        <WinVistaChecked>false</WinVistaChecked>
+        <Win7Checked>false</Win7Checked>
+        <Win8Checked>false</Win8Checked>
+        <Win81Checked>false</Win81Checked>
+        <Win2003Checked>false</Win2003Checked>
+        <Win2003StdChecked>false</Win2003StdChecked>
+        <Win2003EEChecked>false</Win2003EEChecked>
+        <Win2003DCChecked>false</Win2003DCChecked>
+        <Win2008Checked>false</Win2008Checked>
+        <Win2008StdChecked>false</Win2008StdChecked>
+        <Win2008EEChecked>false</Win2008EEChecked>
+        <Win2008DCChecked>false</Win2008DCChecked>
+        <Win2008R2Checked>false</Win2008R2Checked>
+        <Win2008R2StdChecked>false</Win2008R2StdChecked>
+        <Win2008R2EEChecked>false</Win2008R2EEChecked>
+        <Win2008R2DCChecked>false</Win2008R2DCChecked>
+        <Win2012Checked>false</Win2012Checked>
+        <Win2012StdChecked>false</Win2012StdChecked>
+        <Win2012DCChecked>false</Win2012DCChecked>
+        <Win2012R2Checked>false</Win2012R2Checked>
+        <Win2012R2StdChecked>false</Win2012R2StdChecked>
+        <Win2012R2DCChecked>false</Win2012R2DCChecked>
+      </SupportInformation>
+      <Publish>false</Publish>
+    </CmdletObject>
+  </Cmdlets>
+</ModuleObject>

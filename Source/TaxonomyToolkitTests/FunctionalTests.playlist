@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="TaxonomyToolkitTests.FunctionalTests.SyncTest" /><Add Test="TaxonomyToolkitTests.FunctionalTests.ReaderTest" /></Playlist>

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Taxonomy Toolkit
+    Copyright (c) Microsoft Corporation
+    All rights reserved. 
+    http://taxonomytoolkit.codeplex.com/
+
+    MIT License
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+    associated documentation files (the "Software"), to deal in the Software without restriction, 
+    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or 
+    substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+    NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<TestData>
+    <TestDataSection name="TaxmlRoundtripSyntax">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="InputAndOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <!-- CustomSortOrder is handled by a separate test -->
+                <TermStore>
+                    <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    <!-- TODO: Group.Managers and Group.Contributors are not yet supported -->
+                    <TermSetGroup Name="Group A">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                        <Description>Group Description</Description>
+                        <TermSet Name="Term Set" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="Domain\User" Contact="Domain\Contact">
+                            <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                            <LocalizedName Language="1031">German Name</LocalizedName>
+                            <LocalizedName Language="1036">French Name</LocalizedName>
+                            <Description>TermSet Description</Description>
+                            <Property Name="Custom1">Custom1 Value</Property>
+                            <Property Name="Custom2">Custom2 Value</Property>
+                            <Stakeholder>Domain\Stakeholder1</Stakeholder>
+                            <Stakeholder>Domain\Stakeholder2</Stakeholder>
+                            <!-- children -->
+                            <Term Name="English Default" IsAvailableForTagging="false" Owner="Domain\User" IsDeprecated="true">
+                                <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                                <LocalizedDescription>English Description</LocalizedDescription>
+                                <LocalizedDescription Language="1036">French Description</LocalizedDescription>
+                                <Property Name="Custom1">Custom1 Value</Property>
+                                <Property Name="Custom2">Custom2 Value</Property>
+                                <LocalProperty Name="Custom2">Custom2 Value</LocalProperty>
+                                <LocalProperty Name="Custom3">Custom3 Value</LocalProperty>
+                                <Label>English Other</Label>
+                                <Label Language="1036" IsDefaultForLanguage="true">French Default</Label>
+                                <Label Language="1036">French Other</Label>
+                            </Term>
+                            <TermLink NameHint="Reused Term 1" Id="{11111111-2222-3333-4444-000000000001}" />
+                            <TermLink TermLinkSourcePath="Test Group;Term Set C;Reused Term 2" IsPinnedRoot="true" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="TaxmlPreservedComments">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <!-- comment 1 before TaxmlFile -->
+            <!-- comment 2 before TaxmlFile -->
+            <TaxmlFile Version="2.1.0.0">
+                <!-- comment 3 before TermStore -->
+                <!-- comment 4 before TermStore -->
+                <TermStore>
+                    <!-- comment 5 before Comment Group -->
+                    <!-- comment 6 before Comment Group -->
+                    <TermSetGroup Name="Comment Group">
+                        <!-- comment 7 before Comment Term Set -->
+                        <!-- comment 8 before Comment Term Set -->
+                        <TermSet Name="Comment Term Set">
+                            <!-- comment 9 before Comment Term Link -->
+                            <!-- comment 10 before Comment Term Link -->
+                            <TermLink NameHint="Term Link" Id="{11111111-2222-3333-4444-000000000001}" />
+                            <!-- comment 11 before Comment Term -->
+                            <!-- comment 12 before Comment Term -->
+                            <Term Name="Comment Term" />
+                            <!-- comment 13 after Comment Term -->
+                            <!-- comment 14 after Comment Term -->
+                        </TermSet>
+                        <!-- comment 15 after Comment Term Set -->
+                        <!-- comment 16 after Comment Term Set -->
+                    </TermSetGroup>
+                    <!-- comment 17 before Comment Group -->
+                    <!-- comment 18 before Comment Group -->
+                </TermStore>
+                <!-- comment 19 after TermStore -->
+                <!-- comment 20 after TermStore -->
+            </TaxmlFile>
+            <!-- comment 21 after TaxmlFile -->
+            <!-- comment 22 after TaxmlFile -->
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <!-- comment 3 before TermStore -->
+                <!-- comment 4 before TermStore -->
+                <TermStore>
+                    <!-- comment 5 before Comment Group -->
+                    <!-- comment 6 before Comment Group -->
+                    <TermSetGroup Name="Comment Group">
+                        <!-- comment 7 before Comment Term Set -->
+                        <!-- comment 8 before Comment Term Set -->
+                        <TermSet Name="Comment Term Set">
+                            <!-- comment 9 before Comment Term Link -->
+                            <!-- comment 10 before Comment Term Link -->
+                            <TermLink NameHint="Term Link" Id="{11111111-2222-3333-4444-000000000001}" />
+                            <!-- comment 11 before Comment Term -->
+                            <!-- comment 12 before Comment Term -->
+                            <Term Name="Comment Term" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="SyncActionEnums">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="IfMissing 1">
+                        <SyncAction IfMissing="Create" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfMissing 2">
+                        <SyncAction IfMissing="DoNothing" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfMissing 3">
+                        <SyncAction IfMissing="Error" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 1">
+                        <SyncAction IfPresent="Update" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 2">
+                        <SyncAction IfPresent="OnlyUpdateChildItems" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 3">
+                        <SyncAction IfPresent="DeleteAndRecreate" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 4">
+                        <SyncAction IfPresent="DoNothing" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 5">
+                        <SyncAction IfPresent="Error" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 1">
+                        <SyncAction IfElsewhere="MoveAndUpdate" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 2">
+                        <SyncAction IfElsewhere="DeleteAndRecreate" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 3">
+                        <SyncAction IfElsewhere="DoNothing" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 4">
+                        <SyncAction IfElsewhere="Error" />
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="IfMissing 1">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfMissing 2">
+                        <SyncAction IfMissing="DoNothing" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfMissing 3">
+                        <SyncAction IfMissing="Error" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 1">
+                        <SyncAction IfMissing="Create" IfPresent="Update" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 2">
+                        <SyncAction IfMissing="Create" IfPresent="OnlyUpdateChildItems" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 3">
+                        <SyncAction IfMissing="Create" IfPresent="DeleteAndRecreate" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 4">
+                        <SyncAction IfMissing="Create" IfPresent="DoNothing" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfPresent 5">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 1">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="MoveAndUpdate" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 2">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="DeleteAndRecreate" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 3">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="DoNothing" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                    <TermSetGroup Name="IfElsewhere 4">
+                        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="CreateObjectsWithoutId">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="ExpectedOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Test Group">
+                        <TermSet Name="Test TermSet">
+                            <Term Name="Test Term" />
+                            <TermLink TermLinkSourcePath="My Group;My TermSet;MyTerm" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="CreateObjectsWithId">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="ExpectedOutput">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Test Group" Id="{11111111-2222-3333-4444-000000000002}">
+                        <TermSet Name="Test TermSet" Id="{11111111-2222-3333-4444-000000000003}">
+                            <Term Name="Test Term" Id="{11111111-2222-3333-4444-000000000004}" />
+                            <TermLink NameHint="NameHint" Id="{11111111-2222-3333-4444-000000000005}" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="CustomSortOrderNormalization">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Group">
+                        <TermSet Name="Will Change To Use InOrder">
+                            <CustomSortOrder>
+                                <Item Id="{11111111-2222-3333-4444-000000000003}" />
+                                <Item Id="{11111111-2222-3333-4444-000000000001}" />
+                            </CustomSortOrder>
+                            <Term Name="One" Id="{11111111-2222-3333-4444-000000000001}" />
+                            <Term Name="Two" Id="{11111111-2222-3333-4444-000000000002}" />
+                            <Term Name="Three" Id="{11111111-2222-3333-4444-000000000003}" />
+                            <Term Name="Four" Id="{11111111-2222-3333-4444-000000000004}" />
+                            <TermLink Id="{11111111-2222-3333-4444-000000000005}">
+                                <CustomSortOrder>
+                                    <Item Id="{11111111-2222-3333-4444-000000000013}" />
+                                    <Item Id="{11111111-2222-3333-4444-000000000011}" />
+                                </CustomSortOrder>
+                                <Term Name="One" Id="{11111111-2222-3333-4444-000000000011}" />
+                                <Term Name="Two" Id="{11111111-2222-3333-4444-000000000012}" />
+                                <Term Name="Three" Id="{11111111-2222-3333-4444-000000000013}" />
+                                <Term Name="Four" Id="{11111111-2222-3333-4444-000000000014}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="Will Preserve CustomSortOrder Due To Missing Id">
+                            <CustomSortOrder>
+                                <Item Id="{11111111-2222-3333-4444-100000000001}" />
+                                <Item Id="{11111111-2222-3333-4444-100000000002}" />
+                                <Item Id="{11111111-2222-3333-4444-100000000003}" />
+                            </CustomSortOrder>
+                            <Term Name="One" Id="{11111111-2222-3333-4444-100000000001}" />
+                            <Term Name="Three" Id="{11111111-2222-3333-4444-100000000003}" />
+                            <Term Name="TermChildren" Id="{11111111-2222-3333-4444-100000000004}">
+                                <CustomSortOrder>
+                                    <Item Id="{11111111-2222-3333-4444-100000000011}" />
+                                    <Item Id="{11111111-2222-3333-4444-100000000012}" />
+                                    <Item Id="{11111111-2222-3333-4444-100000000013}" />
+                                </CustomSortOrder>
+                                <Term Name="One" Id="{11111111-2222-3333-4444-100000000011}" />
+                                <Term Name="Three" Id="{11111111-2222-3333-4444-100000000013}" />
+                            </Term>
+                        </TermSet>
+                        <TermSet Name="Will Move InOrder Elements To Top">
+                            <Term Name="One" Id="{11111111-2222-3333-4444-200000000001}" InOrder="true" />
+                            <Term Name="Two" Id="{11111111-2222-3333-4444-200000000002}" InOrder="false" />
+                            <Term Name="Three" Id="{11111111-2222-3333-4444-200000000003}" InOrder="true" />
+                            <Term Name="Four" Id="{11111111-2222-3333-4444-200000000004}" />
+                            <Term Name="TermChildren" Id="{11111111-2222-3333-4444-200000000005}">
+                                <Term Name="One" Id="{11111111-2222-3333-4444-200000000011}" InOrder="true" />
+                                <Term Name="Two" Id="{11111111-2222-3333-4444-200000000012}" InOrder="false" />
+                                <Term Name="Three" Id="{11111111-2222-3333-4444-200000000013}" InOrder="true" />
+                                <Term Name="Four" Id="{11111111-2222-3333-4444-200000000014}" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Group">
+                        <TermSet Name="Will Change To Use InOrder">
+                            <Term Name="Three" Id="{11111111-2222-3333-4444-000000000003}" InOrder="true" />
+                            <Term Name="One" Id="{11111111-2222-3333-4444-000000000001}" InOrder="true" />
+                            <Term Name="Two" Id="{11111111-2222-3333-4444-000000000002}" />
+                            <Term Name="Four" Id="{11111111-2222-3333-4444-000000000004}" />
+                            <TermLink Id="{11111111-2222-3333-4444-000000000005}">
+                                <Term Name="Three" Id="{11111111-2222-3333-4444-000000000013}" InOrder="true" />
+                                <Term Name="One" Id="{11111111-2222-3333-4444-000000000011}" InOrder="true" />
+                                <Term Name="Two" Id="{11111111-2222-3333-4444-000000000012}" />
+                                <Term Name="Four" Id="{11111111-2222-3333-4444-000000000014}" />
+                            </TermLink>
+                        </TermSet>
+                        <TermSet Name="Will Preserve CustomSortOrder Due To Missing Id">
+                            <CustomSortOrder>
+                                <Item Id="{11111111-2222-3333-4444-100000000001}" />
+                                <Item Id="{11111111-2222-3333-4444-100000000002}" />
+                                <Item Id="{11111111-2222-3333-4444-100000000003}" />
+                            </CustomSortOrder>
+                            <Term Name="One" Id="{11111111-2222-3333-4444-100000000001}" />
+                            <Term Name="Three" Id="{11111111-2222-3333-4444-100000000003}" />
+                            <Term Name="TermChildren" Id="{11111111-2222-3333-4444-100000000004}">
+                                <CustomSortOrder>
+                                    <Item Id="{11111111-2222-3333-4444-100000000011}" />
+                                    <Item Id="{11111111-2222-3333-4444-100000000012}" />
+                                    <Item Id="{11111111-2222-3333-4444-100000000013}" />
+                                </CustomSortOrder>
+                                <Term Name="One" Id="{11111111-2222-3333-4444-100000000011}" />
+                                <Term Name="Three" Id="{11111111-2222-3333-4444-100000000013}" />
+                            </Term>
+                        </TermSet>
+                        <TermSet Name="Will Move InOrder Elements To Top">
+                            <Term Name="One" Id="{11111111-2222-3333-4444-200000000001}" InOrder="true" />
+                            <Term Name="Three" Id="{11111111-2222-3333-4444-200000000003}" InOrder="true" />
+                            <Term Name="Two" Id="{11111111-2222-3333-4444-200000000002}" />
+                            <Term Name="Four" Id="{11111111-2222-3333-4444-200000000004}" />
+                            <Term Name="TermChildren" Id="{11111111-2222-3333-4444-200000000005}">
+                                <Term Name="One" Id="{11111111-2222-3333-4444-200000000011}" InOrder="true" />
+                                <Term Name="Three" Id="{11111111-2222-3333-4444-200000000013}" InOrder="true" />
+                                <Term Name="Two" Id="{11111111-2222-3333-4444-200000000012}" />
+                                <Term Name="Four" Id="{11111111-2222-3333-4444-200000000014}" />
+                            </Term>
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="TaxonomyNameNormalization">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Input">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Amp=&amp; WideAmp=＆ Quote=&quot; WideQuote=＂">
+                        <TermSet Name="Amp=&amp;">
+                            <Description>Not Normalized: Amp=&amp;</Description>
+                            <Property Name="Not Normalized: Amp=&amp;">Not Normalized: Amp=&amp;</Property>
+                            <Term Name="Label 1: Amp=&amp;">
+                                <Label>Label 2: Amp=&amp;</Label>
+                            </Term>
+                            <TermLink NameHint="Amp=&amp;" Id="{11111111-2222-3333-4444-000000000001}" />
+                            <TermLink TermLinkSourcePath="Group Amp=&amp;;TermSet Amp=&amp;;Term Amp=&amp;" />
+                            <Term Name="    collapsing   spaces   " />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Amp=＆ WideAmp=＆ Quote=＂ WideQuote=＂">
+                        <TermSet Name="Amp=＆">
+                            <Description>Not Normalized: Amp=&amp;</Description>
+                            <Property Name="Not Normalized: Amp=&amp;">Not Normalized: Amp=&amp;</Property>
+                            <Term Name="Label 1: Amp=＆">
+                                <Label>Label 2: Amp=＆</Label>
+                            </Term>
+                            <TermLink NameHint="Amp=＆" Id="{11111111-2222-3333-4444-000000000001}" />
+                            <TermLink TermLinkSourcePath="Group Amp=＆;TermSet Amp=＆;Term Amp=＆" />
+                            <Term Name="collapsing spaces" />
+                        </TermSet>
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+    <TestDataSection name="TaxmlLoading_V2_1">
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <!-- TaxmlFile element will be inserted as the document root -->
+        <TestDataItem name="Input">
+            <TermStore>
+                <TermSetGroup Name="Example Group">
+                    <TermSet Name="Example Term Set" />
+                </TermSetGroup>
+            </TermStore>
+        </TestDataItem>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <TestDataItem name="Output">
+            <TaxmlFile Version="2.1.0.0">
+                <TermStore>
+                    <TermSetGroup Name="Example Group">
+                        <TermSet Name="Example Term Set" />
+                    </TermSetGroup>
+                </TermStore>
+            </TaxmlFile>
+        </TestDataItem>
+    </TestDataSection>
+</TestData>

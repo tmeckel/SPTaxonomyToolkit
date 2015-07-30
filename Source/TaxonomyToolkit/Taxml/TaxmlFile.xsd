@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Taxonomy Toolkit
+    Copyright (c) Microsoft Corporation
+    All rights reserved. 
+    http://taxonomytoolkit.codeplex.com/
+
+    MIT License
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+    associated documentation files (the "Software"), to deal in the Software without restriction, 
+    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or 
+    substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+    NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<!--
+    This is an XML Schema Definition for the TAXML file format, which represents
+    taxonomy objects from the SharePoint Managed Metadata Service.
+-->
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    version="2.1.0.0">
+
+    <!-- ============================ -->
+    <xs:simpleType name="GUID">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+                The representation of a GUID, generally the id of an element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ============================ -->
+    <xs:complexType name="LocalizedString">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="Language" type="xs:integer" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <!-- ============================ -->
+    <xs:element name="CustomSortOrder" >
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="Item">
+                    <xs:complexType>
+                        <xs:attribute name="Id" type="GUID" />
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="Property" >
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="Name" type="xs:string" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="LocalProperty" >
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="Name" type="xs:string" use="required" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="Label" >
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="Language" type="xs:integer" />
+                    <xs:attribute name="IsDefaultForLanguage" type="xs:boolean" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="SyncAction" >
+        <xs:complexType>
+            <xs:attribute name="IfMissing">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Create" />
+                        <xs:enumeration value="DoNothing" />
+                        <xs:enumeration value="Error" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="IfPresent">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="Update" />
+                        <xs:enumeration value="OnlyUpdateChildItems" />
+                        <xs:enumeration value="DeleteAndRecreate" />
+                        <xs:enumeration value="DoNothing" />
+                        <xs:enumeration value="Error" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="IfElsewhere">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="MoveAndUpdate" />
+                        <xs:enumeration value="DeleteAndRecreate" />
+                        <xs:enumeration value="DoNothing" />
+                        <xs:enumeration value="Error" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="DeleteExtraChildItems" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="TermLink" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <!-- shared --> <xs:element ref="SyncAction" />
+                        <!-- shared --> <xs:element ref="LocalProperty" />
+                        <!-- shared --> <xs:element ref="CustomSortOrder" />
+                    </xs:choice>
+                </xs:sequence>
+
+                <!-- shared -->
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <xs:element ref="Term" />
+                        <xs:element ref="TermLink" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:sequence>
+
+            <!-- shared --> <xs:attribute name="Id" type="GUID" />
+            <!-- shared --> <xs:attribute name="IsAvailableForTagging" type="xs:boolean" />
+            <xs:attribute name="InOrder" type="xs:boolean" />
+
+            <xs:attribute name="NameHint" type="xs:string" />
+
+            <xs:attribute name="TermLinkSourcePath" type="xs:string" />
+            <xs:attribute name="IsPinnedRoot" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="Term" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <!-- shared --> <xs:element ref="SyncAction" />
+                        <!-- shared --> <xs:element ref="LocalProperty" />
+                        <!-- shared --> <xs:element ref="CustomSortOrder" />
+
+                        <!-- 
+                            NOTE: Term.Description is localized, but TermSet.Description 
+                            and TermGroup.Description are not localized 
+                        -->
+                        <xs:element name="LocalizedDescription" type="LocalizedString" />
+                        <xs:element ref="Label" />
+                        <xs:element ref="Property" />
+                        
+                        <!-- TODO: MergedTermIds -->
+                    </xs:choice>
+                </xs:sequence>
+
+                <!-- shared -->
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <xs:element ref="Term" />
+                        <xs:element ref="TermLink" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:sequence>
+
+            <!-- shared --> <xs:attribute name="Id" type="GUID" />
+            <!-- shared --> <xs:attribute name="IsAvailableForTagging" type="xs:boolean" />
+            <xs:attribute name="InOrder" type="xs:boolean" />
+
+            <xs:attribute name="Name" type="xs:string" />
+            <xs:attribute name="Owner" type="xs:string" />
+            <xs:attribute name="IsDeprecated" type="xs:boolean" />
+            
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="TermSet" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <!-- shared --> <xs:element ref="SyncAction" />
+                        <xs:element name="LocalizedName" type="LocalizedString" />
+
+                        <!-- shared --> <xs:element ref="CustomSortOrder" />
+
+                        <!-- 
+                            NOTE: Term.Description is localized, but TermSet.Description 
+                            and TermGroup.Description are not localized 
+                        -->
+                        <xs:element name="Description" type="xs:string" />
+
+                        <xs:element ref="Property" />
+                        <xs:element name="Stakeholder" type="xs:string" />
+                    </xs:choice>
+                </xs:sequence>
+
+                <!-- shared -->
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <xs:element ref="Term" />
+                        <xs:element ref="TermLink" />
+                    </xs:choice>
+                </xs:sequence>
+            </xs:sequence>
+
+            <!-- shared --> <xs:attribute name="Id" type="GUID" />
+
+            <!--
+                Reserved names:
+                "|KeywordsTermSet|":       The "Keywords" TermSet, only valid inside "|SystemGroup|"
+                "|OrphanedTermsTermSet|":  The "Orphaned Terms" TermSet, only valid inside "|SystemGroup|"
+
+                The ConflictPolicy.Merge semantics are always used for a TermSet that is referenced
+                via a reserved name.  Note that "|OrphanedTermsTermSet|" is read-only; it is supported
+                only for use with the exporter.
+
+            -->
+
+            <!-- TODO: TermSet.Name is localized -->
+            <xs:attribute name="Name" type="xs:string" />
+            <xs:attribute name="IsAvailableForTagging" type="xs:boolean" />
+            <xs:attribute name="Owner" type="xs:string" />
+            <xs:attribute name="Contact" type="xs:string" />
+            <xs:attribute name="IsOpenForTermCreation" type="xs:boolean" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="TermSetGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:choice>
+                        <!-- shared --> <xs:element ref="SyncAction" />
+                        <!-- 
+                            NOTE: Term.Description is localized, but TermSet.Description 
+                            and TermGroup.Description are not localized 
+                        -->
+                        <xs:element name="Description" type="xs:string" />
+
+                        <!-- TODO: Contributors -->
+                        <!-- TODO: GroupManagers -->
+                    </xs:choice>
+                </xs:sequence>
+
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="TermSet" />
+                </xs:sequence>
+            </xs:sequence>
+
+            <!-- shared --> <xs:attribute name="Id" type="GUID" />
+
+            <!--
+                Reserved names:
+                "|SiteCollectionGroup|":    The site collection group for the current SPSite
+                "|SystemGroup|":            The system group
+
+                The ConflictPolicy.Merge semantics are always used for a group that is referenced
+                via a reserved name.
+            -->
+            <xs:attribute name="Name" type="xs:string" use="required" />
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ============================ -->
+    <xs:element name="TermStore">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="SyncAction" />
+                </xs:sequence>
+
+                <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="TermSetGroup" />
+                </xs:sequence>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="TaxmlFile">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="TermStore" />
+            </xs:sequence>
+            <!-- This value should match the TAXML XML Schema version, e.g. 2.1.0.0 -->
+            <xs:attribute name="Version" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

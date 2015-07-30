@@ -1,0 +1,12 @@
+*.suo
+*.user
+/Build/**/*.config
+/Build/**/*.dll
+/Build/**/*.exe
+/Build/**/*.manifest
+/Build/**/*.pdb
+/Distro/
+/Etc/
+/Source/TestResults/
+bin/
+obj/

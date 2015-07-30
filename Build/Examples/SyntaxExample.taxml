@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--
+    Taxonomy Toolkit
+    Copyright (c) Microsoft Corporation
+    All rights reserved. 
+    http://taxonomytoolkit.codeplex.com/
+
+    MIT License
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
+    associated documentation files (the "Software"), to deal in the Software without restriction, 
+    including without limitation the rights to use, copy, modify, merge, publish, distribute, 
+    sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or 
+    substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
+    NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<TaxmlFile Version="2.1.0.0">
+    <!--
+    SyncAction:
+
+        IfMissing:
+            Create,  <== default
+            DoNothing,
+            Error
+
+        IfPresent:
+            Update,
+            OnlyUpdateChildItems,
+            DeleteAndRecreate,
+            DoNothing,
+            Error  <== default
+
+        IfElsewhere:
+            MoveAndUpdate,
+            DeleteAndRecreate,
+            DoNothing,
+            Error  <== default
+            
+        DeleteExtraChildItems = false by default
+
+    Syncable Properties:
+        Group:
+            Description
+            Name
+            (Contributors * )
+            (Managers * )
+            
+        TermSet:
+            Contact
+            CustomSortOrder
+            Description
+            IsAvailableForTagging
+            IsOpenForTermCreation
+            Names *
+            Owner
+            Properties *
+            Stakeholders *
+            
+        Term:
+            Descriptions *
+            IsDeprecated
+            Labels *
+            Owner
+            Properties *
+            +
+            CustomSortOrder
+            IsAvailableForTagging
+            LocalProperties *
+            
+        TermLink:
+            CustomSortOrder
+            IsAvailableForTagging
+            LocalProperties *
+            
+    -->
+    <!-- comment 1 before TermStore -->
+    <!-- comment 2 before TermStore -->
+    <TermStore>
+        <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+        <!-- TODO: Group.Managers and Group.Contributors are not yet supported -->
+        <TermSetGroup Name="Group A">
+            <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+            <Description>Group Description</Description>
+            <TermSet Name="Term Set" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="Domain\Owner" Contact="Domain\Contact">
+                <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                <LocalizedName Language="1031">German Name</LocalizedName>
+                <LocalizedName Language="1036">French Name</LocalizedName>
+                <Description>TermSet Description</Description>
+                <Property Name="Custom1">Custom1 Value</Property>
+                <Property Name="Custom2">Custom2 Value</Property>
+                <Stakeholder>Domain\Stakeholder1</Stakeholder>
+                <Stakeholder>Domain\Stakeholder2</Stakeholder>
+                <!-- children -->
+                <Term Name="English Default" Id="{11111111-2222-3333-4444-000000000001}" InOrder="true" IsAvailableForTagging="false" Owner="Domain\Owner" IsDeprecated="true">
+                    <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
+                    <LocalizedDescription>English Description</LocalizedDescription>
+                    <LocalizedDescription Language="1036">French Description</LocalizedDescription>
+                    <Property Name="Custom1">Custom1 Value</Property>
+                    <Property Name="Custom2">Custom2 Value</Property>
+                    <LocalProperty Name="Custom2">Custom2 Value</LocalProperty>
+                    <LocalProperty Name="Custom3">Custom3 Value</LocalProperty>
+                    <Label>English Other</Label>
+                    <Label Language="1036" IsDefaultForLanguage="true">French Default</Label>
+                    <Label Language="1036">French Other</Label>
+                </Term>
+                <TermLink NameHint="Reused Term 1" Id="{11111111-2222-3333-4444-000000000002}" InOrder="true" />
+                <TermLink TermLinkSourcePath="Test Group;Term Set C;Reused Term 2" IsAvailableForTagging="false">
+                    <LocalProperty Name="Custom2">Custom2 Value</LocalProperty>
+                    <LocalProperty Name="Custom3">Custom3 Value</LocalProperty>
+                </TermLink>
+            </TermSet>
+        </TermSetGroup>
+    </TermStore>
+</TaxmlFile>
