@@ -39,10 +39,11 @@ namespace TaxonomyToolkit.PowerShell
         public static void WriteStartupBanner(AppLog appLog)
         {
             appLog.WriteLine();
-            appLog.WriteInfo("Taxonomy Toolkit Version {0} for SharePoint {1}",
-                ToolkitUtilities.ToolkitVersion, ToolkitUtilities.BuiltSharePointVersion);
+            appLog.WriteInfo("Taxonomy Toolkit Version {0}", ToolkitUtilities.ToolkitVersion);
             appLog.WriteInfo("Copyright (c) Microsoft Corporation.  All rights reserved.");
             appLog.WriteInfo("https://taxonomytoolkit.codeplex.com/");
+            appLog.WriteLine();
+            appLog.WriteInfo("Using SharePoint client library version {0}.", ToolkitUtilities.SharePointClientVersion);
             appLog.WriteLine();
         }
 

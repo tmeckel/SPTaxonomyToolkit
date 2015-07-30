@@ -26,22 +26,50 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace TaxonomyToolkit.General
 {
     public static class ToolkitUtilities
     {
+        private static Version toolkitVersion = null;
+        private static Version sharePointClientVersion = null;
+
         /// <summary>
         /// The current release of the TaxonomyToolkit library.
         /// </summary>
-        public const string ToolkitVersion = "2014-09-15";
+        public static Version ToolkitVersion
+        {
+            get
+            {
+                if (ToolkitUtilities.toolkitVersion == null)
+                {
+                    var assembly = typeof (ToolkitUtilities).Assembly;
+                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+                    ToolkitUtilities.toolkitVersion = Version.Parse(fileVersionInfo.FileVersion);
+                }
+                return ToolkitUtilities.toolkitVersion;
+            }
+        }
 
         /// <summary>
-        /// The version of the Microsoft SharePoint runtime that was used when building
-        /// this release of the TaxonomyToolkit library.
+        /// The version of the Microsoft.SharePoint.Client runtime that was loaded by 
+        /// the TaxonomyToolkit library.
         /// </summary>
-        public const string BuiltSharePointVersion = "15 (4420.1017/ship)";
+        public static Version SharePointClientVersion
+        {
+            get
+            {
+                if (ToolkitUtilities.sharePointClientVersion == null)
+                {
+                    var assembly = typeof(Microsoft.SharePoint.Client.Taxonomy.TaxonomySession).Assembly;
+                    var fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
+                    ToolkitUtilities.sharePointClientVersion = Version.Parse(fileVersionInfo.FileVersion);
+                }
+                return ToolkitUtilities.sharePointClientVersion;
+            }
+        }
 
         /// <summary>
         /// Used with <see cref="GetPreorder{T}" />
