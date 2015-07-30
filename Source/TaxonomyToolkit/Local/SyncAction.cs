@@ -31,18 +31,18 @@ namespace TaxonomyToolkit.Taxml
     public enum SyncActionIfMissing
     {
         /// <summary>
-        ///     Create the missing object and assign all properties from the the
-        ///     LocalTaxonomyItem object.
+        /// Create the missing object and assign all properties from the the
+        /// LocalTaxonomyItem object.
         /// </summary>
         Create,
 
         /// <summary>
-        ///     Not yet implemented.
+        /// Not yet implemented.
         /// </summary>
         DoNothing,
 
         /// <summary>
-        ///     Report an error and abort the import operation.
+        /// Report an error and abort the import operation.
         /// </summary>
         Error
     }
@@ -50,28 +50,28 @@ namespace TaxonomyToolkit.Taxml
     public enum SyncActionIfPresent
     {
         /// <summary>
-        ///     Reassign all properties of the object to exactly match the LocalTaxonomyItem
-        ///     object; any extra properties will be deleted.
+        /// Reassign all properties of the object to exactly match the LocalTaxonomyItem
+        /// object; any extra properties will be deleted.
         /// </summary>
         Update,
 
         /// <summary>
-        ///     Make no changes to the object, but proceed with processing any child objects.
+        /// Make no changes to the object, but proceed with processing any child objects.
         /// </summary>
         OnlyUpdateChildItems,
 
         /// <summary>
-        ///     Not yet implemented.
+        /// Not yet implemented.
         /// </summary>
         DeleteAndRecreate,
 
         /// <summary>
-        ///     Not yet implemented.
+        /// Not yet implemented.
         /// </summary>
         DoNothing,
 
         /// <summary>
-        ///     Report an error and abort the import operation.
+        /// Report an error and abort the import operation.
         /// </summary>
         Error
     }
@@ -79,34 +79,34 @@ namespace TaxonomyToolkit.Taxml
     public enum SyncActionIfElsewhere
     {
         /// <summary>
-        ///     Not yet implemented.
+        /// Not yet implemented.
         /// </summary>
         MoveAndUpdate,
 
         /// <summary>
-        ///     Not yet implemented.
+        /// Not yet implemented.
         /// </summary>
         DeleteAndRecreate,
 
         /// <summary>
-        ///     Not yet implemented.
+        /// Not yet implemented.
         /// </summary>
         DoNothing,
 
         /// <summary>
-        ///     Report an error and abort the import operation.
+        /// Report an error and abort the import operation.
         /// </summary>
         Error
     }
 
     /// <summary>
-    ///     This object applies to any LocalTaxonomyItem subclass, and describes how incremental
-    ///     updates will be performed during an import operation.  The SyncAction describes
-    ///     the action to take if the object is completely "missing", if it is "present" in
-    ///     the expected location, or if it exists "elsewhere".   By "elsewhere" we mean a term set
-    ///     that belongs to the wrong group, or a term instance that is in the correct term set
-    ///     but under the wrong parent.  (If the term exists  in a different term set, the
-    ///     TAXML specification assumes that the intent is to create a reused term instance.)
+    /// This object applies to any LocalTaxonomyItem subclass, and describes how incremental
+    /// updates will be performed during an import operation.  The SyncAction describes
+    /// the action to take if the object is completely "missing", if it is "present" in
+    /// the expected location, or if it exists "elsewhere".   By "elsewhere" we mean a term set
+    /// that belongs to the wrong group, or a term instance that is in the correct term set
+    /// but under the wrong parent.  (If the term exists  in a different term set, the
+    /// TAXML specification assumes that the intent is to create a reused term instance.)
     /// </summary>
     public class SyncAction
     {
@@ -163,9 +163,9 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     If matching server object is found to have extra child items with no counterparts
-        ///     in LocalTaxonomyItem.ChildItems, this option indicates whether the sync operation
-        ///     should delete the extra server objects.
+        /// If matching server object is found to have extra child items with no counterparts
+        /// in LocalTaxonomyItem.ChildItems, this option indicates whether the sync operation
+        /// should delete the extra server objects.
         /// </summary>
         public bool DeleteExtraChildItems
         {

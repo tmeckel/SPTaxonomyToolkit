@@ -31,7 +31,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Represents a taxonomy term set group in the LocalTermStore object model.
+    /// Represents a taxonomy term set group in the LocalTermStore object model.
     /// </summary>
     public sealed class LocalTermGroup : LocalTaxonomyItem<LocalTermSet>
     {
@@ -51,7 +51,7 @@ namespace TaxonomyToolkit.Taxml
         #region Properties
 
         /// <summary>
-        ///     The child items for this object.
+        /// The child items for this object.
         /// </summary>
         public ReadOnlyCollection<LocalTermSet> TermSets
         {
@@ -59,8 +59,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Indicates whether this is the system group, which contains the special
-        ///     "Keywords" and "Orphaned Terms" terms sets.
+        /// Indicates whether this is the system group, which contains the special
+        /// "Keywords" and "Orphaned Terms" terms sets.
         /// </summary>
         public bool IsSystemGroup
         {

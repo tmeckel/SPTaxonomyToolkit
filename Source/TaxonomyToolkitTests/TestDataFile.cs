@@ -150,7 +150,7 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     The filename that was most recently used with LoadFromXml() or SaveToXml().
+        /// The filename that was most recently used with LoadFromXml() or SaveToXml().
         /// </summary>
         public string Filename
         {
@@ -158,7 +158,7 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Loads the test data from the swpecified XML file.
+        /// Loads the test data from the swpecified XML file.
         /// </summary>
         public void LoadFromXml(string xmlFilename)
         {
@@ -190,8 +190,8 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Saves the test data to the specified XML file.  If xmlFilename is omitted,
-        ///     SaveToXml() will use TestDataManager.Filename.
+        /// Saves the test data to the specified XML file.  If xmlFilename is omitted,
+        /// SaveToXml() will use TestDataManager.Filename.
         /// </summary>
         /// <param name="xmlFilename"></param>
         public void SaveToXml(string xmlFilename = null)
@@ -227,7 +227,7 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Returns an test data item from the specified XML section.
+        /// Returns an test data item from the specified XML section.
         /// </summary>
         public string GetXml(string sectionName, string itemName)
         {
@@ -236,7 +236,7 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Assigns a test data item in the specified XML section.
+        /// Assigns a test data item in the specified XML section.
         /// </summary>
         public void SetXml(string sectionName, string itemName, string newXml)
         {
@@ -249,8 +249,8 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Comparse the test data item in the specified XML section against the
-        ///     provided otherXml value.
+        /// Comparse the test data item in the specified XML section against the
+        /// provided otherXml value.
         /// </summary>
         public bool CompareXml(string sectionName, string itemName, string otherXml)
         {

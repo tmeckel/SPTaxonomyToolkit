@@ -31,9 +31,9 @@ using System.Diagnostics;
 namespace TaxonomyToolkit.General
 {
     /// <summary>
-    ///     A basic priority queue implemented using a pairing heap.  This handy
-    ///     little data structure is easy to implement and has very good performance:
-    ///     all operations are O(1) amortized, except for deletion which is O(log(n)) amortized.
+    /// A basic priority queue implemented using a pairing heap.  This handy
+    /// little data structure is easy to implement and has very good performance:
+    /// all operations are O(1) amortized, except for deletion which is O(log(n)) amortized.
     /// </summary>
     public class PriorityQueue<T>
         where T : class
@@ -78,7 +78,7 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Adds the item to the heap.
+        /// Adds the item to the heap.
         /// </summary>
         /// <remarks>This operation takes O(1) time amortized.</remarks>
         public void Add(T item)
@@ -89,9 +89,9 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Gets the top item from the heap without removing it.
-        ///     The "top" item is the one whose value is smallest, as defined
-        ///     by the T.CompareTo() method.
+        /// Gets the top item from the heap without removing it.
+        /// The "top" item is the one whose value is smallest, as defined
+        /// by the T.CompareTo() method.
         /// </summary>
         /// <remarks>This operation takes O(1) time.</remarks>
         public T PeekTop()
@@ -105,9 +105,9 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Removes and returns the top item from the heap.
-        ///     The "top" item is the one whose value is smallest, as defined
-        ///     by the T.CompareTo() method.
+        /// Removes and returns the top item from the heap.
+        /// The "top" item is the one whose value is smallest, as defined
+        /// by the T.CompareTo() method.
         /// </summary>
         /// <remarks>This operation takes O(log(n)) time amortized.</remarks>
         public T RemoveTop()
@@ -126,7 +126,7 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Enumerates the items in random order.
+        /// Enumerates the items in random order.
         /// </summary>
         /// <remarks>This operation takes O(n) time.</remarks>
         public IEnumerable<T> EnumerateUnordered()
@@ -158,7 +158,7 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Enumerates the items in sorted order.
+        /// Enumerates the items in sorted order.
         /// </summary>
         /// <remarks>The algorithm uses heapsort and thus takes O(n*log(n)) time.</remarks>
         public IEnumerable<T> EnumerateOrdered()

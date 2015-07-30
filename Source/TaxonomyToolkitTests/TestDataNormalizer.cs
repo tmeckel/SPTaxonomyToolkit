@@ -71,9 +71,9 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Since the Term Store ID is randomly assigned for each farm, it cannot be controlled
-        ///     as part of the test data set, so TestDataNormalizer needs to know what it looks like
-        ///     so that it can normalize it.
+        /// Since the Term Store ID is randomly assigned for each farm, it cannot be controlled
+        /// as part of the test data set, so TestDataNormalizer needs to know what it looks like
+        /// so that it can normalize it.
         /// </summary>
         public Guid? TermStoreId { get; set; }
 

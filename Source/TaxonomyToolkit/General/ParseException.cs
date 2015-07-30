@@ -32,17 +32,17 @@ using System.Xml.Schema;
 namespace TaxonomyToolkit.General
 {
     /// <summary>
-    ///     This exception class is used by TaxmlLoader to annotate error messages with
-    ///     line number information.  (Although some exception types such as XmlSchemaException
-    ///     already include this information, it's in a property and not in the actual message
-    ///     that the user would see.)
+    /// This exception class is used by TaxmlLoader to annotate error messages with
+    /// line number information.  (Although some exception types such as XmlSchemaException
+    /// already include this information, it's in a property and not in the actual message
+    /// that the user would see.)
     /// </summary>
     [Serializable]
     public class ParseException : InvalidOperationException
     {
         /// <summary>
-        ///     Creates a new exception.  If xmlNode contains line number information, it will
-        ///     be appended to the message.
+        /// Creates a new exception.  If xmlNode contains line number information, it will
+        /// be appended to the message.
         /// </summary>
         public ParseException(string message, XObject xmlNode, Exception innerException)
             : base(ParseException.FormatMessage(message, xmlNode), innerException)
@@ -55,7 +55,7 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Prepends line number information to the message, if available.
+        /// Prepends line number information to the message, if available.
         /// </summary>
         private static string FormatMessage(string message, XObject xmlNode)
         {
@@ -70,7 +70,7 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     Rethrows the XmlSchemaExcepion, adding line number information to the message.
+        /// Rethrows the XmlSchemaExcepion, adding line number information to the message.
         /// </summary>
         public static Exception RethrowWithLineInfo(XmlSchemaException exception)
         {

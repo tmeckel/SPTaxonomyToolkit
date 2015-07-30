@@ -49,9 +49,9 @@ namespace TaxonomyToolkit.Taxml
         #region Properties
 
         /// <summary>
-        ///     If this is not null, then the TaxonomyItemDownloader will only read groups
-        ///     whose ID appears in this list.  Call EnableGroupIdFilter() to
-        ///     assign it.
+        /// If this is not null, then the TaxonomyItemDownloader will only read groups
+        /// whose ID appears in this list.  Call EnableGroupIdFilter() to
+        /// assign it.
         /// </summary>
         public ReadOnlyCollection<Guid> GroupIdFilter
         {
@@ -59,10 +59,10 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     How many levels of the tree should be loaded below the current node.
-        ///     A depth of 0 means that only the TermStore should be loaded, whereas 1
-        ///     means Groups should be loaded, and 2 means TermStore, Groups, and
-        ///     TermSets, etc.  For unlimited recursion, use MaximumDepth=-1.
+        /// How many levels of the tree should be loaded below the current node.
+        /// A depth of 0 means that only the TermStore should be loaded, whereas 1
+        /// means Groups should be loaded, and 2 means TermStore, Groups, and
+        /// TermSets, etc.  For unlimited recursion, use MaximumDepth=-1.
         /// </summary>
         [DefaultValue(-1)]
         public int MaximumDepth
@@ -99,18 +99,18 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     The maximum number of operations that can be combined as a batch into
-        ///     a single Client Side Object Model (CSOM) server request.  Larger values
-        ///     typically improve performance, but also increase the risk of failures that
-        ///     may occur if the network transaction takes too long to complete or exceeds
-        ///     the maximum number of bytes permitted by the server.
+        /// The maximum number of operations that can be combined as a batch into
+        /// a single Client Side Object Model (CSOM) server request.  Larger values
+        /// typically improve performance, but also increase the risk of failures that
+        /// may occur if the network transaction takes too long to complete or exceeds
+        /// the maximum number of bytes permitted by the server.
         /// </summary>
         /// <remarks>
-        ///     The definition of an "operation" is complex, but roughly corresponds to
-        ///     finding, creating, updating, or deleting a taxonomy group, term set, or term.
-        ///     The actual batch size may be much smaller than MaximumBatchSize, since the
-        ///     dependency graph restricts which operations can be combined in a single
-        ///     transaction.
+        /// The definition of an "operation" is complex, but roughly corresponds to
+        /// finding, creating, updating, or deleting a taxonomy group, term set, or term.
+        /// The actual batch size may be much smaller than MaximumBatchSize, since the
+        /// dependency graph restricts which operations can be combined in a single
+        /// transaction.
         /// </remarks>
         [DefaultValue(ClientConnectorUploadOptions.MaximumBatchSizeDefault)]
         public int MaximumBatchSize

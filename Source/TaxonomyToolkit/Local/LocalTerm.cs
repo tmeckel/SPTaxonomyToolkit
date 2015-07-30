@@ -35,30 +35,30 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Used with <see cref="LocalTerm.Linkage">LocalTerm.Linkage</see>
+    /// Used with <see cref="LocalTerm.Linkage">LocalTerm.Linkage</see>
     /// </summary>
     public enum LocalTermKind
     {
         /// <summary>
-        ///     This is a regular term (that an act as the source term for term links).
+        /// This is a regular term (that an act as the source term for term links).
         /// </summary>
         NormalTerm,
 
         /// <summary>
-        ///     This is a term link whose source term is found using LocalTerm.Id,
-        ///     which cannot be Guid.Empty.
+        /// This is a term link whose source term is found using LocalTerm.Id,
+        /// which cannot be Guid.Empty.
         /// </summary>
         TermLinkUsingId,
 
         /// <summary>
-        ///     This is a term link whose source term is found using
-        ///     LocalTerm.TermLinkSourcePath, which cannot be empty.
+        /// This is a term link whose source term is found using
+        /// LocalTerm.TermLinkSourcePath, which cannot be empty.
         /// </summary>
         TermLinkUsingPath
     }
 
     /// <summary>
-    ///     Represents a taxonomy term in the LocalTermStore object model.
+    /// Represents a taxonomy term in the LocalTermStore object model.
     /// </summary>
     public sealed class LocalTerm : LocalTermContainer
     {
@@ -211,17 +211,17 @@ namespace TaxonomyToolkit.Taxml
         #region Properties
 
         /// <summary>
-        ///     The SharePoint taxonomy allows a single term to be "reused" in multiple term sets,
-        ///     with one of the instances designated as the "source term", and all of the instances
-        ///     having the same Guid and sharing certain property data.  LocalTerm members such as
-        ///     SourceTerm/IsReused/etc conform to the familiar semantics of the SharePoint API.
-        ///     However unlike the SharePoint API, a LocalTerm may be disconnected from the  object graph.
-        ///     To handle this case, we introduce a termonology that refers to the reused instances
-        ///     as "term links" and distinguishes two different ways of referencing the source term.
-        ///     (Note that the source term may be entirely absent from the LocalTermStore, and
-        ///     in that case the shared state is undefined and inaccessible.)  The TAXML format
-        ///     represents this via a special XML element for term links, which ensures that
-        ///     the shared state is always expressed as a property of the source term.
+        /// The SharePoint taxonomy allows a single term to be "reused" in multiple term sets,
+        /// with one of the instances designated as the "source term", and all of the instances
+        /// having the same Guid and sharing certain property data.  LocalTerm members such as
+        /// SourceTerm/IsReused/etc conform to the familiar semantics of the SharePoint API.
+        /// However unlike the SharePoint API, a LocalTerm may be disconnected from the  object graph.
+        /// To handle this case, we introduce a termonology that refers to the reused instances
+        /// as "term links" and distinguishes two different ways of referencing the source term.
+        /// (Note that the source term may be entirely absent from the LocalTermStore, and
+        /// in that case the shared state is undefined and inaccessible.)  The TAXML format
+        /// represents this via a special XML element for term links, which ensures that
+        /// the shared state is always expressed as a property of the source term.
         /// </summary>
         public LocalTermKind TermKind
         {
@@ -244,10 +244,10 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Indicates whether this term is reused in more than one term set.
-        ///     If IsSourceTerm=true, then IsReused returns true if there are any other
-        ///     terms in the LocalTermStore with the same LocalTerm.Id.
-        ///     If IsSourceTerm=false, then IsReused always returns true.
+        /// Indicates whether this term is reused in more than one term set.
+        /// If IsSourceTerm=true, then IsReused returns true if there are any other
+        /// terms in the LocalTermStore with the same LocalTerm.Id.
+        /// If IsSourceTerm=false, then IsReused always returns true.
         /// </summary>
         public bool IsReused
         {
@@ -265,9 +265,9 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns true if this term is pinned and is the root of the pinned tree.
-        ///     Since pinning is a kind of term reuse, the IsPinnedRoot property cannot
-        ///     be true unless IsSourceTerm=false.
+        /// Returns true if this term is pinned and is the root of the pinned tree.
+        /// Since pinning is a kind of term reuse, the IsPinnedRoot property cannot
+        /// be true unless IsSourceTerm=false.
         /// </summary>
         public bool IsPinnedRoot
         {
@@ -287,9 +287,9 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the "source term" instance that is used for security permissions.
-        ///     This returns the current object if it is the source term, or if the Term has
-        ///     only one instance (i.e. IsReused=false).
+        /// Returns the "source term" instance that is used for security permissions.
+        /// This returns the current object if it is the source term, or if the Term has
+        /// only one instance (i.e. IsReused=false).
         /// </summary>
         public LocalTerm SourceTerm
         {
@@ -314,7 +314,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Specifies whether this term is the source term instance.
+        /// Specifies whether this term is the source term instance.
         /// </summary>
         public bool IsSourceTerm
         {
@@ -325,10 +325,10 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     When representing a reused term, typically the source term is matched using the LocalTerm.Id.
-        ///     However, TermLinkSourcePath provides an alternative way to identify the source term
-        ///     by specifying a chain of semicolon-delimited names (e.g. "My Group;My Term Set;My Source Term").
-        ///     This is useful if the GUID for the source term is unknown or was randomly assigned.
+        /// When representing a reused term, typically the source term is matched using the LocalTerm.Id.
+        /// However, TermLinkSourcePath provides an alternative way to identify the source term
+        /// by specifying a chain of semicolon-delimited names (e.g. "My Group;My Term Set;My Source Term").
+        /// This is useful if the GUID for the source term is unknown or was randomly assigned.
         /// </summary>
         public string TermLinkSourcePath
         {
@@ -352,7 +352,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the list of all instances of this term (i.e. itself and any reused instances).
+        /// Returns the list of all instances of this term (i.e. itself and any reused instances).
         /// </summary>
         public ReadOnlyCollection<LocalTerm> TermInstances
         {
@@ -368,7 +368,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the Name of the Term.
+        /// Returns the Name of the Term.
         /// </summary>
         public new string Name
         {
@@ -377,10 +377,10 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     If the object is a term link, the name is determined by the source term.
-        ///     If the source term is not available, LocalTerm can store an informational
-        ///     "name hint" which is not used, but may be useful for diagnostic purposes
-        ///     to give an idea which term is being linked.
+        /// If the object is a term link, the name is determined by the source term.
+        /// If the source term is not available, LocalTerm can store an informational
+        /// "name hint" which is not used, but may be useful for diagnostic purposes
+        /// to give an idea which term is being linked.
         /// </summary>
         public string TermLinkNameHint
         {
@@ -431,8 +431,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     This returns the Term description for each language LCID.  To modify the descriptions,
-        ///     use SetDescription().
+        /// This returns the Term description for each language LCID.  To modify the descriptions,
+        /// use SetDescription().
         /// </summary>
         public ReadOnlyCollection<LocalizedString> Descriptions
         {
@@ -453,8 +453,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns all labels that are defined for all languages.  To modify the labels,
-        ///     use AddLabel() or DeleteLabel().
+        /// Returns all labels that are defined for all languages.  To modify the labels,
+        /// use AddLabel() or DeleteLabel().
         /// </summary>
         public ReadOnlyCollection<LocalTermLabel> Labels
         {
@@ -483,7 +483,7 @@ namespace TaxonomyToolkit.Taxml
 
 
         /// <summary>
-        ///     Specifies the user account for the owner of the Term.
+        /// Specifies the user account for the owner of the Term.
         /// </summary>
         public string Owner
         {
@@ -503,7 +503,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Indicates whether the Term has been marked as deprecated.
+        /// Indicates whether the Term has been marked as deprecated.
         /// </summary>
         public bool IsDeprecated
         {
@@ -632,8 +632,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the default label for the specified language.  If there is no label
-        ///     in the requested language, then the default language is used instead.
+        /// Returns the default label for the specified language.  If there is no label
+        /// in the requested language, then the default language is used instead.
         /// </summary>
         public string GetNameWithDefault(int lcid)
         {
@@ -660,7 +660,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Assigns the default label for the specified language
+        /// Assigns the default label for the specified language
         /// </summary>
         public void SetName(string name, int lcid)
         {
@@ -693,8 +693,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Searches DescriptionByLcid for a description in the specified language; if not found,
-        ///     then an empty string is returned.
+        /// Searches DescriptionByLcid for a description in the specified language; if not found,
+        /// then an empty string is returned.
         /// </summary>
         public string GetDescription(int lcid)
         {
@@ -710,7 +710,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Assigns the description for the specified language.
+        /// Assigns the description for the specified language.
         /// </summary>
         public void SetDescription(string description, int lcid)
         {
@@ -754,8 +754,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the concatenated names of this term's parents, followed by this term.
-        ///     For example, if A has child term B, which has child term C, then the path is "A;B;C".
+        /// Returns the concatenated names of this term's parents, followed by this term.
+        /// For example, if A has child term B, which has child term C, then the path is "A;B;C".
         /// </summary>
         public string GetPath()
         {
@@ -800,8 +800,8 @@ namespace TaxonomyToolkit.Taxml
     }
 
     /// <summary>
-    ///     This class is used to represent the LocalTerm.Descriptions strings.
-    ///     It is also the base class for LocalTermLabel.
+    /// This class is used to represent the LocalTerm.Descriptions strings.
+    /// It is also the base class for LocalTermLabel.
     /// </summary>
     [DebuggerDisplay("{DebugText}")]
     public class LocalizedString : IEquatable<LocalizedString>
@@ -853,7 +853,7 @@ namespace TaxonomyToolkit.Taxml
     }
 
     /// <summary>
-    ///     This class is used to represent the LocalTerm.Labels items.
+    /// This class is used to represent the LocalTerm.Labels items.
     /// </summary>
     public class LocalTermLabel : LocalizedString, IEquatable<LocalTermLabel>
     {

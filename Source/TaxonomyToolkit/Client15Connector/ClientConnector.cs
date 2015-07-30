@@ -117,12 +117,12 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Used by unit tests to assign new GUIDs deterministically
+        /// Used by unit tests to assign new GUIDs deterministically
         /// </summary>
         public Func<Guid> GetNewGuid { get; set; }
 
         /// <summary>
-        ///     Authenticate using "Domain\Alias" credentials for an on-prem SharePoint server.
+        /// Authenticate using "Domain\Alias" credentials for an on-prem SharePoint server.
         /// </summary>
         public void SetCredentialsForOnPrem(string userNameWithDomain, SecureString password)
         {
@@ -131,7 +131,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Authenticate using the special service library for SharePoint Online / Office 365.
+        /// Authenticate using the special service library for SharePoint Online / Office 365.
         /// </summary>
         public void SetCredentialsForCloud(string userEmail, SecureString password, Action<string> logVerbose = null)
         {

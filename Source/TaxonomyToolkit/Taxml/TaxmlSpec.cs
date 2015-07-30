@@ -37,7 +37,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Provides common definitions used for reading/writing the Taxml XML format.
+    /// Provides common definitions used for reading/writing the Taxml XML format.
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public static class TaxmlSpec
@@ -107,7 +107,7 @@ namespace TaxonomyToolkit.Taxml
 #pragma warning restore 1591
 
         /// <summary>
-        ///     Returns an XSD schema for the Taxml XML format.
+        /// Returns an XSD schema for the Taxml XML format.
         /// </summary>
         public static XmlSchemaSet TaxmlSchema
         {
@@ -136,13 +136,13 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Retrieves the named resource from the assembly where "typeInAssembly" is defined, and performs
-        ///     cleanup of the stream resources after the "action" is completed.  If preferredNamespace is not null
-        ///     then initially it will try to load the resource with the specified name, and failing that it
-        ///     will probe for a match.  For example, if preferredNamespace="a.b.c" and resourceName="d.e",
-        ///     then if "a.b.c.d.e" cannot be found, then e.g. "f.d.e" would be accepted as a match, provided
-        ///     there were not other conflicting matches such as "g.h.d.e".  This facilitates reuse of
-        ///     source files across different DLL projects.
+        /// Retrieves the named resource from the assembly where "typeInAssembly" is defined, and performs
+        /// cleanup of the stream resources after the "action" is completed.  If preferredNamespace is not null
+        /// then initially it will try to load the resource with the specified name, and failing that it
+        /// will probe for a match.  For example, if preferredNamespace="a.b.c" and resourceName="d.e",
+        /// then if "a.b.c.d.e" cannot be found, then e.g. "f.d.e" would be accepted as a match, provided
+        /// there were not other conflicting matches such as "g.h.d.e".  This facilitates reuse of
+        /// source files across different DLL projects.
         /// </summary>
         internal static void ImportResource(Type typeInAssembly, string preferredNamespace, string resourceName,
             Action<StreamReader> action)
@@ -212,8 +212,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns true if the specified name is a system reserved name such
-        ///     as TaxmlSpec.KeywordsTermSetReservedName.
+        /// Returns true if the specified name is a system reserved name such
+        /// as TaxmlSpec.KeywordsTermSetReservedName.
         /// </summary>
         public static bool IsReservedName(string name)
         {

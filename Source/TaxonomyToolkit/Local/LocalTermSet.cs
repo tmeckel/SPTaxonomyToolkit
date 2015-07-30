@@ -34,7 +34,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Represents a taxonomy term set in the LocalTermStore object model.
+    /// Represents a taxonomy term set in the LocalTermStore object model.
     /// </summary>
     public sealed class LocalTermSet : LocalTermContainer
     {
@@ -67,7 +67,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     This returns the TermSet name for each language LCID.
+        /// This returns the TermSet name for each language LCID.
         /// </summary>
         public ReadOnlyCollection<LocalizedString> LocalizedNames
         {
@@ -126,8 +126,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Indicates whether the TermSet can be updated by all users, or alternatively just by
-        ///     users with edit permissionsterm store.
+        /// Indicates whether the TermSet can be updated by all users, or alternatively just by
+        /// users with edit permissionsterm store.
         /// </summary>
         public bool IsOpenForTermCreation
         {

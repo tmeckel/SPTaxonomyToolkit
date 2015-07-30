@@ -34,10 +34,10 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Abstraction of <see cref="LocalTermSet" /> and <see cref="LocalTerm" />, which both
-    ///     contain terms as their children.
-    ///     This class is analagous to the <b>TermSetItem</b> base class from
-    ///     Microsoft.SharePoint.Taxonomy.dll.
+    /// Abstraction of <see cref="LocalTermSet" /> and <see cref="LocalTerm" />, which both
+    /// contain terms as their children.
+    /// This class is analagous to the <b>TermSetItem</b> base class from
+    /// Microsoft.SharePoint.Taxonomy.dll.
     /// </summary>
     public abstract class LocalTermContainer : LocalTaxonomyItem<LocalTerm>
     {
@@ -55,7 +55,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     The child items for this object.
+        /// The child items for this object.
         /// </summary>
         public ReadOnlyCollection<LocalTerm> Terms
         {
@@ -63,12 +63,12 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     A table of user-defined key/value pairs.
+        /// A table of user-defined key/value pairs.
         /// </summary>
         public abstract IDictionary<string, string> CustomProperties { get; }
 
         /// <summary>
-        ///     Indicates whether the Term is visible to SharePoint controls used for tagging.
+        /// Indicates whether the Term is visible to SharePoint controls used for tagging.
         /// </summary>
         public bool IsAvailableForTagging
         {
@@ -118,8 +118,8 @@ namespace TaxonomyToolkit.Taxml
         #endregion
 
         /// <summary>
-        ///     Returns the containing <see cref="LocalTermSet" /> instance (scanning upwards in the tree),
-        ///     or null if not found.
+        /// Returns the containing <see cref="LocalTermSet" /> instance (scanning upwards in the tree),
+        /// or null if not found.
         /// </summary>
         public LocalTermSet GetTermSet()
         {
@@ -144,9 +144,9 @@ namespace TaxonomyToolkit.Taxml
     }
 
     /// <summary>
-    ///     This class is used to represent the LocalTermContainer.CustomSortOrder property.
-    ///     It is a parser/generator for the special text string used by TermSetItem.CustomSortOrder
-    ///     from the SharePoint API.
+    /// This class is used to represent the LocalTermContainer.CustomSortOrder property.
+    /// It is a parser/generator for the special text string used by TermSetItem.CustomSortOrder
+    /// from the SharePoint API.
     /// </summary>
     public sealed class CustomSortOrder : Collection<Guid>
     {

@@ -29,8 +29,8 @@ using System.Collections.Generic;
 namespace TaxonomyToolkit.General
 {
     /// <summary>
-    ///     An adapter that converts a list to another list type by casting the individual elements.
-    ///     This is useful because C# 3.0 lacks covariant conversions for parameterized types.
+    /// An adapter that converts a list to another list type by casting the individual elements.
+    /// This is useful because C# 3.0 lacks covariant conversions for parameterized types.
     /// </summary>
     public class CastedList<TTarget, TSource> : IList<TTarget>
         where TTarget : class

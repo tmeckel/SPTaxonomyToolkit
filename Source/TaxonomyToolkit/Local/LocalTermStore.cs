@@ -35,7 +35,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Represents a taxonomy term store in the LocalTermStore object model.
+    /// Represents a taxonomy term store in the LocalTermStore object model.
     /// </summary>
     public sealed class LocalTermStore : LocalTaxonomyItem<LocalTermGroup>
     {
@@ -59,7 +59,7 @@ namespace TaxonomyToolkit.Taxml
         #region Properties
 
         /// <summary>
-        ///     The child items for this object.
+        /// The child items for this object.
         /// </summary>
         public ReadOnlyCollection<LocalTermGroup> TermGroups
         {
@@ -77,11 +77,11 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Tracks LCIDs that are installed for the SharePoint TermStore.
+        /// Tracks LCIDs that are installed for the SharePoint TermStore.
         /// </summary>
         /// <remarks>
-        ///     Note that TaxonomyToolkit does not alter the SharePoint server's
-        ///     available languages during syncing.
+        /// Note that TaxonomyToolkit does not alter the SharePoint server's
+        /// available languages during syncing.
         /// </remarks>
         public ReadOnlyCollection<int> AvailableLanguageLcids
         {
@@ -147,9 +147,9 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns a list of all LocalTerm objects that are attached to this LocalTermStore
-        ///     object and have the specified LocalTerm.Id.  If there is a source term, it will
-        ///     be the first item in the list.
+        /// Returns a list of all LocalTerm objects that are attached to this LocalTermStore
+        /// object and have the specified LocalTerm.Id.  If there is a source term, it will
+        /// be the first item in the list.
         /// </summary>
         public ReadOnlyCollection<LocalTerm> GetTermsWithId(Guid termId)
         {

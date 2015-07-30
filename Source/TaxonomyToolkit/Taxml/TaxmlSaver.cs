@@ -36,7 +36,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     This class writes Taxonomy data in the TAXML XML format, as defined by TaxmlFile.xsd.
+    /// This class writes Taxonomy data in the TAXML XML format, as defined by TaxmlFile.xsd.
     /// </summary>
     public class TaxmlSaver
     {

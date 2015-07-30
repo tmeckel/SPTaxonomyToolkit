@@ -57,8 +57,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     The associated CSOM object.  This is passed to the constructor, and may be
-        ///     null in the special unattached mode.
+        /// The associated CSOM object.  This is passed to the constructor, and may be
+        /// null in the special unattached mode.
         /// </summary>
         public TClient ClientObject
         {
@@ -66,9 +66,9 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     The associated local object.  An existing object can be associated via
-        ///     SetLocalObject(); otherwise it will be constructed during the query.
-        ///     Once the LocalObject property has been assigned, it cannot be reassigned.
+        /// The associated local object.  An existing object can be associated via
+        /// SetLocalObject(); otherwise it will be constructed during the query.
+        /// Once the LocalObject property has been assigned, it cannot be reassigned.
         /// </summary>
         public TLocal LocalObject
         {

@@ -33,24 +33,24 @@ namespace TaxonomyToolkit.General
     public static class ToolkitUtilities
     {
         /// <summary>
-        ///     The current release of the TaxonomyToolkit library.
+        /// The current release of the TaxonomyToolkit library.
         /// </summary>
         public const string ToolkitVersion = "2014-09-15";
 
         /// <summary>
-        ///     The version of the Microsoft SharePoint runtime that was used when building
-        ///     this release of the TaxonomyToolkit library.
+        /// The version of the Microsoft SharePoint runtime that was used when building
+        /// this release of the TaxonomyToolkit library.
         /// </summary>
         public const string BuiltSharePointVersion = "15 (4420.1017/ship)";
 
         /// <summary>
-        ///     Used with <see cref="GetPreorder{T}" />
+        /// Used with <see cref="GetPreorder{T}" />
         /// </summary>
         public delegate IEnumerable<T> GetChildren<T>(T node);
 
         /// <summary>
-        ///     This returns an enumerator that traverses a tree in the preorder sequence.
-        ///     The child nodes are specified by the <paramref name="getChildren" /> delegate.
+        /// This returns an enumerator that traverses a tree in the preorder sequence.
+        /// The child nodes are specified by the <paramref name="getChildren" /> delegate.
         /// </summary>
         public static IEnumerable<T> GetPreorder<T>(T node, GetChildren<T> getChildren)
         {
@@ -92,8 +92,8 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     This performs a similar operation as TaxonomyItem.NormalizeName(), and also checks
-        ///     that the name is valid.
+        /// This performs a similar operation as TaxonomyItem.NormalizeName(), and also checks
+        /// that the name is valid.
         /// </summary>
         public static string GetNormalizedTaxonomyName(string name, string parameterName)
         {
@@ -116,10 +116,10 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        ///     TaxonomyItem.NormalizeName() replaces ampersands with a Unicode character.  This form is
-        ///     used throughout the Taxonomy API and should be used in code, but when displayed in the
-        ///     UI it looks wrong in many fonts.  You can use GetDenormalizedTaxonomyNameForDisplay()
-        ///     to convert it back to the regular ampersand.
+        /// TaxonomyItem.NormalizeName() replaces ampersands with a Unicode character.  This form is
+        /// used throughout the Taxonomy API and should be used in code, but when displayed in the
+        /// UI it looks wrong in many fonts.  You can use GetDenormalizedTaxonomyNameForDisplay()
+        /// to convert it back to the regular ampersand.
         /// </summary>
         public static string GetDenormalizedTaxonomyNameForDisplay(string name)
         {

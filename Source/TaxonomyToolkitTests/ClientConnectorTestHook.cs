@@ -36,10 +36,10 @@ using TaxonomyToolkit.Taxml;
 namespace TaxonomyToolkitTests
 {
     /// <summary>
-    ///     This hook captures SharePoint Client OM protocol traffic.  The automated tests
-    ///     use this hook to verify that the underlying protocol operations are performed
-    ///     as expected (e.g. to detect if additional network roundtrips are performed, which
-    ///     would indicate a performance regression).
+    /// This hook captures SharePoint Client OM protocol traffic.  The automated tests
+    /// use this hook to verify that the underlying protocol operations are performed
+    /// as expected (e.g. to detect if additional network roundtrips are performed, which
+    /// would indicate a performance regression).
     /// </summary>
     internal class ClientTestConnectorHook : IDisposable
     {
@@ -107,12 +107,12 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     This resets the internal counter used by ClientRequest.NextSequenceId, which prevents
-        ///     the protocol dump from being influenced by other CSOM activity that may have occurred
-        ///     beforehand.
-        ///     WARNING: Since the counter is global, changing it will invalidate any ClientContexts
-        ///     that were already constructed before ResetClientRequestSequenceId() was called,
-        ///     so don't use this in production code.
+        /// This resets the internal counter used by ClientRequest.NextSequenceId, which prevents
+        /// the protocol dump from being influenced by other CSOM activity that may have occurred
+        /// beforehand.
+        /// WARNING: Since the counter is global, changing it will invalidate any ClientContexts
+        /// that were already constructed before ResetClientRequestSequenceId() was called,
+        /// so don't use this in production code.
         /// </summary>
         public static void ResetClientRequestSequenceId()
         {

@@ -37,12 +37,12 @@ namespace TaxonomyToolkit.Taxml
     internal static class CsomHelpers
     {
         /// <summary>
-        ///     Certain CSOM methods cache their return values for the lifetime of the ClientContext.
-        ///     (In the server OM, these methods are marked with ClientCallableMethod.CacheReturnValue=true.)
-        ///     This can produce incorrect results if the value was changed e.g. by the same session
-        ///     that is now trying to read the new value.  FlushCachedProperties() can be called in
-        ///     this situation to flush the internal cache.  It should be called after ExecuteQuery()
-        ///     and before the next query expression is loaded.
+        /// Certain CSOM methods cache their return values for the lifetime of the ClientContext.
+        /// (In the server OM, these methods are marked with ClientCallableMethod.CacheReturnValue=true.)
+        /// This can produce incorrect results if the value was changed e.g. by the same session
+        /// that is now trying to read the new value.  FlushCachedProperties() can be called in
+        /// this situation to flush the internal cache.  It should be called after ExecuteQuery()
+        /// and before the next query expression is loaded.
         /// </summary>
         public static void FlushCachedProperties(ClientObject clientObject)
         {
@@ -65,8 +65,8 @@ namespace TaxonomyToolkit.Taxml
         private static bool loadOnlineServiceLibrarySucceeded = false;
 
         /// <summary>
-        ///     Load the special Microsoft Online Service library (MSOIDCLIL.DLL) that is used
-        ///     to authenticate requests for SharePoint Online / Office 365 cloud sites.
+        /// Load the special Microsoft Online Service library (MSOIDCLIL.DLL) that is used
+        /// to authenticate requests for SharePoint Online / Office 365 cloud sites.
         /// </summary>
         public static void LoadOnlineServiceLibrary(Action<string> logVerbose = null)
         {

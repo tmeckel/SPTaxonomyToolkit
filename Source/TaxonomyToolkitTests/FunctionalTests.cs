@@ -107,7 +107,7 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Returns the name of the calling function as a string using the CallerMemberName attribute
+        /// Returns the name of the calling function as a string using the CallerMemberName attribute
         /// </summary>
         /// <param name="callerName"></param>
         /// <returns></returns>
@@ -350,8 +350,8 @@ namespace TaxonomyToolkitTests
         }
 
         /// <summary>
-        ///     Retrieve the taxonomy objects that were created in SharePoint,
-        ///     and return them as a TAXML string.
+        /// Retrieve the taxonomy objects that were created in SharePoint,
+        /// and return them as a TAXML string.
         /// </summary>
         private static string DownloadTestDataAsTaxml(Client15Connector connector)
         {

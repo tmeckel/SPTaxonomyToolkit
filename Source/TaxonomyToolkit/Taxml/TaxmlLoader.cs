@@ -35,7 +35,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     This class reads Taxonomy data in the TAXML XML format, as defined by TaxmlFile.xsd.
+    /// This class reads Taxonomy data in the TAXML XML format, as defined by TaxmlFile.xsd.
     /// </summary>
     public class TaxmlLoader
     {

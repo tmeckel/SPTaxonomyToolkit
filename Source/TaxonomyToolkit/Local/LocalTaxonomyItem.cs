@@ -34,7 +34,7 @@ using TaxonomyToolkit.General;
 namespace TaxonomyToolkit.Taxml
 {
     /// <summary>
-    ///     Used with <see cref="LocalTaxonomyItem.Kind">LocalTaxonomyItem.Kind</see>
+    /// Used with <see cref="LocalTaxonomyItem.Kind">LocalTaxonomyItem.Kind</see>
     /// </summary>
     public enum LocalTaxonomyItemKind
     {
@@ -45,12 +45,12 @@ namespace TaxonomyToolkit.Taxml
     }
 
     /// <summary>
-    ///     Abstract base class for the generic class <see cref="LocalTaxonomyItem{T}" />.
-    ///     This class is analagous to the <b>TaxonomyItem</b> base class from
-    ///     Microsoft.SharePoint.Taxonomy.dll.
-    ///     <para />
-    ///     <see cref="LocalTaxonomyItem{T}" /> and <see cref="LocalTaxonomyItem{T}" />
-    ///     implement a generalized ParentItem/ChildItems pattern that simplifies traversal.
+    /// Abstract base class for the generic class <see cref="LocalTaxonomyItem{T}" />.
+    /// This class is analagous to the <b>TaxonomyItem</b> base class from
+    /// Microsoft.SharePoint.Taxonomy.dll.
+    /// <para />
+    /// <see cref="LocalTaxonomyItem{T}" /> and <see cref="LocalTaxonomyItem{T}" />
+    /// implement a generalized ParentItem/ChildItems pattern that simplifies traversal.
     /// </summary>
     public abstract class LocalTaxonomyItem
     {
@@ -72,7 +72,7 @@ namespace TaxonomyToolkit.Taxml
         #region Properties
 
         /// <summary>
-        ///     Indicates the type of object, which is useful when operating on the tree abstraction.
+        /// Indicates the type of object, which is useful when operating on the tree abstraction.
         /// </summary>
         public abstract LocalTaxonomyItemKind Kind { get; }
 
@@ -82,8 +82,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     The globally unique identifier assigned by SharePoint for this object.
-        ///     If this is Guid.Empty, then the object is instead identified by its name.
+        /// The globally unique identifier assigned by SharePoint for this object.
+        /// If this is Guid.Empty, then the object is instead identified by its name.
         /// </summary>
         public Guid Id
         {
@@ -91,21 +91,21 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Indicates that some properties were omitted when this object was fetched from
-        ///     the server.  This flag does not refer to the ChildItems property; it is tracked
-        ///     separately by IncompleteChildItems.
+        /// Indicates that some properties were omitted when this object was fetched from
+        /// the server.  This flag does not refer to the ChildItems property; it is tracked
+        /// separately by IncompleteChildItems.
         /// </summary>
         public bool IncompleteObject { get; set; }
 
         /// <summary>
-        ///     Indicates that objects in the ChildItems collection may have been omitted
-        ///     when this object was fetched from the server.
+        /// Indicates that objects in the ChildItems collection may have been omitted
+        /// when this object was fetched from the server.
         /// </summary>
         public bool IncompleteChildItems { get; set; }
 
         /// <summary>
-        ///     For informational purposes, this preserves XML comments that occurred immediately
-        ///     before this object's element in the TAXML file format.
+        /// For informational purposes, this preserves XML comments that occurred immediately
+        /// before this object's element in the TAXML file format.
         /// </summary>
         public List<string> TaxmlComments
         {
@@ -113,30 +113,30 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     When syncing from LocalTermStore to the SharePoint service, this can be used
-        ///     to annotate items to indicate how they should be synced.  If null, the
-        ///     value is inherited from the parent item.
+        /// When syncing from LocalTermStore to the SharePoint service, this can be used
+        /// to annotate items to indicate how they should be synced.  If null, the
+        /// value is inherited from the parent item.
         /// </summary>
         public SyncAction SyncAction { get; set; }
 
         /// <summary>
-        ///     Multilingual properties such as Term.Name and Term.Description can store strings
-        ///     in various langauges.  If a string is not defined in a particular language,
-        ///     then the default language is used instead.  The data model guarantees that
-        ///     a string is always available in the default langauge when changing the
-        ///     default language, by copying strings from the old default language if necessary.
-        ///     <para />
-        ///     When objects are joined to a tree (via LocalTaxonomyItem.ParentItem), their
-        ///     DefaultLanguageLcid matches the root of the tree (which is usually the
-        ///     LocalTermStore).  To avoid confusion, changes to the DefaultLanguageLcid must
-        ///     be performed on the root object.
+        /// Multilingual properties such as Term.Name and Term.Description can store strings
+        /// in various langauges.  If a string is not defined in a particular language,
+        /// then the default language is used instead.  The data model guarantees that
+        /// a string is always available in the default langauge when changing the
+        /// default language, by copying strings from the old default language if necessary.
+        /// <para />
+        /// When objects are joined to a tree (via LocalTaxonomyItem.ParentItem), their
+        /// DefaultLanguageLcid matches the root of the tree (which is usually the
+        /// LocalTermStore).  To avoid confusion, changes to the DefaultLanguageLcid must
+        /// be performed on the root object.
         /// </summary>
         /// <remarks>
-        ///     In addition to the default language, the Taxonomy API also supports
-        ///     a TermStore.WorkingLanguage that can temporarily change the language, and which
-        ///     avoids the expensive copying that occurs when reassigning the TermStore.DefaultLanguage.
-        ///     The working language concept is NOT supported by LocalTaxonomyItem (since
-        ///     it would interfere with the support for removing/reattaching subtrees).
+        /// In addition to the default language, the Taxonomy API also supports
+        /// a TermStore.WorkingLanguage that can temporarily change the language, and which
+        /// avoids the expensive copying that occurs when reassigning the TermStore.DefaultLanguage.
+        /// The working language concept is NOT supported by LocalTaxonomyItem (since
+        /// it would interfere with the support for removing/reattaching subtrees).
         /// </remarks>
         public int DefaultLanguageLcid
         {
@@ -191,7 +191,7 @@ namespace TaxonomyToolkit.Taxml
         protected abstract ReadOnlyCollection<LocalTaxonomyItem> GetReadOnlyItems();
 
         /// <summary>
-        ///     The parent item in the tree, or null if there is no parent.
+        /// The parent item in the tree, or null if there is no parent.
         /// </summary>
         public LocalTaxonomyItem ParentItem
         {
@@ -200,7 +200,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     The child items in the tree.
+        /// The child items in the tree.
         /// </summary>
         public ReadOnlyCollection<LocalTaxonomyItem> ChildItems
         {
@@ -253,15 +253,15 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Ensures that multilingual properties will be defined for the specified newDefaultLanguageLcid,
-        ///     by possibly copying strings from the current DefaultLanguageLcid.
+        /// Ensures that multilingual properties will be defined for the specified newDefaultLanguageLcid,
+        /// by possibly copying strings from the current DefaultLanguageLcid.
         /// </summary>
         protected virtual void OnPrepareNewDefaultLanguageLcid(int newDefaultLanguageLcid)
         {
         }
 
         /// <summary>
-        ///     Returns true if <paramref name="proposedChild" /> could be added as a child for this item
+        /// Returns true if <paramref name="proposedChild" /> could be added as a child for this item
         /// </summary>
         public bool IsAllowableParentFor(LocalTaxonomyItem proposedChild)
         {
@@ -269,8 +269,8 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Tests whether <paramref name="proposedChild" /> could be added as a child for this item.
-        ///     Null is returned if the operation is allowed; otherwise, an error message is returned.
+        /// Tests whether <paramref name="proposedChild" /> could be added as a child for this item.
+        /// Null is returned if the operation is allowed; otherwise, an error message is returned.
         /// </summary>
         private string ExplainIsAllowableParentFor(LocalTaxonomyItem proposedChild)
         {
@@ -288,7 +288,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the LocalTaxonomyItemKind for child items.
+        /// Returns the LocalTaxonomyItemKind for child items.
         /// </summary>
         public LocalTaxonomyItemKind ChildItemKind
         {
@@ -296,7 +296,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns the kind of child items for the specified parent item.
+        /// Returns the kind of child items for the specified parent item.
         /// </summary>
         public static LocalTaxonomyItemKind GetChildItemKind(LocalTaxonomyItemKind parentKind)
         {
@@ -314,7 +314,7 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        ///     Returns true if this item is a (possibly recursive) child of <paramref name="parentItem" />
+        /// Returns true if this item is a (possibly recursive) child of <paramref name="parentItem" />
         /// </summary>
         public bool IsDescendantOf(LocalTaxonomyItem parentItem)
         {
@@ -382,12 +382,12 @@ namespace TaxonomyToolkit.Taxml
     }
 
     /// <summary>
-    ///     Abstract base class for <see cref="LocalTermContainer" />,
-    ///     <see cref="LocalTermGroup" />, and <see cref="LocalTermStore" />.
-    ///     <para />
-    ///     <see cref="LocalTaxonomyItem{T}" /> and <see cref="LocalTaxonomyItem{T}" />
-    ///     implement a generalized ParentItem/ChildItems pattern that greatly simplifies
-    ///     the child classes.
+    /// Abstract base class for <see cref="LocalTermContainer" />,
+    /// <see cref="LocalTermGroup" />, and <see cref="LocalTermStore" />.
+    /// <para />
+    /// <see cref="LocalTaxonomyItem{T}" /> and <see cref="LocalTaxonomyItem{T}" />
+    /// implement a generalized ParentItem/ChildItems pattern that greatly simplifies
+    /// the child classes.
     /// </summary>
     public abstract class LocalTaxonomyItem<TChild> : LocalTaxonomyItem
         where TChild : LocalTaxonomyItem
