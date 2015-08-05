@@ -281,9 +281,7 @@ namespace TaxonomyToolkit.Taxml
                 // Is the source term something that we're supposed to be creating in this data set?
                 var localTermStore = this.Controller.LocalTermStore;
 
-                var localSourceTerm = localTermStore.GetTermsWithId(this.localTerm.Id)
-                    .FirstOrDefault(x => x.GetTermSet() != this.localTerm.GetTermSet());
-
+                var localSourceTerm = this.localTerm.SourceTerm;
                 if (localSourceTerm != null)
                 {
                     TermUploader sourceTermUploader = (TermUploader) this.Controller.GetUploader(localSourceTerm);
