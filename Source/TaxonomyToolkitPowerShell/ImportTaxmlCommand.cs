@@ -120,7 +120,7 @@ namespace TaxonomyToolkit.PowerShell
             if (this.MyInvocation.BoundParameters.ContainsKey(ImportTaxmlCommand.PropertyName_MaximumBatchSize))
                 options.MaximumBatchSize = this.MaximumBatchSize;
 
-            clientConnector.Upload(loadedTermStore, fetchedTermStore.Id);
+            clientConnector.Upload(loadedTermStore, fetchedTermStore.Id, options);
 
             var progressRecord = new ProgressRecord(0, ImportTaxmlCommand.ProgressRecordTitle, "Finished.");
             progressRecord.RecordType = ProgressRecordType.Completed;
