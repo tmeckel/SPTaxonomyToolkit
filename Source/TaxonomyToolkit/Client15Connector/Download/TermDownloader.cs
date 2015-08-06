@@ -152,7 +152,7 @@ namespace TaxonomyToolkit.Taxml
         // These property assignments follow the same order as TermUploader.OnProcessAssignProperties()
         protected override void AssignExtendedProperties() // abstract
         {
-            this.LocalTerm.CustomSortOrder.AsText = this.ClientTerm.CustomSortOrder ?? "";
+            this.LocalTerm.CustomSortOrder.AsTextForServer = this.ClientTerm.CustomSortOrder;
 
             this.LocalTerm.IsAvailableForTagging = this.ClientTerm.IsAvailableForTagging;
 

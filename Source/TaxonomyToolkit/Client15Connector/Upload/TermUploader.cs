@@ -500,7 +500,7 @@ namespace TaxonomyToolkit.Taxml
         // These property assignments follow the same order as TermDownloader.AssignExtendedProperties()
         protected override bool OnProcessAssignProperties()
         {
-            this.clientTerm.CustomSortOrder = this.localTerm.CustomSortOrder.AsText;
+            this.clientTerm.CustomSortOrder = this.localTerm.CustomSortOrder.AsTextForServer;
             this.clientTerm.IsAvailableForTagging = this.localTerm.IsAvailableForTagging;
 
             // NOTE: If we got here by reusing a term, then some properties will have been copied
@@ -553,7 +553,7 @@ namespace TaxonomyToolkit.Taxml
                 }
             }
 
-            string customSortOrder = this.localTerm.CustomSortOrder.AsTextForCsom;
+            string customSortOrder = this.localTerm.CustomSortOrder.AsTextForServer;
             this.UpdateIfChanged(
                 () => this.clientTerm.CustomSortOrder != customSortOrder,
                 () => this.clientTerm.CustomSortOrder = customSortOrder

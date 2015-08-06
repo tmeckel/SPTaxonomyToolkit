@@ -177,7 +177,7 @@ namespace TaxonomyToolkit.Taxml
         protected override bool OnProcessAssignProperties()
         {
             this.clientTermSet.Contact = this.localTermSet.Contact;
-            this.clientTermSet.CustomSortOrder = this.localTermSet.CustomSortOrder.AsText;
+            this.clientTermSet.CustomSortOrder = this.localTermSet.CustomSortOrder.AsTextForServer;
             this.clientTermSet.Description = this.localTermSet.Description;
             this.clientTermSet.IsAvailableForTagging = this.localTermSet.IsAvailableForTagging;
             this.clientTermSet.IsOpenForTermCreation = this.localTermSet.IsOpenForTermCreation;
@@ -225,7 +225,7 @@ namespace TaxonomyToolkit.Taxml
                 () => this.clientTermSet.Contact = contact
                 );
 
-            string customSortOrder = this.localTermSet.CustomSortOrder.AsTextForCsom;
+            string customSortOrder = this.localTermSet.CustomSortOrder.AsTextForServer;
             this.UpdateIfChanged(
                 () => this.clientTermSet.CustomSortOrder != customSortOrder,
                 () => this.clientTermSet.CustomSortOrder = customSortOrder

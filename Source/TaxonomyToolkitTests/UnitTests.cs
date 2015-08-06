@@ -162,6 +162,45 @@ namespace TaxonomyToolkitTests
         }
 
         [TestMethod]
+        public void CustomSortOrderParsingForServer()
+        {
+            var localTerm = LocalTerm.CreateTerm(new Guid("11111111-2222-3333-4444-000000000001"), "Term");
+            localTerm.CustomSortOrder.AsTextForServer =
+                " 11111111-2222-3333-4444-000000000001"
+                    + ":11111111-2222-3333-4444-000000000002"
+                    + ":: hello, world!"
+                    + ":11111111-2222-3333-4444-000000000003 "
+                    + ":11111111-2222-3333-4444-000000000004"
+                    + ":11111111-2222-3333-4444-000000000003 ";
+            localTerm.CustomSortOrder.Insert(0, new Guid("11111111-2222-3333-4444-000000000005"));
+
+            Assert.AreEqual(localTerm.CustomSortOrder.Count, 5);
+
+            Assert.AreEqual(localTerm.CustomSortOrder.AsText,
+                "11111111-2222-3333-4444-000000000005"
+                    + ":11111111-2222-3333-4444-000000000001"
+                    + ":11111111-2222-3333-4444-000000000002"
+                    + ":11111111-2222-3333-4444-000000000003"
+                    + ":11111111-2222-3333-4444-000000000004"
+                );
+
+            try
+            {
+                localTerm.CustomSortOrder.Add(new Guid("11111111-2222-3333-4444-000000000005"));
+                Assert.Fail("Exception not thrown");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.GetType(), typeof(ArgumentException));
+                Assert.AreEqual(localTerm.CustomSortOrder.Count, 5);
+            }
+
+            localTerm.CustomSortOrder.Clear();
+
+            Assert.AreEqual(localTerm.CustomSortOrder.AsText, "");
+        }
+
+        [TestMethod]
         public void CustomSortOrderNormalization()
         {
             this.RewriteTaxmlAndAssertOutput("Input", "Output");

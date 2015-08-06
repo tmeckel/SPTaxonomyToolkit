@@ -33,6 +33,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("7D19A52D-CCE1-492F-8E2B-6DFBA49C9A46")]
 
+[assembly: InternalsVisibleTo("TaxonomyToolkitTests")]
+
 // NOTE: These attributes are in ProductAssemblyInfo.cs:
 // 
 //   AssemblyCompany

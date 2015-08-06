@@ -108,7 +108,7 @@ namespace TaxonomyToolkit.Taxml
         protected override void AssignExtendedProperties() // abstract
         {
             this.LocalTermSet.Contact = this.ClientTermSet.Contact ?? ""; // seen null in EDog, but not Prod
-            this.LocalTermSet.CustomSortOrder.AsText = this.ClientTermSet.CustomSortOrder ?? "";
+            this.LocalTermSet.CustomSortOrder.AsTextForServer = this.ClientTermSet.CustomSortOrder;
             this.LocalTermSet.Description = this.ClientTermSet.Description ?? ""; // seen null in EDog, but not Prod
             this.LocalTermSet.IsAvailableForTagging = this.ClientTermSet.IsAvailableForTagging;
             this.LocalTermSet.IsOpenForTermCreation = this.ClientTermSet.IsOpenForTermCreation;
