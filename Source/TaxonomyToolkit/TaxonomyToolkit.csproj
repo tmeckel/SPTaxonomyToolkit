@@ -76,6 +76,7 @@
     <Compile Include="General\ParseException.cs" />
     <Compile Include="General\PriorityQueue.cs" />
     <Compile Include="General\ToolkitUtilities.cs" />
+    <Compile Include="Local\CustomSortOrder.cs" />
     <Compile Include="Local\LocalPropertyBag.cs" />
     <Compile Include="Local\LocalTaxonomyItem.cs" />
     <Compile Include="Local\LocalTerm.cs" />
