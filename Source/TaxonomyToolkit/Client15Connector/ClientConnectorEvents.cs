@@ -26,8 +26,9 @@
 
 using System;
 using Microsoft.SharePoint.Client;
+using TaxonomyToolkit.Taxml;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     public class ExecutingQueryEventArgs : EventArgs
     {

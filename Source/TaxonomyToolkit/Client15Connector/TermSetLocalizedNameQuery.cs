@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal class TermSetLocalizedNameQuery
     {

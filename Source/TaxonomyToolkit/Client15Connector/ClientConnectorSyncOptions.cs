@@ -30,7 +30,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     public class ClientConnectorDownloadOptions
     {

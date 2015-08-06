@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using TaxonomyToolkit.Sync;
 using TaxonomyToolkit.Taxml;
 
 namespace TaxonomyToolkit.TaxmlManager

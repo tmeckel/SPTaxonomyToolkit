@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal class TaxonomyItemDownloaderContext
     {

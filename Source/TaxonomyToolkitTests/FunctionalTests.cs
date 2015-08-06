@@ -32,6 +32,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TaxonomyToolkit.Sync;
 using TaxonomyToolkit.Taxml;
 
 namespace TaxonomyToolkitTests

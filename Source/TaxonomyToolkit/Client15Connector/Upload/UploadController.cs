@@ -30,8 +30,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using Microsoft.SharePoint.Client.Taxonomy;
 using TaxonomyToolkit.General;
+using TaxonomyToolkit.Taxml;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal class UploadControllerKey
         : IComparable<UploadControllerKey>, IEquatable<UploadControllerKey>

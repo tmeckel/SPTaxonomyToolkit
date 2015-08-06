@@ -32,8 +32,9 @@ using System.Security;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
 using TaxonomyToolkit.General;
+using TaxonomyToolkit.Taxml;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     public class ExecuteQueryDependency
     {

@@ -26,6 +26,7 @@
 
 using System;
 using System.Windows.Forms;
+using TaxonomyToolkit.Sync;
 using TaxonomyToolkit.Taxml;
 
 namespace TaxonomyToolkit.TaxmlManager

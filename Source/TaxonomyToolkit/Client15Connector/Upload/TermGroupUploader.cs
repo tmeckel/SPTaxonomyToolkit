@@ -29,8 +29,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
+using TaxonomyToolkit.Taxml;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal class TermGroupUploader : TaxonomyItemUploader
     {

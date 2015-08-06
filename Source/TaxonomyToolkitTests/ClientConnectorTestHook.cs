@@ -31,7 +31,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
 using Microsoft.SharePoint.Client;
-using TaxonomyToolkit.Taxml;
+using TaxonomyToolkit.Sync;
 
 namespace TaxonomyToolkitTests
 {

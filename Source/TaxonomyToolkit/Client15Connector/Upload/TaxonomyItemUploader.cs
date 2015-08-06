@@ -32,8 +32,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
+using TaxonomyToolkit.Taxml;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal enum TaxonomyItemExistence
     {

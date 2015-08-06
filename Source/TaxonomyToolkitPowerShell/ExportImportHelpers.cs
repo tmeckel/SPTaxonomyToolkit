@@ -30,6 +30,7 @@ using System.IO;
 using System.Linq;
 using System.Management.Automation;
 using TaxonomyToolkit.General;
+using TaxonomyToolkit.Sync;
 using TaxonomyToolkit.Taxml;
 
 namespace TaxonomyToolkit.PowerShell

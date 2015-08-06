@@ -29,7 +29,7 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using Microsoft.Win32;
-using TaxonomyToolkit.Taxml;
+using TaxonomyToolkit.Sync;
 
 namespace TaxonomyToolkit.TaxmlManager
 {

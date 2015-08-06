@@ -27,8 +27,9 @@
 using System;
 using Microsoft.SharePoint.Client;
 using TaxonomyToolkit.General;
+using TaxonomyToolkit.Taxml;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal abstract class TaxonomyItemDownloader<TClient, TLocal>
         where TClient : ClientObject

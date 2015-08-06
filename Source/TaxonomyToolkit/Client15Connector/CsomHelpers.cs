@@ -32,7 +32,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using Microsoft.SharePoint.Client;
 
-namespace TaxonomyToolkit.Taxml
+namespace TaxonomyToolkit.Sync
 {
     internal static class CsomHelpers
     {
