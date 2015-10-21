@@ -36,53 +36,6 @@ using TaxonomyToolkit.Taxml;
 
 namespace TaxonomyToolkit.Sync
 {
-    public class ExecuteQueryDependency
-    {
-        private readonly Client15Connector connector;
-        private Exception error = null;
-        private Action successAction = null;
-
-        public ExecuteQueryDependency(Client15Connector connector)
-        {
-            this.connector = connector;
-            this.error = new Exception("Not started yet");
-        }
-
-        public bool Succeeded
-        {
-            get { return !this.Pending && this.error == null; }
-        }
-
-        public bool Pending
-        {
-            get { return this.successAction != null; }
-        }
-
-        public Exception Error
-        {
-            get { return this.error; }
-        }
-
-        public void SetupAction(Action successAction)
-        {
-            this.successAction = successAction;
-            this.error = null;
-
-            this.connector.RegisterDependency(this);
-        }
-
-        internal void NotifyCompleted(Exception error)
-        {
-            if (this.successAction == null)
-                throw new InvalidOperationException("Already notified");
-
-            this.error = error;
-            var action = this.successAction;
-            this.successAction = null;
-            action();
-        }
-    }
-
     public class Client15Connector
     {
         public event EventHandler<ExecutingQueryEventArgs> ExecutingQuery;
@@ -92,7 +45,6 @@ namespace TaxonomyToolkit.Sync
         private readonly ClientContext clientContext;
         private TaxonomySession taxonomySession;
 
-        private List<ExecuteQueryDependency> queryDependencies = new List<ExecuteQueryDependency>();
         private int executeQueryCount = 0;
 
         public Client15Connector(string webFullUrl)
@@ -139,11 +91,6 @@ namespace TaxonomyToolkit.Sync
             CsomHelpers.LoadOnlineServiceLibrary(logVerbose);
             var credential = new SharePointOnlineCredentials(userEmail, password);
             this.clientContext.Credentials = credential;
-        }
-
-        internal void RegisterDependency(ExecuteQueryDependency dependency)
-        {
-            this.queryDependencies.Add(dependency);
         }
 
         // This is not a property because it may set up a CSOM query.
@@ -244,41 +191,6 @@ namespace TaxonomyToolkit.Sync
             ++this.executeQueryCount;
             Debug.WriteLine("ExecuteQuery #" + this.executeQueryCount);
             this.clientContext.ExecuteQuery();
-
-            var dependencies = this.queryDependencies;
-            this.queryDependencies = new List<ExecuteQueryDependency>();
-
-            ExecuteQueryDependency currentDependency = null;
-            bool success = false;
-            try
-            {
-                foreach (var dependency in dependencies)
-                {
-                    currentDependency = dependency;
-                    dependency.NotifyCompleted(null);
-                }
-                success = true;
-            }
-            finally
-            {
-                if (!success)
-                {
-                    foreach (var dependency in dependencies)
-                    {
-                        if (dependency != currentDependency)
-                        {
-                            try
-                            {
-                                dependency.NotifyCompleted(new InvalidOperationException("Another dependency failed"));
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Ignoring cleanup exception: " + ex.Message);
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         internal void NotifyDownloadedItem(LocalTaxonomyItem localTaxonomyItem, bool willFetchChildren)
