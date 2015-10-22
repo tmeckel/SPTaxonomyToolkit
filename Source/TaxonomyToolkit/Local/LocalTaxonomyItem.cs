@@ -123,8 +123,9 @@ namespace TaxonomyToolkit.Taxml
         /// Multilingual properties such as Term.Name and Term.Description can store strings
         /// in various langauges.  If a string is not defined in a particular language,
         /// then the default language is used instead.  The data model guarantees that
-        /// a string is always available in the default langauge when changing the
-        /// default language, by copying strings from the old default language if necessary.
+        /// a string is always available in the default language when assigning a new
+        /// default language; it does this by copying strings from the old default language
+        /// if necessary.
         /// <para />
         /// When objects are joined to a tree (via LocalTaxonomyItem.ParentItem), their
         /// DefaultLanguageLcid matches the root of the tree (which is usually the
@@ -132,11 +133,14 @@ namespace TaxonomyToolkit.Taxml
         /// be performed on the root object.
         /// </summary>
         /// <remarks>
-        /// In addition to the default language, the Taxonomy API also supports
-        /// a TermStore.WorkingLanguage that can temporarily change the language, and which
-        /// avoids the expensive copying that occurs when reassigning the TermStore.DefaultLanguage.
-        /// The working language concept is NOT supported by LocalTaxonomyItem (since
-        /// it would interfere with the support for removing/reattaching subtrees).
+        /// The Taxonomy API also supports a TermStore.WorkingLanguage that specifies the language
+        /// to be used by properties such as Term.Name and Term.Description.  (For example, changing
+        /// the TermStore.WorkingLanguage may cause Term.Name to return different strings 
+        /// throughout the object tree, without any effect on the underlying data model.)
+        /// This working language concept is NOT implemented by LocalTaxonomyItem; properties such
+        /// as LocalTerm.Name will always read/write the term store's default language.  If you 
+        /// care about localization, consider using LocalTerm.GetNameWithDefault() and 
+        /// LocalTerm.SetName() instead of LocalTerm.Name.
         /// </remarks>
         public int DefaultLanguageLcid
         {
@@ -217,6 +221,16 @@ namespace TaxonomyToolkit.Taxml
                 string objection = newValue.ExplainIsAllowableParentFor(this);
                 if (objection != null)
                     throw new InvalidOperationException(objection);
+
+                if (newValue.defaultLanguageLcid != this.defaultLanguageLcid)
+                {
+                    // We could do this automatically, but changing the default langauge can
+                    // cause copying of term labels whose effects may be counterintuitive.
+                    // In most cases, the child object should have been created with the same
+                    // default language as its intended parent.
+                    throw new InvalidOperationException("The child object cannot be attached"
+                        + " unless its default language matches the parent.");
+                }
             }
 
             if (parentItem != null)
@@ -261,8 +275,13 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        /// Returns true if <paramref name="proposedChild" /> could be added as a child for this item
+        /// Returns true if <paramref name="proposedChild" /> could be added as a child for this item.
         /// </summary>
+        /// <remarks>
+        /// This is mainly a topology check, e.g. to support a drag+drop user interface that
+        /// uses the mouse cursor to indicate whether an item can be dragged to a new parent.
+        /// The operation may fail for other reasons, e.g. the default language has not been reconciled.
+        /// </remarks>
         public bool IsAllowableParentFor(LocalTaxonomyItem proposedChild)
         {
             return this.ExplainIsAllowableParentFor(proposedChild) == null;
@@ -395,7 +414,7 @@ namespace TaxonomyToolkit.Taxml
         private readonly List<TChild> writableChildItems = new List<TChild>();
         protected ReadOnlyCollection<TChild> readOnlyChildItems;
 
-        internal LocalTaxonomyItem(Guid id, int defaultLanguageLcid = LocalTermStore.EnglishLanguageLcid)
+        internal LocalTaxonomyItem(Guid id, int defaultLanguageLcid)
             : base(id, defaultLanguageLcid)
         {
             this.readOnlyChildItems = new ReadOnlyCollection<TChild>(this.writableChildItems);

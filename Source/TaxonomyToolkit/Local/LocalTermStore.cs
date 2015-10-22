@@ -47,13 +47,13 @@ namespace TaxonomyToolkit.Taxml
 
         private List<int> availableLanguageLcids = new List<int>();
 
-        public LocalTermStore(Guid id, string serviceName)
-            : base(id)
+        public LocalTermStore(Guid id, string serviceName, int defaultLanguageLcid = LocalTermStore.EnglishLanguageLcid)
+            : base(id, defaultLanguageLcid)
         {
             ToolkitUtilities.ConfirmNotNull(serviceName, "serviceName");
 
             this.serviceName = serviceName;
-            this.SetAvailableLanguageLcids(new[] {LocalTermStore.EnglishLanguageLcid});
+            this.SetAvailableLanguageLcids(new[] { defaultLanguageLcid });
         }
 
         #region Properties
@@ -77,11 +77,16 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        /// Tracks LCIDs that are installed for the SharePoint TermStore.
+        /// When downloaded from SharePoint, this collection reports the term store languages
+        /// that were configured for use on the server.  When uploading to SharePoint, 
+        /// this collection specifies the langauges that will be synced; if the LocalTerm objects
+        /// contain strings for other languages that are not included in AvailableLanguageLcids,
+        /// then those strings will not be synced.
         /// </summary>
         /// <remarks>
-        /// Note that TaxonomyToolkit does not alter the SharePoint server's
-        /// available languages during syncing.
+        /// The sync engine never modifies the SharePoint server's term store language
+        /// configuration, because that is an administrative operation with nontrivial
+        /// consequences.
         /// </remarks>
         public ReadOnlyCollection<int> AvailableLanguageLcids
         {
@@ -118,7 +123,7 @@ namespace TaxonomyToolkit.Taxml
 
         public LocalTermGroup AddTermGroup(Guid id, string name)
         {
-            return this.AddTermGroup(new LocalTermGroup(id, name));
+            return this.AddTermGroup(new LocalTermGroup(id, name, this.DefaultLanguageLcid));
         }
 
         public void RemoveTermGroup(LocalTermGroup child)

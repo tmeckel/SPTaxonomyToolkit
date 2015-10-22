@@ -52,7 +52,7 @@ namespace TaxonomyToolkit.Taxml
 
         private readonly List<string> stakeholders = new List<string>();
 
-        public LocalTermSet(Guid id, string name, int defaultLanguageLcid = LocalTermStore.EnglishLanguageLcid)
+        public LocalTermSet(Guid id, string name, int defaultLanguageLcid)
             : base(id, defaultLanguageLcid)
         {
             this.SetName(name, defaultLanguageLcid);

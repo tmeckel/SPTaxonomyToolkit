@@ -140,7 +140,7 @@ namespace TaxonomyToolkitTests
         [TestMethod]
         public void CustomSortOrderParsing()
         {
-            var localTerm = LocalTerm.CreateTerm(new Guid("11111111-2222-3333-4444-000000000001"), "Term");
+            var localTerm = LocalTerm.CreateTerm(new Guid("11111111-2222-3333-4444-000000000001"), "Term", 1033);
             localTerm.CustomSortOrder.AsText =
                 " 11111111-2222-3333-4444-000000000001"
                     + ":11111111-2222-3333-4444-000000000002"
@@ -164,7 +164,7 @@ namespace TaxonomyToolkitTests
         [TestMethod]
         public void CustomSortOrderParsingForServer()
         {
-            var localTerm = LocalTerm.CreateTerm(new Guid("11111111-2222-3333-4444-000000000001"), "Term");
+            var localTerm = LocalTerm.CreateTerm(new Guid("11111111-2222-3333-4444-000000000001"), "Term", 1033);
             localTerm.CustomSortOrder.AsTextForServer =
                 " 11111111-2222-3333-4444-000000000001"
                     + ":11111111-2222-3333-4444-000000000002"
@@ -216,6 +216,85 @@ namespace TaxonomyToolkitTests
         public void TaxmlLoading_V2_1()
         {
             this.RewriteTaxmlAndAssertOutput("Input", "Output");
+        }
+
+        [TestMethod]
+        public void DefaultLanguageMismatch()
+        {
+            var guids = new Guid[] {
+                new Guid("ff000000-0000-0000-0000-000000000000"),
+                new Guid("ff000000-0000-0000-0000-000000000001")
+            };
+
+            LocalTerm term0 = LocalTerm.CreateTerm(guids[0], "Name", 1030);
+            LocalTerm term1 = LocalTerm.CreateTerm(guids[1], "Name", 1031);
+            Assert.AreEqual(term0.DefaultLanguageLcid, 1030);
+            Assert.AreEqual(term1.DefaultLanguageLcid, 1031);
+
+            try
+            {
+                // should throw because the parent's default language doesn't match
+                term1.ParentItem = term0;
+                Assert.Fail("Exception not thrown");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.GetType(), typeof(InvalidOperationException));
+            }
+        }
+
+        [TestMethod]
+        public void DefaultLanguageInheritance()
+        {
+            var guids = new Guid[] {
+                new Guid("ff000000-0000-0000-0000-000000000000"),
+                new Guid("ff000000-0000-0000-0000-000000000001"),
+                new Guid("ff000000-0000-0000-0000-000000000002"),
+                new Guid("ff000000-0000-0000-0000-000000000003"),
+                new Guid("ff000000-0000-0000-0000-000000000004")
+            };
+
+            var termStore = new LocalTermStore(guids[0], "MMS", 1030);
+            var termGroup = termStore.AddTermGroup(guids[1], "Group");
+            var termSet = termGroup.AddTermSet(guids[2], "TermSet");
+            var term0 = termSet.AddTerm(guids[3], "term0");
+            var term1 = term0.AddTerm(guids[4], "term1");
+
+            Assert.AreEqual(termStore.DefaultLanguageLcid, 1030);
+            Assert.AreEqual(termGroup.DefaultLanguageLcid, 1030);
+            Assert.AreEqual(termSet.DefaultLanguageLcid, 1030);
+            Assert.AreEqual(term0.DefaultLanguageLcid, 1030);
+            Assert.AreEqual(term1.DefaultLanguageLcid, 1030);
+
+            try
+            {
+                // cannot change termSet's default language because the
+                // value is being inherited from the parent
+                termSet.DefaultLanguageLcid = 1029;
+                Assert.Fail("Exception not thrown");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.GetType(), typeof(InvalidOperationException));
+            } 
+
+
+            termStore.DefaultLanguageLcid = 1031;
+
+            Assert.AreEqual(termStore.DefaultLanguageLcid, 1031);
+            Assert.AreEqual(termGroup.DefaultLanguageLcid, 1031);
+            Assert.AreEqual(termSet.DefaultLanguageLcid, 1031);
+            Assert.AreEqual(term0.DefaultLanguageLcid, 1031);
+            Assert.AreEqual(term1.DefaultLanguageLcid, 1031);
+
+            termSet.ParentItem = null;
+            termSet.DefaultLanguageLcid = 1032;
+
+            Assert.AreEqual(termStore.DefaultLanguageLcid, 1031);
+            Assert.AreEqual(termGroup.DefaultLanguageLcid, 1031);
+            Assert.AreEqual(termSet.DefaultLanguageLcid, 1032);
+            Assert.AreEqual(term0.DefaultLanguageLcid, 1032);
+            Assert.AreEqual(term1.DefaultLanguageLcid, 1032);
         }
     }
 }

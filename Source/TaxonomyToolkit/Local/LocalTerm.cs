@@ -132,14 +132,13 @@ namespace TaxonomyToolkit.Taxml
             Debug.Assert(this.TermKind == LocalTermKind.NormalTerm);
         }
 
-        public static LocalTerm CreateTerm(Guid id, string name,
-            int defaultLanguageLcid = LocalTermStore.EnglishLanguageLcid)
+        public static LocalTerm CreateTerm(Guid id, string name, int defaultLanguageLcid)
         {
             return new LocalTerm(id, name, defaultLanguageLcid);
         }
 
-        private LocalTerm(Guid id, string nameHint, bool isPinnedRoot)
-            : base(id)
+        private LocalTerm(Guid id, int defaultLanguageLcid, string nameHint, bool isPinnedRoot)
+            : base(id, defaultLanguageLcid)
         {
             ToolkitUtilities.ConfirmNotNull(nameHint, "nameHint");
 
@@ -153,20 +152,20 @@ namespace TaxonomyToolkit.Taxml
             this.IsPinnedRoot = isPinnedRoot;
         }
 
-        public static LocalTerm CreateTermLinkUsingId(Guid id, string nameHint = "", bool isPinnedRoot = false)
+        public static LocalTerm CreateTermLinkUsingId(Guid id, int defaultLanguageLcid, string nameHint = "", bool isPinnedRoot = false)
         {
-            return new LocalTerm(id, nameHint, isPinnedRoot);
+            return new LocalTerm(id, defaultLanguageLcid, nameHint, isPinnedRoot);
         }
 
         public static LocalTerm CreateTermLinkUsingId(LocalTerm sourceTerm, bool isPinnedRoot = false)
         {
             if (!sourceTerm.IsSourceTerm)
                 throw new InvalidOperationException("Cannot create a link to a term with IsSourceTerm=false");
-            return LocalTerm.CreateTermLinkUsingId(sourceTerm.Id, sourceTerm.Name, isPinnedRoot);
+            return LocalTerm.CreateTermLinkUsingId(sourceTerm.Id, sourceTerm.DefaultLanguageLcid, sourceTerm.Name, isPinnedRoot);
         }
 
-        private LocalTerm(string termLinkSourcePath, bool isPinnedRoot)
-            : base(Guid.Empty)
+        private LocalTerm(int defaultLanguageLcid, string termLinkSourcePath, bool isPinnedRoot)
+            : base(Guid.Empty, defaultLanguageLcid)
         {
             ToolkitUtilities.ConfirmNotNull(termLinkSourcePath, "termLinkSourcePath");
             this.sharedDataIfSourceTerm = null;
@@ -176,9 +175,9 @@ namespace TaxonomyToolkit.Taxml
             Debug.Assert(this.TermKind == LocalTermKind.TermLinkUsingPath);
         }
 
-        public static LocalTerm CreateTermLinkUsingPath(string termLinkSourcePath, bool isPinnedRoot = false)
+        public static LocalTerm CreateTermLinkUsingPath(int defaultLanguageLcid, string termLinkSourcePath, bool isPinnedRoot = false)
         {
-            return new LocalTerm(termLinkSourcePath, isPinnedRoot);
+            return new LocalTerm(defaultLanguageLcid, termLinkSourcePath, isPinnedRoot);
         }
 
         #endregion
@@ -368,8 +367,13 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        /// Returns the Name of the Term.
+        /// Gets or sets the name of this term in the term store's default language.
         /// </summary>
+        /// <remarks>
+        /// LocalTermStore has no analogue of the TermStore.WorkingLanguage property from the
+        /// Taxonomy API.  If you care about localization, consider using LocalTerm.GetNameWithDefault()
+        /// and LocalTerm.SetName() instead of LocalTerm.Name.
+        /// </remarks>
         public new string Name
         {
             get { return this.GetNameWithDefault(this.DefaultLanguageLcid); }

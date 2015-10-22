@@ -178,5 +178,10 @@ namespace TaxonomyToolkit.Sync
                 this.localObject.IncompleteChildItems = false;
             }
         }
+
+        protected int TermStoreDefaltLanguageLcid
+        {
+            get { return this.DownloaderContext.TermStoreDownloader.LocalTermStore.DefaultLanguageLcid; }
+        }
     }
 }

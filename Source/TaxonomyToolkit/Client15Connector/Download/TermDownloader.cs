@@ -82,12 +82,13 @@ namespace TaxonomyToolkit.Sync
                 LocalTerm term;
                 if (this.ClientTerm.IsSourceTerm)
                 {
-                    term = LocalTerm.CreateTerm(this.ClientTerm.Id, this.ClientTerm.Name);
+                    term = LocalTerm.CreateTerm(this.ClientTerm.Id, this.ClientTerm.Name, 
+                        this.TermStoreDefaltLanguageLcid);
                 }
                 else
                 {
-                    term = LocalTerm.CreateTermLinkUsingId(this.ClientTerm.Id, this.ClientTerm.Name,
-                        isPinnedRoot: this.ClientTerm.IsPinnedRoot);
+                    term = LocalTerm.CreateTermLinkUsingId(this.ClientTerm.Id, this.TermStoreDefaltLanguageLcid,
+                        this.ClientTerm.Name, isPinnedRoot: this.ClientTerm.IsPinnedRoot);
                 }
                 term.IncompleteObject = true;
                 term.IncompleteChildItems = true;

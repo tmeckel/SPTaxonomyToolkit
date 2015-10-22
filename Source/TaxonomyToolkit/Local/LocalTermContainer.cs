@@ -41,11 +41,6 @@ namespace TaxonomyToolkit.Taxml
         private bool isAvailableForTagging = true;
         private CustomSortOrder customSortOrder = new CustomSortOrder();
 
-        internal LocalTermContainer(Guid id)
-            : base(id)
-        {
-        }
-
         internal LocalTermContainer(Guid id, int defaultLanguageLcid)
             : base(id, defaultLanguageLcid)
         {
@@ -85,14 +80,14 @@ namespace TaxonomyToolkit.Taxml
             return this.AddChildItem<LocalTerm>(child);
         }
 
-        public LocalTerm AddTerm(Guid id, string name, int defaultLanguageLcid = LocalTermStore.EnglishLanguageLcid)
+        public LocalTerm AddTerm(Guid id, string name)
         {
-            return this.AddTerm(LocalTerm.CreateTerm(id, name, defaultLanguageLcid));
+            return this.AddTerm(LocalTerm.CreateTerm(id, name, this.DefaultLanguageLcid));
         }
 
-        public LocalTerm AddTermLinkUsingId(Guid id, string nameHint, bool isPinnedRoot = false)
+        public LocalTerm AddTermLinkUsingId(Guid id, string nameHint = "", bool isPinnedRoot = false)
         {
-            return this.AddTerm(LocalTerm.CreateTermLinkUsingId(id, nameHint, isPinnedRoot));
+            return this.AddTerm(LocalTerm.CreateTermLinkUsingId(id, this.DefaultLanguageLcid, nameHint, isPinnedRoot));
         }
 
         public LocalTerm AddTermLinkUsingId(LocalTerm sourceTerm, bool isPinnedRoot = false)
@@ -102,7 +97,7 @@ namespace TaxonomyToolkit.Taxml
 
         public LocalTerm AddTermLinkUsingPath(string termLinkSourcePath, bool isPinnedRoot = false)
         {
-            var reusedTerm = LocalTerm.CreateTermLinkUsingPath(termLinkSourcePath, isPinnedRoot);
+            var reusedTerm = LocalTerm.CreateTermLinkUsingPath(this.DefaultLanguageLcid, termLinkSourcePath, isPinnedRoot);
             reusedTerm.TermLinkSourcePath = termLinkSourcePath;
             return this.AddTerm(reusedTerm);
         }

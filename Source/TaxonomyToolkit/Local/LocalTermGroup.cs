@@ -42,8 +42,8 @@ namespace TaxonomyToolkit.Taxml
         private string name = "";
         private string description = "";
 
-        public LocalTermGroup(Guid id, string name)
-            : base(id)
+        public LocalTermGroup(Guid id, string name, int defaultLanguageLcid)
+            : base(id, defaultLanguageLcid)
         {
             this.Name = name;
         }
@@ -125,7 +125,7 @@ namespace TaxonomyToolkit.Taxml
 
         public LocalTermSet AddTermSet(Guid id, string name)
         {
-            return this.AddTermSet(new LocalTermSet(id, name));
+            return this.AddTermSet(new LocalTermSet(id, name, this.DefaultLanguageLcid));
         }
 
         public void RemoveTermSet(LocalTermSet child)

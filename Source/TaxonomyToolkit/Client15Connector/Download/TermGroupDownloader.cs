@@ -71,7 +71,8 @@ namespace TaxonomyToolkit.Sync
         {
             if (this.LocalTermGroup == null)
             {
-                var termGroup = new LocalTermGroup(this.ClientTermGroup.Id, this.ClientTermGroup.Name);
+                var termGroup = new LocalTermGroup(this.ClientTermGroup.Id, this.ClientTermGroup.Name,
+                    this.TermStoreDefaltLanguageLcid);
                 termGroup.IncompleteObject = true;
                 termGroup.IncompleteChildItems = true;
                 this.SetLocalObject(termGroup);

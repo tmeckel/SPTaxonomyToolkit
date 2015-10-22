@@ -158,7 +158,7 @@ namespace TaxonomyToolkit.Taxml
 
             Guid id = this.GetGuidAttributeValue(xmlNode, TaxmlSpec.IdToken) ?? Guid.Empty;
 
-            LocalTermGroup termGroup = new LocalTermGroup(id, name);
+            LocalTermGroup termGroup = new LocalTermGroup(id, name, termStore.DefaultLanguageLcid);
             this.ReadTaxmlComments(xmlNode, termGroup);
 
             string description = this.GetAttributeValue(xmlNode, TaxmlSpec.DescriptionToken);
@@ -238,7 +238,7 @@ namespace TaxonomyToolkit.Taxml
             if (id == null)
                 id = Guid.NewGuid();
 
-            LocalTermSet termSet = new LocalTermSet(id, name);
+            LocalTermSet termSet = new LocalTermSet(id, name, termGroup.DefaultLanguageLcid);
             this.ReadTaxmlComments(xmlNode, termSet);
 
             bool? isAvailableForTaggning = this.GetBooleanAttributeValue(xmlNode, TaxmlSpec.IsAvailableForTaggingToken);
@@ -345,17 +345,17 @@ namespace TaxonomyToolkit.Taxml
 
                 if (termLinkSourcePath.Length > 0)
                 {
-                    term = LocalTerm.CreateTermLinkUsingPath(termLinkSourcePath);
+                    term = LocalTerm.CreateTermLinkUsingPath(parentTermContainer.DefaultLanguageLcid, termLinkSourcePath);
                 }
                 else
                 {
-                    term = LocalTerm.CreateTermLinkUsingId(id, nameHint);
+                    term = LocalTerm.CreateTermLinkUsingId(id, parentTermContainer.DefaultLanguageLcid, nameHint);
                 }
             }
             else
             {
                 string name = this.GetRequiredAttributeValue(xmlNode, TaxmlSpec.NameToken);
-                term = LocalTerm.CreateTerm(id, name);
+                term = LocalTerm.CreateTerm(id, name, parentTermContainer.DefaultLanguageLcid);
             }
 
             this.ReadTaxmlComments(xmlNode, term);

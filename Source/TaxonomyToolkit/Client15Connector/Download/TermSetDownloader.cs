@@ -71,7 +71,8 @@ namespace TaxonomyToolkit.Sync
         {
             if (this.LocalTermSet == null)
             {
-                var termSet = new LocalTermSet(this.ClientTermSet.Id, this.ClientTermSet.Name);
+                var termSet = new LocalTermSet(this.ClientTermSet.Id, this.ClientTermSet.Name,
+                    this.TermStoreDefaltLanguageLcid);
                 termSet.IncompleteObject = true;
                 termSet.IncompleteChildItems = true;
                 this.SetLocalObject(termSet);
