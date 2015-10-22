@@ -224,6 +224,12 @@ namespace TaxonomyToolkit.Sync
                     }
                     else
                     {
+                        if (uploadersInBatch == 0)
+                        {
+                            if (this.ClientConnector.ClientContext.HasPendingRequest)
+                                throw new InvalidOperationException("Program Bug: UploadController started a query that was never executed");
+                        }
+
                         // If the uploader didn't issue a query, then move it to the blocked list
                         this.blockedUploaders.Add(uploader);
                     }
@@ -256,6 +262,9 @@ namespace TaxonomyToolkit.Sync
 
             if (this.blockedUploaders.Count > 0)
                 throw new InvalidOperationException("Program Bug: UploadController is deadlocked");
+
+            if (this.ClientConnector.ClientContext.HasPendingRequest)
+                throw new InvalidOperationException("Program Bug: UploadController started a query that was never executed");
         }
 
         internal void NotifyUploaderUnblocked(TaxonomyItemUploader uploader)
