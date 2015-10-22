@@ -118,6 +118,8 @@ namespace TaxonomyToolkit.Taxml
             XElement termStoreElement = new XElement(TaxmlSpec.TermStoreToken);
             rootElement.Add(termStoreElement);
 
+            termStoreElement.SetAttributeValue(TaxmlSpec.DefaultLanguageToken, termStore.DefaultLanguageLcid);
+
             this.ProcessTaxmlComments(termStoreElement, termStore);
             this.ProcessSyncActionElement(termStore, termStoreElement);
 

@@ -127,6 +127,16 @@ namespace TaxonomyToolkit.Taxml
         {
             this.ReadTaxmlComments(xmlNode, termStore);
 
+            int? defaultLanguge = GetIntegerAttributeValue(xmlNode, TaxmlSpec.DefaultLanguageToken);
+            if (defaultLanguge != null)
+            {
+                termStore.DefaultLanguageLcid = defaultLanguge.Value;
+            }
+            else
+            {
+                termStore.DefaultLanguageLcid = LocalTermStore.EnglishLanguageLcid;
+            }
+
             // Stage 1: Create everything that can be immediately created
             foreach (XElement childNode in xmlNode.Elements())
             {

@@ -46,9 +46,10 @@ namespace TaxonomyToolkit.Taxml
         {
             public static Version V2_0 = new Version(2, 0, 0, 0);
             public static Version V2_1 = new Version(2, 1, 0, 0);
+            public static Version V2_2 = new Version(2, 2, 0, 0);
 
             // This should match the version number in TaxmlFile.xsd.
-            public static Version Current = Versions.V2_1;
+            public static Version Current = Versions.V2_2;
             public static Version OldestLoadable = Versions.V2_0;
         }
 
@@ -71,6 +72,7 @@ namespace TaxonomyToolkit.Taxml
         // Attributes
         public const string ContactToken = "Contact";
         public const string DeleteExtraChildItemsToken = "DeleteExtraChildItems";
+        public const string DefaultLanguageToken = "DefaultLanguage";
         public const string DescriptionToken = "Description";
         public const string IdToken = "Id";
         public const string IfElsewhereToken = "IfElsewhere";

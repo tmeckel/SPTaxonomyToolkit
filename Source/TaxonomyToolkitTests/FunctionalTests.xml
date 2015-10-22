@@ -26,8 +26,8 @@
     <TestDataSection name="DownloadAllProperties">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 3]" Contact="[user 2]">
@@ -94,8 +94,8 @@
     <TestDataSection name="DownloadWithCsomTrace">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 1]">
@@ -463,7 +463,7 @@
     <TestDataSection name="UploadAllProperties">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="InitialInput">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
@@ -530,8 +530,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="InitialOutput">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" IsAvailableForTagging="false" IsOpenForTermCreation="true" Owner="[user 2]" Contact="[user 3]">
@@ -596,7 +596,7 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="ModifiedInput">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="# TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description># Description for TestGroup1</Description>
@@ -663,8 +663,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="ModifiedOutput">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="# TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description># Description for TestGroup1</Description>
                         <TermSet Name="# TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 3]" Contact="[user 4]">
@@ -731,7 +731,7 @@
     <TestDataSection name="CreateAndUpdateByName">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="InitialInput">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <!-- NOTE: We can't omit the group ID here because the test cleanup relies on it. -->
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
@@ -757,8 +757,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="InitialOutput">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
                         <TermSet Name="TermSetA" Id="{dddddddd-0000-0000-0000-000000000001}" Owner="[user 2]">
@@ -782,7 +782,7 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="ModifiedInput">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1">
                         <Description>Description for TestGroup1 MODIFIED</Description>
@@ -807,8 +807,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="ModifiedOutput">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1 MODIFIED</Description>
                         <TermSet Name="TermSetA" Id="{dddddddd-0000-0000-0000-000000000001}" Owner="[user 2]">
@@ -834,7 +834,7 @@
     <TestDataSection name="ReassignSourceTerm">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Start">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}">
@@ -851,7 +851,7 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <SyncAction IfMissing="Error" IfPresent="Update" IfElsewhere="Error" DeleteExtraChildItems="false" />
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
@@ -869,8 +869,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}">
                             <TermLink NameHint="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" />
@@ -888,7 +888,7 @@
     <TestDataSection name="UploadBatchingTest">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
@@ -916,8 +916,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
                             <Term Name="TermA1" Id="{ffffffff-ffff-0001-000a-100000000000}" Owner="[user 2]" />
@@ -946,7 +946,7 @@
     <TestDataSection name="UploadWithTermLinkSourcePath">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Start">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
@@ -973,7 +973,7 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <SyncAction IfMissing="Create" IfPresent="OnlyUpdateChildItems" IfElsewhere="Error" DeleteExtraChildItems="false" />
                     <!-- NOTE: We can't omit the group ID here because the test cleanup relies on it. -->
@@ -1004,8 +1004,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup1" Id="{ffffffff-ffff-0001-0000-000000000000}">
                         <Description>Description for TestGroup1</Description>
                         <TermSet Name="TermSetA" Id="{ffffffff-ffff-0001-000a-000000000000}" Owner="[user 2]">
@@ -1047,7 +1047,7 @@
     <TestDataSection name="UploadWithTermLinkSourcePath_NotFoundError">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <TermStore>
                     <TermSetGroup Name="TaxonomyToolkit - TestGroup3" Id="{ffffffff-ffff-0003-0000-000000000000}">
                         <TermSet Name="TermSetD" Id="{ffffffff-ffff-0003-000d-000000000000}" Owner="[user 2]">

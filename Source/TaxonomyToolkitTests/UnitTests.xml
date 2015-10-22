@@ -26,9 +26,9 @@
     <TestDataSection name="TaxmlRoundtripSyntax">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="InputAndOutput">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <!-- CustomSortOrder is handled by a separate test -->
-                <TermStore>
+                <TermStore DefaultLanguage="1033">
                     <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
                     <!-- TODO: Group.Managers and Group.Contributors are not yet supported -->
                     <TermSetGroup Name="Group A">
@@ -69,10 +69,10 @@
         <TestDataItem name="Input">
             <!-- comment 1 before TaxmlFile -->
             <!-- comment 2 before TaxmlFile -->
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <!-- comment 3 before TermStore -->
                 <!-- comment 4 before TermStore -->
-                <TermStore>
+                <TermStore DefaultLanguage="1033">
                     <!-- comment 5 before Comment Group -->
                     <!-- comment 6 before Comment Group -->
                     <TermSetGroup Name="Comment Group">
@@ -102,10 +102,10 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
+            <TaxmlFile Version="2.2.0.0">
                 <!-- comment 3 before TermStore -->
                 <!-- comment 4 before TermStore -->
-                <TermStore>
+                <TermStore DefaultLanguage="1033">
                     <!-- comment 5 before Comment Group -->
                     <!-- comment 6 before Comment Group -->
                     <TermSetGroup Name="Comment Group">
@@ -127,8 +127,8 @@
     <TestDataSection name="SyncActionEnums">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="IfMissing 1">
                         <SyncAction IfMissing="Create" />
                     </TermSetGroup>
@@ -170,8 +170,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="IfMissing 1">
                         <SyncAction IfMissing="Create" IfPresent="Error" IfElsewhere="Error" DeleteExtraChildItems="false" />
                     </TermSetGroup>
@@ -215,8 +215,8 @@
     <TestDataSection name="CreateObjectsWithoutId">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="ExpectedOutput">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Test Group">
                         <TermSet Name="Test TermSet">
                             <Term Name="Test Term" />
@@ -230,8 +230,8 @@
     <TestDataSection name="CreateObjectsWithId">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="ExpectedOutput">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Test Group" Id="{11111111-2222-3333-4444-000000000002}">
                         <TermSet Name="Test TermSet" Id="{11111111-2222-3333-4444-000000000003}">
                             <Term Name="Test Term" Id="{11111111-2222-3333-4444-000000000004}" />
@@ -245,8 +245,8 @@
     <TestDataSection name="CustomSortOrderNormalization">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Group">
                         <TermSet Name="Will Change To Use InOrder">
                             <CustomSortOrder>
@@ -304,8 +304,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Group">
                         <TermSet Name="Will Change To Use InOrder">
                             <Term Name="Three" Id="{11111111-2222-3333-4444-000000000003}" InOrder="true" />
@@ -357,8 +357,8 @@
     <TestDataSection name="TaxonomyNameNormalization">
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Input">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Amp=&amp; WideAmp=＆ Quote=&quot; WideQuote=＂">
                         <TermSet Name="Amp=&amp;">
                             <Description>Not Normalized: Amp=&amp;</Description>
@@ -375,8 +375,8 @@
             </TaxmlFile>
         </TestDataItem>
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Amp=＆ WideAmp=＆ Quote=＂ WideQuote=＂">
                         <TermSet Name="Amp=＆">
                             <Description>Not Normalized: Amp=&amp;</Description>
@@ -405,8 +405,8 @@
         </TestDataItem>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
         <TestDataItem name="Output">
-            <TaxmlFile Version="2.1.0.0">
-                <TermStore>
+            <TaxmlFile Version="2.2.0.0">
+                <TermStore DefaultLanguage="1033">
                     <TermSetGroup Name="Example Group">
                         <TermSet Name="Example Term Set" />
                     </TermSetGroup>
