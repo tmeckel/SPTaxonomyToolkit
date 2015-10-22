@@ -45,20 +45,26 @@ namespace TaxonomyToolkit.Sync
             }
         }
 
+        /// <remarks>
+        /// This method is sometimes called inside a CSOM execution scope, so it
+        /// has to use SetUnmanagedWorkingLanguageForTermStore().  The caller must 
+        /// set up an unmanaged scope using WorkingLanguageManager.StartUnmanagedScope().
+        /// </remarks>
         public static List<TermSetLocalizedNameQuery> Load(TermSet clientTermSet,
             IEnumerable<int> lcidsToRead, int defaultLcid,
-            TermStore clientTermStore, ClientRuntimeContext clientContext)
+            TermStore clientTermStore, Client15Connector clientConnector)
         {
+            var clientContext = clientConnector.ClientContext;
+
             var list = new List<TermSetLocalizedNameQuery>();
 
-            bool changedWorkingLanguage = false;
             foreach (int lcid in lcidsToRead)
             {
                 if (lcid == defaultLcid)
                     continue; // we already read this as clientTermSet.Name
 
-                clientTermStore.WorkingLanguage = lcid;
-                changedWorkingLanguage = true;
+                clientConnector.WorkingLanguageManager
+                    .SetUnmanagedWorkingLanguageForTermStore(clientTermStore, lcid);
 
                 var localizedNameQuery = new TermSetLocalizedNameQuery();
                 // Since we want to read just one property, which is a property that we already
@@ -73,9 +79,6 @@ namespace TaxonomyToolkit.Sync
 
                 list.Add(localizedNameQuery);
             }
-
-            if (changedWorkingLanguage)
-                clientTermStore.WorkingLanguage = defaultLcid;
 
             return list;
         }

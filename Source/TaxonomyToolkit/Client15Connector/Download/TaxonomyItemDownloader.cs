@@ -128,30 +128,11 @@ namespace TaxonomyToolkit.Sync
         protected abstract void QueryChildObjects();
         protected abstract void AssignChildObjects();
 
-        protected void VerifyWorkingLanguage()
-        {
-            var clientTermStore = this.DownloaderContext.TermStoreDownloader.ClientObject;
-            if (clientTermStore.IsPropertyAvailable("DefaultLanguage"))
-            {
-                int defaultLcid = clientTermStore.DefaultLanguage;
-
-                if (clientTermStore.WorkingLanguage != defaultLcid)
-                {
-                    throw new InvalidOperationException(
-                        "The TermStore.WorkingLanguage was not left in the default state");
-                }
-            }
-        }
-
         public void FetchItem()
         {
-            this.VerifyWorkingLanguage();
-
             this.QueryMinimalProperties();
-            this.VerifyWorkingLanguage();
 
             this.QueryExtendedProperties();
-            this.VerifyWorkingLanguage();
 
             if (this.ShouldRecurse)
             {
@@ -182,6 +163,14 @@ namespace TaxonomyToolkit.Sync
         protected int TermStoreDefaltLanguageLcid
         {
             get { return this.DownloaderContext.TermStoreDownloader.LocalTermStore.DefaultLanguageLcid; }
+        }
+
+        protected void SetClientWorkingLanguageToDefault()
+        {
+            var clientTermStore = this.DownloaderContext.TermStoreDownloader.ClientTermStore;
+
+            this.ClientConnector.WorkingLanguageManager
+                .SetWorkingLanguageForTermStore(clientTermStore, this.TermStoreDefaltLanguageLcid);
         }
     }
 }

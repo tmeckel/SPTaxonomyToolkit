@@ -149,9 +149,19 @@
                                         <Property Name="Name" ScalarProperty="true" />
                                         <Property Name="Id" ScalarProperty="true" />
                                         <Property Name="IsOnline" ScalarProperty="true" />
+                                        <Property Name="DefaultLanguage" ScalarProperty="true" />
+                                    </Properties>
+                                </Query>
+                            </Query>
+                            <SetProperty Id="1021" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1033</Parameter>
+                            </SetProperty>
+                            <Query Id="1022" ObjectPathId="1010">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="WorkingLanguage" ScalarProperty="true" />
                                         <Property Name="Languages" ScalarProperty="true" />
                                         <Property Name="DefaultLanguage" ScalarProperty="true" />
-                                        <Property Name="WorkingLanguage" ScalarProperty="true" />
                                         <Property Name="SystemGroup">
                                             <Query SelectAllProperties="false">
                                                 <Properties>
@@ -237,7 +247,7 @@
                 <Request Number="2">
                     <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
                         <Actions>
-                            <Query Id="1035" ObjectPathId="1034">
+                            <Query Id="1038" ObjectPathId="1037">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -245,6 +255,19 @@
                                         <Property Name="IsSiteCollectionGroup" ScalarProperty="true" />
                                         <Property Name="IsSystemGroup" ScalarProperty="true" />
                                         <Property Name="Description" ScalarProperty="true" />
+                                    </Properties>
+                                </Query>
+                            </Query>
+                            <SetProperty Id="1039" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1033</Parameter>
+                            </SetProperty>
+                            <Query Id="1040" ObjectPathId="1037">
+                                <Query SelectAllProperties="false">
+                                    <Properties>
+                                        <Property Name="Id" ScalarProperty="true" />
+                                        <Property Name="Name" ScalarProperty="true" />
+                                        <Property Name="IsSiteCollectionGroup" ScalarProperty="true" />
+                                        <Property Name="IsSystemGroup" ScalarProperty="true" />
                                         <Property Name="TermSets">
                                             <Query SelectAllProperties="false">
                                                 <Properties />
@@ -261,14 +284,18 @@
                             </Query>
                         </Actions>
                         <ObjectPaths>
-                            <Identity Id="1034" Name="[type=gr, guids=[term store], ffffffff-ffff-0001-0000-000000000000]" />
+                            <Identity Id="1037" Name="[type=gr, guids=[term store], ffffffff-ffff-0001-0000-000000000000]" />
+                            <Identity Id="1010" Name="[type=st, guids=[term store]]" />
                         </ObjectPaths>
                     </Request>
                 </Request>
                 <Request Number="3">
                     <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
                         <Actions>
-                            <Query Id="1041" ObjectPathId="1040">
+                            <SetProperty Id="1047" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1033</Parameter>
+                            </SetProperty>
+                            <Query Id="1048" ObjectPathId="1046">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -284,20 +311,20 @@
                                     </Properties>
                                 </Query>
                             </Query>
-                            <SetProperty Id="1042" ObjectPathId="1010" Name="WorkingLanguage">
+                            <SetProperty Id="1049" ObjectPathId="1010" Name="WorkingLanguage">
                                 <Parameter Type="Int32">1036</Parameter>
                             </SetProperty>
-                            <Query Id="1043" ObjectPathId="1040">
+                            <Query Id="1050" ObjectPathId="1046">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Name" ScalarProperty="true" />
                                     </Properties>
                                 </Query>
                             </Query>
-                            <SetProperty Id="1044" ObjectPathId="1010" Name="WorkingLanguage">
+                            <SetProperty Id="1051" ObjectPathId="1010" Name="WorkingLanguage">
                                 <Parameter Type="Int32">1033</Parameter>
                             </SetProperty>
-                            <Query Id="1045" ObjectPathId="1040">
+                            <Query Id="1052" ObjectPathId="1046">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -320,15 +347,18 @@
                             </Query>
                         </Actions>
                         <ObjectPaths>
-                            <Identity Id="1040" Name="[type=se, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000]" />
                             <Identity Id="1010" Name="[type=st, guids=[term store]]" />
+                            <Identity Id="1046" Name="[type=se, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000]" />
                         </ObjectPaths>
                     </Request>
                 </Request>
                 <Request Number="4">
                     <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
                         <Actions>
-                            <Query Id="1053" ObjectPathId="1052">
+                            <SetProperty Id="1060" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1033</Parameter>
+                            </SetProperty>
+                            <Query Id="1061" ObjectPathId="1059">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -357,12 +387,12 @@
                                     </Properties>
                                 </Query>
                             </Query>
-                            <Method Name="GetDescription" Id="1056" ObjectPathId="1052">
+                            <Method Name="GetDescription" Id="1064" ObjectPathId="1059">
                                 <Parameters>
                                     <Parameter Type="Int32">1036</Parameter>
                                 </Parameters>
                             </Method>
-                            <Query Id="1057" ObjectPathId="1052">
+                            <Query Id="1065" ObjectPathId="1059">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -387,14 +417,18 @@
                             </Query>
                         </Actions>
                         <ObjectPaths>
-                            <Identity Id="1052" Name="[type=te, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000, ffffffff-ffff-0001-000a-100000000000]" />
+                            <Identity Id="1010" Name="[type=st, guids=[term store]]" />
+                            <Identity Id="1059" Name="[type=te, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000, ffffffff-ffff-0001-000a-100000000000]" />
                         </ObjectPaths>
                     </Request>
                 </Request>
                 <Request Number="5">
                     <Request AddExpandoFieldTypeSuffix="true" SchemaVersion="15.0.0.0" LibraryVersion="15.0.0.0" ApplicationName=".NET Library" xmlns="http://schemas.microsoft.com/sharepoint/clientquery/2009">
                         <Actions>
-                            <Query Id="1068" ObjectPathId="1067">
+                            <SetProperty Id="1076" ObjectPathId="1010" Name="WorkingLanguage">
+                                <Parameter Type="Int32">1033</Parameter>
+                            </SetProperty>
+                            <Query Id="1077" ObjectPathId="1075">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -423,12 +457,12 @@
                                     </Properties>
                                 </Query>
                             </Query>
-                            <Method Name="GetDescription" Id="1071" ObjectPathId="1067">
+                            <Method Name="GetDescription" Id="1080" ObjectPathId="1075">
                                 <Parameters>
                                     <Parameter Type="Int32">1036</Parameter>
                                 </Parameters>
                             </Method>
-                            <Query Id="1072" ObjectPathId="1067">
+                            <Query Id="1081" ObjectPathId="1075">
                                 <Query SelectAllProperties="false">
                                     <Properties>
                                         <Property Name="Id" ScalarProperty="true" />
@@ -453,7 +487,8 @@
                             </Query>
                         </Actions>
                         <ObjectPaths>
-                            <Identity Id="1067" Name="[type=te, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000, ffffffff-ffff-0001-000a-110000000000]" />
+                            <Identity Id="1010" Name="[type=st, guids=[term store]]" />
+                            <Identity Id="1075" Name="[type=te, guids=[term store], ffffffff-ffff-0001-0000-000000000000, ffffffff-ffff-0001-000a-000000000000, ffffffff-ffff-0001-000a-110000000000]" />
                         </ObjectPaths>
                     </Request>
                 </Request>

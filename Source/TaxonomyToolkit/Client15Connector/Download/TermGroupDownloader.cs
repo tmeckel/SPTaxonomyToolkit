@@ -96,6 +96,7 @@ namespace TaxonomyToolkit.Sync
 
         protected override void QueryChildObjects() // abstract
         {
+            this.SetClientWorkingLanguageToDefault();
             var childRetrievals = TermSetDownloader.GetRetrievalsForMinimalProperties();
             this.ClientContext.Load(this.ClientTermGroup, group => group.TermSets.Include(childRetrievals));
         }

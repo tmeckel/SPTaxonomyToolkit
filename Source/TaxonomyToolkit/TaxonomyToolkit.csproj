@@ -74,6 +74,7 @@
     <Compile Include="Client15Connector\Upload\TermSetUploader.cs" />
     <Compile Include="Client15Connector\Upload\TermUploader.cs" />
     <Compile Include="Client15Connector\Upload\UploadController.cs" />
+    <Compile Include="Client15Connector\WorkingLanguageManager.cs" />
     <Compile Include="General\CastedList.cs" />
     <Compile Include="General\ParseException.cs" />
     <Compile Include="General\PriorityQueue.cs" />

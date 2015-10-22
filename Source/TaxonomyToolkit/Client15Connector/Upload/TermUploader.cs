@@ -158,6 +158,8 @@ namespace TaxonomyToolkit.Sync
 
                 CsomHelpers.FlushCachedProperties(parentUploader.ClientTermContainer.Terms);
 
+                this.SetClientWorkingLanguageToDefault();
+
                 this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
                 using (this.exceptionHandlingScope.StartScope())
                 {
@@ -204,6 +206,8 @@ namespace TaxonomyToolkit.Sync
             {
                 Debug.Assert(this.localTerm.TermKind == LocalTermKind.NormalTerm
                     || this.localTerm.TermKind == LocalTermKind.TermLinkUsingId);
+
+                this.SetClientWorkingLanguageToDefault();
 
                 // The term/link is considered "missing" unless it's somewhere in the intended term set,
                 // since otherwise it's ambiguous which instance should be moved/deleted/etc
@@ -343,6 +347,8 @@ namespace TaxonomyToolkit.Sync
 
                 if (this.termLinkSourcePathPartLookups.Any(x => !x.ItemIsInLocalTermStore))
                 {
+                    this.SetClientWorkingLanguageToDefault();
+
                     this.termLinkSourcePathExceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
                     using (this.termLinkSourcePathExceptionHandlingScope.StartScope())
                     {
@@ -438,6 +444,8 @@ namespace TaxonomyToolkit.Sync
 
         private bool OnProcessCreateNormalTerm()
         {
+            this.SetClientWorkingLanguageToDefault();
+
             this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
             using (this.exceptionHandlingScope.StartScope())
             {
@@ -473,6 +481,8 @@ namespace TaxonomyToolkit.Sync
             {
                 throw new InvalidOperationException("Source term not found for " + this.localTerm.ToString());
             }
+
+            this.SetClientWorkingLanguageToDefault();
 
             this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
             using (this.exceptionHandlingScope.StartScope())

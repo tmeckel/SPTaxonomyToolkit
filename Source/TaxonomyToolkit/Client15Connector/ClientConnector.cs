@@ -45,6 +45,8 @@ namespace TaxonomyToolkit.Sync
         private readonly ClientContext clientContext;
         private TaxonomySession taxonomySession;
 
+        private WorkingLanguageManager workingLanguageManager = new WorkingLanguageManager();
+
         private int executeQueryCount = 0;
 
         public Client15Connector(string webFullUrl)
@@ -67,6 +69,11 @@ namespace TaxonomyToolkit.Sync
         public ClientContext ClientContext
         {
             get { return this.clientContext; }
+        }
+
+        internal WorkingLanguageManager WorkingLanguageManager
+        {
+            get { return this.workingLanguageManager; }
         }
 
         /// <summary>
@@ -187,6 +194,8 @@ namespace TaxonomyToolkit.Sync
                 var args = new ExecutingQueryEventArgs(this.clientContext);
                 this.ExecutingQuery(this, args);
             }
+
+            this.workingLanguageManager.NotifyBeforeExecuteQuery();
 
             ++this.executeQueryCount;
             Debug.WriteLine("ExecuteQuery #" + this.executeQueryCount);

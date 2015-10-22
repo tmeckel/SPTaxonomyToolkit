@@ -89,61 +89,66 @@ namespace TaxonomyToolkit.Sync
             }
             Debug.Assert(groupUploader.ClientTermGroup != null);
 
-            this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
-            using (this.exceptionHandlingScope.StartScope())
+            this.SetClientWorkingLanguageToDefault();
+
+            using (this.Controller.ClientConnector.WorkingLanguageManager.StartUnmanagedScope(this.ClientTermStore))
             {
-                using (this.exceptionHandlingScope.StartTry())
+                this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
+                using (this.exceptionHandlingScope.StartScope())
                 {
-                    if (this.FindByName)
+                    using (this.exceptionHandlingScope.StartTry())
                     {
-                        CsomHelpers.FlushCachedProperties(groupUploader.ClientTermGroup.TermSets);
-                        this.clientTermSet = groupUploader.ClientTermGroup.TermSets
-                            .GetByName(this.localTermSet.Name);
-                    }
-                    else
-                    {
-                        // TODO: If "elsewhere" isn't needed, then we
-                        // can get this directly from groupUploader.ClientChildTermSets
-
-                        CsomHelpers.FlushCachedProperties(this.ClientTermStore);
-                        this.clientTermSet = this.ClientTermStore
-                            .GetTermSet(this.localTermSet.Id);
-                    }
-
-                    var conditionalScope = new ConditionalScope(this.ClientContext,
-                        () => this.clientTermSet.ServerObjectIsNull.Value,
-                        allowAllActions: true);
-
-                    using (conditionalScope.StartScope())
-                    {
-                        using (conditionalScope.StartIfFalse())
+                        if (this.FindByName)
                         {
-                            // TODO: If SyncAction.DeleteExtraChildItems==false, then we can skip this
-                            this.ClientContext.Load(this.clientTermSet,
-                                ts => ts.Id,
-                                ts => ts.Name,
-                                ts => ts.Group.Id,
+                            CsomHelpers.FlushCachedProperties(groupUploader.ClientTermGroup.TermSets);
+                            this.clientTermSet = groupUploader.ClientTermGroup.TermSets
+                                .GetByName(this.localTermSet.Name);
+                        }
+                        else
+                        {
+                            // TODO: If "elsewhere" isn't needed, then we
+                            // can get this directly from groupUploader.ClientChildTermSets
 
-                                ts => ts.CustomProperties,
-                                ts => ts.Stakeholders,
+                            CsomHelpers.FlushCachedProperties(this.ClientTermStore);
+                            this.clientTermSet = this.ClientTermStore
+                                .GetTermSet(this.localTermSet.Id);
+                        }
 
-                                // For AssignClientChildItems()
-                                // TODO: We can sometimes skip this
-                                ts => ts.Terms.Include(t => t.Id)
+                        var conditionalScope = new ConditionalScope(this.ClientContext,
+                            () => this.clientTermSet.ServerObjectIsNull.Value,
+                            allowAllActions: true);
+
+                        using (conditionalScope.StartScope())
+                        {
+                            using (conditionalScope.StartIfFalse())
+                            {
+                                // TODO: If SyncAction.DeleteExtraChildItems==false, then we can skip this
+                                this.ClientContext.Load(this.clientTermSet,
+                                    ts => ts.Id,
+                                    ts => ts.Name,
+                                    ts => ts.Group.Id,
+
+                                    ts => ts.CustomProperties,
+                                    ts => ts.Stakeholders,
+
+                                    // For AssignClientChildItems()
+                                    // TODO: We can sometimes skip this
+                                    ts => ts.Terms.Include(t => t.Id)
+                                    );
+
+                                this.localizedNameQueries = TermSetLocalizedNameQuery.Load(
+                                    this.clientTermSet,
+                                    this.Controller.ClientLcids,
+                                    this.Controller.DefaultLanguageLcid,
+                                    this.ClientTermStore,
+                                    this.Controller.ClientConnector
                                 );
-
-                            this.localizedNameQueries = TermSetLocalizedNameQuery.Load(
-                                this.clientTermSet,
-                                this.Controller.ClientLcids,
-                                this.Controller.DefaultLanguageLcid,
-                                this.ClientTermStore,
-                                this.ClientContext
-                                );
+                            }
                         }
                     }
-                }
-                using (this.exceptionHandlingScope.StartCatch())
-                {
+                    using (this.exceptionHandlingScope.StartCatch())
+                    {
+                    }
                 }
             }
             return true;
@@ -163,6 +168,9 @@ namespace TaxonomyToolkit.Sync
             Guid id = this.localTermSet.Id;
             if (id == Guid.Empty)
                 id = this.Controller.ClientConnector.GetNewGuid();
+
+            // This is needed since we query ts.Name below
+            this.SetClientWorkingLanguageToDefault();
 
             this.clientTermSet = groupUploader.ClientTermGroup.CreateTermSet(this.localTermSet.Name, id,
                 this.Controller.DefaultLanguageLcid);
@@ -213,6 +221,8 @@ namespace TaxonomyToolkit.Sync
 
         protected override bool OnProcessUpdateProperties()
         {
+            this.SetClientWorkingLanguageToDefault();
+
             // (localized names handled below)
             string nameWithDefaultLcid = this.localTermSet.Name;
             this.UpdateIfChanged(

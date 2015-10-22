@@ -70,8 +70,10 @@ namespace TaxonomyToolkit.Sync
         {
             this.clientTermGroup = null;
 
-            this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
+            // We need this in case g.TermSets.Include() pulls in the TermSet.Name
+            this.SetClientWorkingLanguageToDefault();
 
+            this.exceptionHandlingScope = new ExceptionHandlingScope(this.ClientContext);
             using (this.exceptionHandlingScope.StartScope())
             {
                 using (this.exceptionHandlingScope.StartTry())

@@ -64,6 +64,7 @@ namespace TaxonomyToolkit.Sync
 
         protected override void QueryMinimalProperties()
         {
+            this.SetClientWorkingLanguageToDefault();
             this.ClientContext.Load(this.ClientTermSet, TermSetDownloader.GetRetrievalsForMinimalProperties());
         }
 
@@ -89,6 +90,8 @@ namespace TaxonomyToolkit.Sync
 
             int defaultLcid = clientTermStore.DefaultLanguage;
 
+            this.SetClientWorkingLanguageToDefault();
+
             this.ClientContext.Load(this.ClientTermSet,
                 termSet => termSet.Contact,
                 termSet => termSet.CustomSortOrder,
@@ -99,11 +102,16 @@ namespace TaxonomyToolkit.Sync
                 termSet => termSet.CustomProperties,
                 termSet => termSet.Stakeholders);
 
-            this.localizedNameQueries = TermSetLocalizedNameQuery.Load(this.ClientTermSet,
-                this.DownloaderContext.GetLcidsToRead(),
-                defaultLcid,
-                clientTermStore,
-                this.ClientContext);
+            using (this.ClientConnector.WorkingLanguageManager.StartUnmanagedScope(clientTermStore))
+            {
+                this.localizedNameQueries = TermSetLocalizedNameQuery.Load(
+                    this.ClientTermSet,
+                    this.DownloaderContext.GetLcidsToRead(),
+                    defaultLcid,
+                    clientTermStore,
+                    this.ClientConnector
+                );
+            }
         }
 
         // These property assignments follow the same order as TermSetUploader.OnProcessAssignProperties()
@@ -143,6 +151,8 @@ namespace TaxonomyToolkit.Sync
 
         protected override void QueryChildObjects()
         {
+            this.SetClientWorkingLanguageToDefault();
+
             var childRetrievals = TermDownloader.GetRetrievalsForMinimalProperties();
             this.ClientContext.Load(this.ClientTermSet, termSet => termSet.Terms.Include(childRetrievals));
         }

@@ -401,6 +401,12 @@ namespace TaxonomyToolkit.Sync
             return scope;
         }
 
+        protected void SetClientWorkingLanguageToDefault()
+        {
+            this.Controller.ClientConnector.WorkingLanguageManager
+                .SetWorkingLanguageForTermStore(this.ClientTermStore, this.Controller.DefaultLanguageLcid);
+        }
+
         public override string ToString()
         {
             if (this.LocalTaxonomyItem != null)

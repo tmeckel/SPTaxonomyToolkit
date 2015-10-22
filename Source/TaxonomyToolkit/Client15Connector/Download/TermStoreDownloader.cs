@@ -58,7 +58,8 @@ namespace TaxonomyToolkit.Sync
             {
                 termStore => termStore.Name,
                 termStore => termStore.Id,
-                termStore => termStore.IsOnline
+                termStore => termStore.IsOnline,
+                termStore => termStore.DefaultLanguage
             };
         }
 
@@ -81,14 +82,17 @@ namespace TaxonomyToolkit.Sync
             {
                 this.LocalTermStore.Name = this.ClientTermStore.Name;
             }
+
+            this.LocalTermStore.DefaultLanguageLcid = this.ClientTermStore.DefaultLanguage;
         }
 
         protected override void QueryExtendedProperties() // abstract
         {
+            this.SetClientWorkingLanguageToDefault();
+
             this.ClientContext.Load(this.ClientTermStore,
                 termStore => termStore.Languages,
-                termStore => termStore.DefaultLanguage,
-                termStore => termStore.WorkingLanguage,
+                termStore => termStore.DefaultLanguage,            // (rechecking this)
 
                 termStore => termStore.SystemGroup.Id,
                 termStore => termStore.SystemGroup.Name,
@@ -108,13 +112,19 @@ namespace TaxonomyToolkit.Sync
             if (!this.ClientTermStore.IsOnline)
                 throw new Exception("TermStore is offline");
 
+            if (this.ClientTermStore.DefaultLanguage != this.LocalTermStore.DefaultLanguageLcid)
+            {
+                // This would happen if the server's default language was changed during syncing,
+                // however more likely it indicates that the client code has tampered with
+                // LocalTermStore.DefaultLanguageLcid
+                throw new Exception("The term store's default language appears to have changed");
+            }
+
             this.LocalTermStore.SetAvailableLanguageLcids(this.ClientTermStore.Languages);
 
             // By default we read every language in the term store,
             // but this could be configurable.
             this.DownloaderContext.SetLcidsToRead(this.ClientTermStore.Languages);
-
-            this.LocalTermStore.DefaultLanguageLcid = this.ClientTermStore.DefaultLanguage;
         }
 
         protected override void QueryChildObjects() // abstract

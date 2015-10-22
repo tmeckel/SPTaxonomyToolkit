@@ -72,6 +72,7 @@ namespace TaxonomyToolkit.Sync
 
         protected override void QueryMinimalProperties()
         {
+            this.SetClientWorkingLanguageToDefault();
             this.ClientContext.Load(this.ClientTerm, TermDownloader.GetRetrievalsForMinimalProperties());
         }
 
@@ -124,6 +125,8 @@ namespace TaxonomyToolkit.Sync
 
             if (this.LocalTerm.TermKind == LocalTermKind.NormalTerm)
             {
+                this.SetClientWorkingLanguageToDefault();
+
                 this.ClientContext.Load(this.ClientTerm,
                     term => term.IsDeprecated,
                     term => term.Owner,
@@ -198,6 +201,7 @@ namespace TaxonomyToolkit.Sync
 
         protected override void QueryChildObjects()
         {
+            this.SetClientWorkingLanguageToDefault();
             var childRetrievals = TermDownloader.GetRetrievalsForMinimalProperties();
             this.ClientContext.Load(this.ClientTerm,
                 termSet => termSet.Terms.Include(childRetrievals)
