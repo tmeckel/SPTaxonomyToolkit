@@ -26,9 +26,11 @@ System Requirements
 
 - The remote server must be running SharePoint Server 2013 Enterprise or newer
 
+- Both on-prem and Office365 cloud-hosted sites are supported 
+
 - The Managed Metadata Service must be enabled on the server
 
-- The Client-Side Object Model (CSOM) service must be enabled on the server
+- The Client-Side Object Model (CSOM) service must be accessible on the server
 
 
 Quick Start
@@ -41,35 +43,63 @@ Quick Start
 3.  Check the $PSVersionTable variable to confirm that PSVersion is at least 3.0
     and CLRVersion is at least 4.0. If not, install the free upgrade from here:
 
-    Windows Management Framework 3.0
+    Microsoft .NET Framework 4.5 - install first if CLRVersion is less than 4.0
+    http://www.microsoft.com/en-us/download/details.aspx?id=30653
+    
+    Windows Management Framework 3.0 - install if PSVersion is less than 3.0
     http://www.microsoft.com/en-us/download/details.aspx?id=34595
+    
+4.  In some configurations, Windows does not trust DLL files that were downloaded
+    from the internet, which causes PowerShell to report a "FileLoadException"
+    when it tries to load the TaxonomyToolkit module. To override this policy,
+    you can use the Unblock-File command (substituting the folder location
+    from step 1):
+    
+    Unblock-File C:\TaxonomyToolkit\TaxonomyToolkit.PowerShell.dll
+    
+    NOTE: You must close and reopen your PowerShell console after executing
+    the Unblock-File command.
 
-4.  To enable the TaxonomyToolkit commands, execute this command (substituting
+5.  To enable the TaxonomyToolkit commands, execute this command (substituting
     the folder location from step 1):
 
     Import-Module C:\TaxonomyToolkit\TaxonomyToolkit.PowerShell.psd1
 
-5.  To see instructions for the cmdlets, execute these commands:
+6.  To see instructions for the cmdlets, execute these commands:
 
     Get-Help Export-Taxml -Full
     Get-Help Import-Taxml -Full
 
-6.  To export taxonomy data from a SharePoint site:
+7.  To export taxonomy data from a SharePoint site:
 
     Export-Taxml -Path Output.taxml -SiteUrl http://www.example.com/ -Verbose
     
-    NOTE: If your site is hosted by the Office 365 cloud service, include the 
-    "-CloudCredential" switch in your command line.
+    If your site is hosted by the Office 365 cloud service, include the 
+    "-CloudCredential" switch in your command line, like this:
+    
+    $credential = Get-Credential -UserName 'alias@example.com' `
+      -Message 'Enter password:'
 
-7.  To create/update a SharePoint site with data from a TAXML file:
+    Export-Taxml -Path Output.taxml -SiteUrl http://www.example.com/ `
+      -Credential $credential -CloudCredential -Verbose
 
-    Export-Taxml -Path Import.taxml -SiteUrl http://www.example.com/ -Verbose
+8.  To create/update a SharePoint site with data from a TAXML file:
+
+    Import-Taxml -Path Input.taxml -SiteUrl http://www.example.com/ -Verbose
+
+    Or, if the site is hosted by Office 365:
+    
+    $credential = Get-Credential -UserName 'alias@example.com' `
+      -Message 'Enter password:'
+
+    Import-Taxml -Path Input.taxml -SiteUrl http://www.example.com/ `
+      -Credential $credential -CloudCredential -Verbose
 
 
 More Information
 ----------------    
 
-For additional documentation and discussions, please visit this web site:
+For additional documentation and support, please visit this web site:
 
     https://taxonomytoolkit.codeplex.com/documentation
 
