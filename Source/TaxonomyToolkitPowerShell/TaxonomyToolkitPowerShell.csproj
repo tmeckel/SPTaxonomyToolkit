@@ -68,6 +68,7 @@
       <Link>Common\ProductAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AppLog.cs" />
+    <Compile Include="ConvertCsvToTaxmlCommand.cs" />
     <Compile Include="ExportImportHelpers.cs" />
     <Compile Include="ExportTaxmlCommand.cs" />
     <Compile Include="ImportTaxmlCommand.cs" />
