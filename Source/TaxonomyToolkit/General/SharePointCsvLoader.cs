@@ -72,14 +72,14 @@ namespace TaxonomyToolkit.Taxml
             int columnTermDescription = csvReader.GetColumnIndex("Term Description");
 
             int[] columnTermLabels = {
-                        csvReader.GetColumnIndex("Level 1 Term"),
-                        csvReader.GetColumnIndex("Level 2 Term"),
-                        csvReader.GetColumnIndex("Level 3 Term"),
-                        csvReader.GetColumnIndex("Level 4 Term"),
-                        csvReader.GetColumnIndex("Level 5 Term"),
-                        csvReader.GetColumnIndex("Level 6 Term"),
-                        csvReader.GetColumnIndex("Level 7 Term")
-                    };
+                csvReader.GetColumnIndex("Level 1 Term"),
+                csvReader.GetColumnIndex("Level 2 Term"),
+                csvReader.GetColumnIndex("Level 3 Term"),
+                csvReader.GetColumnIndex("Level 4 Term"),
+                csvReader.GetColumnIndex("Level 5 Term"),
+                csvReader.GetColumnIndex("Level 6 Term"),
+                csvReader.GetColumnIndex("Level 7 Term")
+            };
 
             LocalTermSet termSet = null;
             while (csvReader.ReadNextLine())

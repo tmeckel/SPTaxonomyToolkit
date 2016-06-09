@@ -33,10 +33,6 @@ namespace TaxonomyToolkit.PowerShell
     [Cmdlet(VerbsData.Convert, "CsvToTaxml")]
     public class ConvertCsvToTaxmlCommand : PSCmdlet
     {
-        private const string ProgressRecordTitle = "Uploading taxonomy objects to server...";
-        private const string PropertyName_TermStoreId = "TermStoreId";
-        private const string PropertyName_MaximumBatchSize = "MaximumBatchSize";
-
         [Parameter(Mandatory = true)]
         [ValidateNotNullOrEmpty]
         public string CsvPath { get; set; }
