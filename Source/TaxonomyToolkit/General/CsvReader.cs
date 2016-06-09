@@ -231,11 +231,8 @@ namespace TaxonomyToolkit.General
                 builder.AppendLine();
             }
 
-            if (state != State.Start)
-            {
-                this.values.Add(builder.ToString());
-                builder.Clear();
-            }
+            this.values.Add(builder.ToString());
+            builder.Clear();
 
             return !reachedEnd;
         }
