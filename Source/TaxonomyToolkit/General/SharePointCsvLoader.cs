@@ -49,8 +49,8 @@ namespace TaxonomyToolkit.Taxml
 
         public LocalTermStore LoadFromFile(string csvFileName)
         {
-            LocalTermStore termStore = new LocalTermStore(Guid.NewGuid(), "Term Store");
-            LocalTermGroup termGroup = termStore.AddTermGroup(Guid.NewGuid(), Path.GetFileNameWithoutExtension(csvFileName));
+            LocalTermStore termStore = new LocalTermStore(Guid.Empty, "Term Store");
+            LocalTermGroup termGroup = termStore.AddTermGroup(Guid.Empty, Path.GetFileNameWithoutExtension(csvFileName));
 
             using (CsvReader csvReader = new CsvReader(csvFileName))
             {
@@ -117,7 +117,7 @@ namespace TaxonomyToolkit.Taxml
 
                 if (!string.IsNullOrEmpty(termSetName))
                 {
-                    termSet = termGroup.AddTermSet(Guid.NewGuid(), termSetName);
+                    termSet = termGroup.AddTermSet(Guid.Empty, termSetName);
                     termSet.SetName(termSetName, currentLcid);
                     termSet.Description = termSetDescription;
                 }
@@ -139,7 +139,7 @@ namespace TaxonomyToolkit.Taxml
                     }
 
                     string termLabel = termLabels.Last();
-                    LocalTerm term = parent.AddTerm(Guid.NewGuid(), termLabel);
+                    LocalTerm term = parent.AddTerm(Guid.Empty, termLabel);
                     term.SetName(termLabel, currentLcid);
                     term.SetDescription(termDescription, currentLcid);
                     term.IsAvailableForTagging = availableForTagging;
