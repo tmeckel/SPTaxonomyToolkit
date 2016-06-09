@@ -292,8 +292,10 @@ Note: A copy of the library is bundled with this toolkit; however, if a version 
     <CmdletObject verb="Convert" noun="CsvToTaxml">
       <Name>Convert-CsvToTaxml</Name>
       <GeneralHelp>
-        <Synopsis />
-        <Description />
+        <Synopsis>Converts a Term Store Manager CSV file to TAXML format.</Synopsis>
+        <Description>Convert-CsvToTaxml reads a comma-separated values (CSV) data file conforming to the "ImportTermSet.csv" template that is used with SharePoint's "Import Term Set" command.  To obtain this template from your SharePoint site, go to the Term Store Manager page, select the term store object, and then click the link for "View a sample import file".
+
+A typical usage scenario might be: 1. Use Excel to edit the template, then save the updated CSV file.  2. Invoke Convert-CsvToTaxml to produce a TAXML file "Output.taxml".  3. Use Windows Notepad to make any final changes to Output.taxml.  4. Invoke Import-Taxml to upload Output.taxml to the SharePoint server.</Description>
         <Notes />
         <InputType />
         <InputUrl />
@@ -316,7 +318,7 @@ Note: A copy of the library is bundled with this toolkit; however, if a version 
             <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
           </Attributes>
           <Aliases />
-          <Description />
+          <Description>The filename of the CSV file to be read.</Description>
           <DefaultValue />
         </ParameterDescription>
         <ParameterDescription type="String" varLen="false" required="true" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
@@ -326,7 +328,7 @@ Note: A copy of the library is bundled with this toolkit; however, if a version 
             <string>System.Management.Automation.ValidateNotNullOrEmptyAttribute</string>
           </Attributes>
           <Aliases />
-          <Description />
+          <Description>The filename where the TAXML output will be written.</Description>
           <DefaultValue />
         </ParameterDescription>
         <ParameterDescription type="ActionPreference" varLen="false" required="false" dynamic="false" pipeRemaining="false" pipe="false" pipeProp="false" isPos="false" pos="named" globbing="false">
@@ -355,8 +357,24 @@ Note: A copy of the library is bundled with this toolkit; however, if a version 
           <DefaultValue />
         </ParameterDescription>
       </Parameters>
-      <Examples />
-      <RelatedLinks />
+      <Examples>
+        <Example>
+          <Name>Example 1</Name>
+          <Cmd>PS C:\&gt; Convert-CsvToTaxml -CsvPath .\ImportTermSet.csv -TaxmlPath .\Output.taxml</Cmd>
+          <Description>Reads from ImportTermSet.csv and creates an output file called Output.taxml.</Description>
+          <Output />
+        </Example>
+      </Examples>
+      <RelatedLinks>
+        <RelatedLink>
+          <LinkText>SharePoint: Import term sets</LinkText>
+          <LinkUrl>https://support.office.com/en-us/article/Import-term-sets-168fbc86-7fce-4288-9a1f-b83fc3921c18</LinkUrl>
+        </RelatedLink>
+        <RelatedLink>
+          <LinkText>Taxonomy Toolkit</LinkText>
+          <LinkUrl>http://taxonomytoolkit.codeplex.com/</LinkUrl>
+        </RelatedLink>
+      </RelatedLinks>
       <SupportInformation ad="false" rsat="false" ps2="false" ps3="false" ps4="false" ps5="false" wxp="false" wv="false" w7="false" w8="false" w81="false" w2k3s="false" w2k3e="false" w2k3d="false" w2k8s="false" w2k8e="false" w2k8d="false" w2k8r2s="false" w2k8r2e="false" w2k8r2d="false" w2k12s="false" w2k12d="false" w2k12r2s="false" w2k12r2d="false" />
       <Publish>false</Publish>
     </CmdletObject>
