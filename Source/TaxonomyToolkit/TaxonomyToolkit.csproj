@@ -76,6 +76,7 @@
     <Compile Include="Client15Connector\Upload\UploadController.cs" />
     <Compile Include="Client15Connector\WorkingLanguageManager.cs" />
     <Compile Include="General\CastedList.cs" />
+    <Compile Include="General\CsvReader.cs" />
     <Compile Include="General\ParseException.cs" />
     <Compile Include="General\PriorityQueue.cs" />
     <Compile Include="General\ToolkitUtilities.cs" />
