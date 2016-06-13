@@ -2,24 +2,24 @@
 
 // Taxonomy Toolkit
 // Copyright (c) Microsoft Corporation
-// All rights reserved. 
+// All rights reserved.
 // http://taxonomytoolkit.codeplex.com/
-// 
+//
 // MIT License
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
-// associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+//
+// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
@@ -367,20 +367,6 @@ namespace TaxonomyToolkit.Taxml
         }
 
         /// <summary>
-        /// Gets or sets the name of this term in the term store's default language.
-        /// </summary>
-        /// <remarks>
-        /// LocalTermStore has no analogue of the TermStore.WorkingLanguage property from the
-        /// Taxonomy API.  If you care about localization, consider using LocalTerm.GetNameWithDefault()
-        /// and LocalTerm.SetName() instead of LocalTerm.Name.
-        /// </remarks>
-        public new string Name
-        {
-            get { return this.GetNameWithDefault(this.DefaultLanguageLcid); }
-            set { this.SetName(value, this.DefaultLanguageLcid); }
-        }
-
-        /// <summary>
         /// If the object is a term link, the name is determined by the source term.
         /// If the source term is not available, LocalTerm can store an informational
         /// "name hint" which is not used, but may be useful for diagnostic purposes
@@ -626,6 +612,9 @@ namespace TaxonomyToolkit.Taxml
             labelList.RemoveAt(index);
         }
 
+        /// <summary>
+        /// Deletes all labels and assigns a new default label.
+        /// </summary>
         public void ClearLabels(string defaultLabel)
         {
             string normalizedName = ToolkitUtilities.GetNormalizedTaxonomyName(defaultLabel, "defaultLabel");
@@ -639,7 +628,7 @@ namespace TaxonomyToolkit.Taxml
         /// Returns the default label for the specified language.  If there is no label
         /// in the requested language, then the default language is used instead.
         /// </summary>
-        public string GetNameWithDefault(int lcid)
+        public override string GetNameWithDefault(int lcid)
         {
             SharedData sharedData = this.GetSharedDataFromSourceTerm(exceptionIfMissing: false);
             if (sharedData == null)
@@ -666,7 +655,7 @@ namespace TaxonomyToolkit.Taxml
         /// <summary>
         /// Assigns the default label for the specified language
         /// </summary>
-        public void SetName(string name, int lcid)
+        public override void SetName(string name, int lcid)
         {
             this.AddLabel(name, lcid, setAsDefaultLabel: true);
         }

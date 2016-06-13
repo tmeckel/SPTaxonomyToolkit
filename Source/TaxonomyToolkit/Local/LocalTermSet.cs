@@ -2,24 +2,24 @@
 
 // Taxonomy Toolkit
 // Copyright (c) Microsoft Corporation
-// All rights reserved. 
+// All rights reserved.
 // http://taxonomytoolkit.codeplex.com/
-// 
+//
 // MIT License
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
-// associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+//
+// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
@@ -59,12 +59,6 @@ namespace TaxonomyToolkit.Taxml
         }
 
         #region Properties
-
-        public new string Name
-        {
-            get { return this.GetNameWithDefault(this.DefaultLanguageLcid); }
-            set { this.SetName(value, this.DefaultLanguageLcid); }
-        }
 
         /// <summary>
         /// This returns the TermSet name for each language LCID.
@@ -194,17 +188,27 @@ namespace TaxonomyToolkit.Taxml
             }
         }
 
-        public string GetNameWithDefault(int lcid)
+        /// <summary>
+        /// Returns the TermSet name for the specified language.  If a name was not specified
+        /// for the requested language, then the default language is used instead.
+        /// </summary>
+        public override string GetNameWithDefault(int lcid)
         {
             return this.GetLocalizedStringWithFallback(this.nameByLcid, lcid);
         }
 
-        public void SetName(string value, int lcid)
+        /// <summary>
+        /// Assigns the TermSet name for the specified language.
+        /// </summary>
+        public override void SetName(string value, int lcid)
         {
             string normalizedName = ToolkitUtilities.GetNormalizedTaxonomyName(value, "value");
             this.nameByLcid[lcid] = normalizedName;
         }
 
+        /// <summary>
+        /// Deletes all names and assigns a new name for the default language.
+        /// </summary>
         public void ClearNames(string defaultName)
         {
             string normalizedName = ToolkitUtilities.GetNormalizedTaxonomyName(defaultName, "defaultName");
@@ -212,6 +216,9 @@ namespace TaxonomyToolkit.Taxml
             this.nameByLcid[this.DefaultLanguageLcid] = normalizedName;
         }
 
+        /// <summary>
+        /// Enumerates every term that belongs to this term set.
+        /// </summary>
         public IEnumerable<LocalTerm> GetAllTerms()
         {
             foreach (
