@@ -2,24 +2,24 @@
 
 // Taxonomy Toolkit
 // Copyright (c) Microsoft Corporation
-// All rights reserved. 
+// All rights reserved.
 // http://taxonomytoolkit.codeplex.com/
-// 
+//
 // MIT License
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
-// associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+//
+// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
@@ -45,6 +45,8 @@ namespace TaxonomyToolkit.Taxml
 
         private Dictionary<Guid, List<LocalTerm>> termsByGuid = null;
 
+        private LocalTaxonomyItemCollection<LocalTermGroup> readOnlyTermGroups;
+
         private List<int> availableLanguageLcids = new List<int>();
 
         public LocalTermStore(Guid id, string serviceName, int defaultLanguageLcid = LocalTermStore.EnglishLanguageLcid)
@@ -61,9 +63,9 @@ namespace TaxonomyToolkit.Taxml
         /// <summary>
         /// The child items for this object.
         /// </summary>
-        public ReadOnlyCollection<LocalTermGroup> TermGroups
+        public LocalTaxonomyItemCollection<LocalTermGroup> TermGroups
         {
-            get { return this.readOnlyChildItems; }
+            get { return this.readOnlyTermGroups; }
         }
 
         public new string Name
@@ -78,7 +80,7 @@ namespace TaxonomyToolkit.Taxml
 
         /// <summary>
         /// When downloaded from SharePoint, this collection reports the term store languages
-        /// that were configured for use on the server.  When uploading to SharePoint, 
+        /// that were configured for use on the server.  When uploading to SharePoint,
         /// this collection specifies the langauges that will be synced; if the LocalTerm objects
         /// contain strings for other languages that are not included in AvailableLanguageLcids,
         /// then those strings will not be synced.
@@ -136,6 +138,11 @@ namespace TaxonomyToolkit.Taxml
         protected override string GetName()
         {
             return this.Name;
+        }
+
+        protected override void ConstructReadOnlyCollection(List<LocalTermGroup> writableChildItems) // abstract
+        {
+            this.readOnlyTermGroups = new LocalTaxonomyItemCollection<LocalTermGroup>(writableChildItems);
         }
 
         public void SetAvailableLanguageLcids(IEnumerable<int> lcids)

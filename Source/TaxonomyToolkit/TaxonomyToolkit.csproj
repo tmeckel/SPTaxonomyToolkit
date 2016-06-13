@@ -84,6 +84,8 @@
     <Compile Include="Local\CustomSortOrder.cs" />
     <Compile Include="Local\LocalPropertyBag.cs" />
     <Compile Include="Local\LocalTaxonomyItem.cs" />
+    <Compile Include="Local\LocalTaxonomyItemCollection.cs" />
+    <Compile Include="Local\LocalTermContainerCollection.cs" />
     <Compile Include="Local\LocalTerm.cs" />
     <Compile Include="Local\LocalTermContainer.cs" />
     <Compile Include="Local\LocalTermGroup.cs" />

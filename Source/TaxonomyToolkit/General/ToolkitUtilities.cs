@@ -2,24 +2,24 @@
 
 // Taxonomy Toolkit
 // Copyright (c) Microsoft Corporation
-// All rights reserved. 
+// All rights reserved.
 // http://taxonomytoolkit.codeplex.com/
-// 
+//
 // MIT License
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
-// associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+//
+// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
@@ -54,7 +54,7 @@ namespace TaxonomyToolkit.General
         }
 
         /// <summary>
-        /// The version of the Microsoft.SharePoint.Client runtime that was loaded by 
+        /// The version of the Microsoft.SharePoint.Client runtime that was loaded by
         /// the TaxonomyToolkit library.
         /// </summary>
         public static Version SharePointClientVersion
@@ -123,9 +123,14 @@ namespace TaxonomyToolkit.General
         /// This performs a similar operation as TaxonomyItem.NormalizeName(), and also checks
         /// that the name is valid.
         /// </summary>
-        public static string GetNormalizedTaxonomyName(string name, string parameterName)
+        public static string GetNormalizedTaxonomyName(string name)
         {
-            ToolkitUtilities.ConfirmNotNull(name, parameterName);
+            return ToolkitUtilities.GetNormalizedTaxonomyName(name, "name");
+        }
+
+        internal static string GetNormalizedTaxonomyName(string name, string argumentName)
+        {
+            ToolkitUtilities.ConfirmNotNull(name, argumentName);
 
             string normalizedName = Regex.Replace(name, @"\s+", " ");
             normalizedName = normalizedName.Replace('&', (char) 0xff06).Replace('"', (char) 0xff02);

@@ -38,12 +38,14 @@ namespace TaxonomyToolkit.Taxml
     /// </summary>
     public abstract class LocalTermContainer : LocalTaxonomyItem<LocalTerm>
     {
+        private LocalTermContainerCollection<LocalTerm> terms;
         private bool isAvailableForTagging = true;
         private CustomSortOrder customSortOrder = new CustomSortOrder();
 
         internal LocalTermContainer(Guid id, int defaultLanguageLcid)
             : base(id, defaultLanguageLcid)
         {
+
         }
 
         /// <summary>
@@ -63,9 +65,9 @@ namespace TaxonomyToolkit.Taxml
         /// <summary>
         /// The child items for this object.
         /// </summary>
-        public ReadOnlyCollection<LocalTerm> Terms
+        public LocalTermContainerCollection<LocalTerm> Terms
         {
-            get { return this.readOnlyChildItems; }
+            get { return this.terms; }
         }
 
         /// <summary>
@@ -133,6 +135,10 @@ namespace TaxonomyToolkit.Taxml
 
         #endregion
 
+        protected override void ConstructReadOnlyCollection(List<LocalTerm> writableChildItems) // abstract
+        {
+            this.terms = new LocalTermContainerCollection<LocalTerm>(writableChildItems);
+        }
         /// <summary>
         /// Returns the containing <see cref="LocalTermSet" /> instance (scanning upwards in the tree),
         /// or null if not found.

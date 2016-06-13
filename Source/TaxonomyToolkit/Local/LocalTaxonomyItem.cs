@@ -2,24 +2,24 @@
 
 // Taxonomy Toolkit
 // Copyright (c) Microsoft Corporation
-// All rights reserved. 
+// All rights reserved.
 // http://taxonomytoolkit.codeplex.com/
-// 
+//
 // MIT License
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
-// associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+//
+// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
@@ -135,11 +135,11 @@ namespace TaxonomyToolkit.Taxml
         /// <remarks>
         /// The Taxonomy API also supports a TermStore.WorkingLanguage that specifies the language
         /// to be used by properties such as Term.Name and Term.Description.  (For example, changing
-        /// the TermStore.WorkingLanguage may cause Term.Name to return different strings 
+        /// the TermStore.WorkingLanguage may cause Term.Name to return different strings
         /// throughout the object tree, without any effect on the underlying data model.)
         /// This working language concept is NOT implemented by LocalTaxonomyItem; properties such
-        /// as LocalTerm.Name will always read/write the term store's default language.  If you 
-        /// care about localization, consider using LocalTerm.GetNameWithDefault() and 
+        /// as LocalTerm.Name will always read/write the term store's default language.  If you
+        /// care about localization, consider using LocalTerm.GetNameWithDefault() and
         /// LocalTerm.SetName() instead of LocalTerm.Name.
         /// </remarks>
         public int DefaultLanguageLcid
@@ -412,13 +412,14 @@ namespace TaxonomyToolkit.Taxml
         where TChild : LocalTaxonomyItem
     {
         private readonly List<TChild> writableChildItems = new List<TChild>();
-        protected ReadOnlyCollection<TChild> readOnlyChildItems;
 
         internal LocalTaxonomyItem(Guid id, int defaultLanguageLcid)
             : base(id, defaultLanguageLcid)
         {
-            this.readOnlyChildItems = new ReadOnlyCollection<TChild>(this.writableChildItems);
+            this.ConstructReadOnlyCollection(this.writableChildItems);
         }
+
+        protected abstract void ConstructReadOnlyCollection(List<TChild> writableChildItems);
 
         protected override sealed void OnAddChildItem(LocalTaxonomyItem item)
         {
