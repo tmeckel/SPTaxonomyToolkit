@@ -298,7 +298,7 @@ namespace TaxonomyToolkitTests
         }
 
         [TestMethod]
-        public void SiblingTermNameConflicts()
+        public void SiblingTermNameConflictsWhenAdding()
         {
             var guids = new Guid[] {
                 new Guid("ff000000-0000-0000-0000-000000000000"),
@@ -369,6 +369,42 @@ namespace TaxonomyToolkitTests
             {
                 Assert.AreEqual(ex.Message, "The term name \"Guava\" is already in use by a sibling term (LCID=1031)");
                 Assert.IsNull(failedTerm6.ParentItem); // failedTerm6 should not have been added
+            }
+        }
+
+        [TestMethod]
+        public void SiblingTermNameConflictsWhenRenaming()
+        {
+            var guids = new Guid[] {
+                new Guid("ff000000-0000-0000-0000-000000000000"),
+                new Guid("ff000000-0000-0000-0000-000000000001"),
+                new Guid("ff000000-0000-0000-0000-000000000002"),
+                new Guid("ff000000-0000-0000-0000-000000000003"),
+                new Guid("ff000000-0000-0000-0000-000000000004")
+            };
+
+            var termStore = new LocalTermStore(guids[0], "MMS", 1030);
+            termStore.SetAvailableLanguageLcids(new[] { 1030, 1031, 1033 });
+
+            var termGroup = termStore.AddTermGroup(guids[1], "Group");
+            var termSet = termGroup.AddTermSet(guids[2], "TermSet");
+
+            // Synonyms (i.e. non-default labels) cannot conflict with each other
+            var term1 = LocalTerm.CreateTerm(guids[3], "Apple", 1030);
+            termSet.AddTerm(term1);
+
+            var term2 = LocalTerm.CreateTerm(guids[4], "Banana", 1030);
+            termSet.AddTerm(term2);
+
+            try
+            {
+                term2.Name = "Apple";
+                Assert.Fail("Exception not thrown");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "The term name \"Apple\" is already in use by a sibling term (LCID=1030)");
+                Assert.AreEqual(term2.Name, "Banana"); // term2 should not have been changed
             }
         }
     }

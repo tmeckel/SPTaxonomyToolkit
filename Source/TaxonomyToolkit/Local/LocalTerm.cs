@@ -575,8 +575,24 @@ namespace TaxonomyToolkit.Taxml
 
             if (setAsDefaultLabel)
             {
-                // TODO: Check for sibling terms that are already using this name
-                // (this constraint only applies to the default label)
+                // Check for sibling terms that are already using this name
+                // (This constraint only applies to the default label.)
+                if (this.TermKind == LocalTermKind.NormalTerm && this.parentItem != null)
+                {
+                    var proposedNewLabel = new LocalTermLabel(lcid, newLabel, setAsDefaultLabel);
+                    foreach (LocalTerm siblingTerm in this.parentItem.Terms)
+                    {
+                        if (siblingTerm == this)
+                            continue;
+
+                        if (siblingTerm.TermKind == LocalTermKind.NormalTerm)
+                        {
+                            string objection = siblingTerm.ExplainHasLabelConflictWith(this, proposedNewLabel);
+                            if (objection != null)
+                                throw new InvalidOperationException(objection);
+                        }
+                    }
+                }
 
                 labelList.Insert(0, normalizedName);
             }
@@ -652,18 +668,25 @@ namespace TaxonomyToolkit.Taxml
             SharedData thisSharedData = this.GetSharedDataFromSourceTerm(exceptionIfMissing: true);
             SharedData otherSharedData = otherTerm.GetSharedDataFromSourceTerm(exceptionIfMissing: true);
 
-            foreach (int lcid in thisSharedData.LabelsByLcid.Keys
-                .Union(otherSharedData.LabelsByLcid.Keys)
-                .OrderBy(x => x)
-                .Distinct())
+            foreach (int lcid in
+                // Take the union of the LCIDs from both terms, sorted in increasing order,
+                // but compare the default language first
+                new[] { this.DefaultLanguageLcid }
+                .Union(
+                    thisSharedData.LabelsByLcid.Keys
+                    .Union(otherSharedData.LabelsByLcid.Keys)
+                    .Where(x => x != this.DefaultLanguageLcid)
+                    .OrderBy(x => x)
+                    .Distinct()
+                ))
             {
                 string thisName = this.GetNameWithDefault(lcid);
                 string otherName = otherTerm.GetNameWithDefaultForConflict(otherSharedData, lcid, proposedNewLabelForOtherTerm);
 
                 if (thisName.Equals(otherName, StringComparison.OrdinalIgnoreCase))
                 {
-                    return "The term name \"" + otherName + "\" is already in use by a sibling term (LCID="
-                        + lcid + ")";
+                    return "The term name \"" + otherName + "\" is already in use by a sibling term"
+                        + " (LCID=" + lcid + ")";
                 }
             }
             return null;
