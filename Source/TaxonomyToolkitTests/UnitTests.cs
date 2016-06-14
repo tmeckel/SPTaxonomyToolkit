@@ -2,24 +2,24 @@
 
 // Taxonomy Toolkit
 // Copyright (c) Microsoft Corporation
-// All rights reserved. 
+// All rights reserved.
 // http://taxonomytoolkit.codeplex.com/
-// 
+//
 // MIT License
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and 
-// associated documentation files (the "Software"), to deal in the Software without restriction, 
-// including without limitation the rights to use, copy, modify, merge, publish, distribute, 
-// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is 
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in all copies or 
+//
+// The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT 
-// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
+//
+// THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+// NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #endregion
@@ -276,7 +276,7 @@ namespace TaxonomyToolkitTests
             catch (Exception ex)
             {
                 Assert.AreEqual(ex.GetType(), typeof(InvalidOperationException));
-            } 
+            }
 
 
             termStore.DefaultLanguageLcid = 1031;
@@ -295,6 +295,81 @@ namespace TaxonomyToolkitTests
             Assert.AreEqual(termSet.DefaultLanguageLcid, 1032);
             Assert.AreEqual(term0.DefaultLanguageLcid, 1032);
             Assert.AreEqual(term1.DefaultLanguageLcid, 1032);
+        }
+
+        [TestMethod]
+        public void SiblingTermNameConflicts()
+        {
+            var guids = new Guid[] {
+                new Guid("ff000000-0000-0000-0000-000000000000"),
+                new Guid("ff000000-0000-0000-0000-000000000001"),
+                new Guid("ff000000-0000-0000-0000-000000000002"),
+                new Guid("ff000000-0000-0000-0000-000000000003"),
+                new Guid("ff000000-0000-0000-0000-000000000004"),
+                new Guid("ff000000-0000-0000-0000-000000000005"),
+                new Guid("ff000000-0000-0000-0000-000000000006"),
+                new Guid("ff000000-0000-0000-0000-000000000007"),
+                new Guid("ff000000-0000-0000-0000-000000000008")
+            };
+
+            var termStore = new LocalTermStore(guids[0], "MMS", 1030);
+            termStore.SetAvailableLanguageLcids(new[] { 1030, 1031, 1033 });
+
+            var termGroup = termStore.AddTermGroup(guids[1], "Group");
+            var termSet = termGroup.AddTermSet(guids[2], "TermSet");
+
+            // Synonyms (i.e. non-default labels) cannot conflict with each other
+            var term1 = LocalTerm.CreateTerm(guids[3], "Apple", 1030);
+            term1.AddLabel("No Conflict", 1030, setAsDefaultLabel: false);
+            termSet.AddTerm(term1);
+
+            var term2 = LocalTerm.CreateTerm(guids[4], "Banana", 1030);
+            term2.AddLabel("No Conflict", 1030, setAsDefaultLabel: false);
+            termSet.AddTerm(term2);
+
+            // Default labels do not conflict unless the language is the same
+            var term3 = LocalTerm.CreateTerm(guids[5], "Coconut", 1030);
+            term3.SetName("Durian", 1033);
+            termSet.AddTerm(term3);
+
+            var term4 = LocalTerm.CreateTerm(guids[6], "Durian", 1030);
+            term4.SetName("Coconut", 1033);
+            termSet.AddTerm(term4);
+
+            // Default labels do conflict if the language is the same
+            // failedTerm5 should conflict with term3
+            var failedTerm5 = LocalTerm.CreateTerm(guids[7], "Elderberry", 1030);
+            failedTerm5.SetName("Durian", 1033);
+            try
+            {
+                termSet.AddTerm(failedTerm5);
+                Assert.Fail("Exception not thrown");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "The term name \"Durian\" is already in use by a sibling term (LCID=1033)");
+                Assert.AreEqual(termSet.Terms.Count, 4); // failedTerm5 should not have been added
+            }
+
+            // If a default label is missing for one of the LCIDs, we fallback to the default language,
+            // which can cause a conflict
+            var term5 = LocalTerm.CreateTerm(guids[7], "Feijoa", 1030);
+            term5.SetName("Guava", 1031);
+            termSet.AddTerm(term5);
+
+            // failedTerm6 should conflict with term5 because for LCID=1031, it will fallback to use
+            // the default language which is "Guava"
+            var failedTerm6 = LocalTerm.CreateTerm(guids[8], "Guava", 1030);
+            try
+            {
+                termSet.AddTerm(failedTerm6);
+                Assert.Fail("Exception not thrown");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "The term name \"Guava\" is already in use by a sibling term (LCID=1031)");
+                Assert.IsNull(failedTerm6.ParentItem); // failedTerm6 should not have been added
+            }
         }
     }
 }

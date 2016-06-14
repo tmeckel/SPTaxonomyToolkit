@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 
 namespace TaxonomyToolkit.Taxml
@@ -139,6 +140,31 @@ namespace TaxonomyToolkit.Taxml
         {
             this.terms = new LocalTermContainerCollection<LocalTerm>(writableChildItems);
         }
+
+        protected override string ExplainIsAllowableParentFor(LocalTaxonomyItem proposedChild)
+        {
+            string objection = base.ExplainIsAllowableParentFor(proposedChild);
+            if (objection != null)
+                return objection;
+
+            LocalTerm proposedChildTerm = (LocalTerm)proposedChild;
+            if (proposedChildTerm.TermKind == LocalTermKind.NormalTerm)
+            {
+                // Check each default label against the target term set to make sure it doesn't conflict.
+                foreach (LocalTerm siblingTerm in this.Terms)
+                {
+                    if (siblingTerm.TermKind == LocalTermKind.NormalTerm)
+                    {
+                        objection = siblingTerm.ExplainHasLabelConflictWith(proposedChildTerm);
+                        if (objection != null)
+                            return objection;
+                    }
+                }
+            }
+            return null; // no problem
+        }
+
+
         /// <summary>
         /// Returns the containing <see cref="LocalTermSet" /> instance (scanning upwards in the tree),
         /// or null if not found.

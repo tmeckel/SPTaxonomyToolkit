@@ -289,9 +289,10 @@ namespace TaxonomyToolkit.Taxml
 
         /// <summary>
         /// Tests whether <paramref name="proposedChild" /> could be added as a child for this item.
-        /// Null is returned if the operation is allowed; otherwise, an error message is returned.
+        /// Null is returned if the operation is allowed; otherwise, an "objection" (i.e error message)
+        /// is returned.
         /// </summary>
-        private string ExplainIsAllowableParentFor(LocalTaxonomyItem proposedChild)
+        protected virtual string ExplainIsAllowableParentFor(LocalTaxonomyItem proposedChild)
         {
             if (proposedChild.Kind != this.ChildItemKind)
                 return proposedChild.Kind + " cannot be a child of " + this.Kind;

@@ -576,7 +576,7 @@ namespace TaxonomyToolkit.Taxml
             if (setAsDefaultLabel)
             {
                 // TODO: Check for sibling terms that are already using this name
-                // (this constraint only applies to the default label in the default language)
+                // (this constraint only applies to the default label)
 
                 labelList.Insert(0, normalizedName);
             }
@@ -622,6 +622,75 @@ namespace TaxonomyToolkit.Taxml
             SharedData sharedData = this.GetSharedDataFromSourceTerm(exceptionIfMissing: true);
             sharedData.LabelsByLcid.Clear();
             this.SetName(defaultLabel, this.DefaultLanguageLcid);
+        }
+
+        /// <summary>
+        /// Compares otherTerm's labels with this term's labels to see if there are any conflicts.
+        /// A conflict occurs if the default labels (i.e. term names) are equal for a given language LCID.
+        /// Note that we compare all LCIDs from both terms; if a term does not have a default label
+        /// for a given LCID, then we fallback to the default language.  (Recall that the "term name"
+        /// is the "default label" for each language, and there is also a "default language" for
+        /// the term store.)
+        ///
+        /// This check can also consider a proposedNewLabelForOtherTerm, which allows us to detect
+        /// problems that would be introduced by adding/changing the otherTerm, before the change
+        /// is performed.
+        /// </summary>
+        /// <returns>
+        /// An "objection" (i.e. error message) if there is a conflict, or null otheriwse.
+        /// </returns>
+        internal string ExplainHasLabelConflictWith(LocalTerm otherTerm, LocalTermLabel proposedNewLabelForOtherTerm = null)
+        {
+            Debug.Assert(this.TermKind == LocalTermKind.NormalTerm);
+            Debug.Assert(otherTerm.TermKind == LocalTermKind.NormalTerm);
+
+            // The proposedNewLabelForOtherTerm only affects this comparison if it is the default label for a language
+            // (i.e. we don't care about synonyms)
+            if (proposedNewLabelForOtherTerm != null && !proposedNewLabelForOtherTerm.IsDefault)
+                proposedNewLabelForOtherTerm = null;
+
+            SharedData thisSharedData = this.GetSharedDataFromSourceTerm(exceptionIfMissing: true);
+            SharedData otherSharedData = otherTerm.GetSharedDataFromSourceTerm(exceptionIfMissing: true);
+
+            foreach (int lcid in thisSharedData.LabelsByLcid.Keys
+                .Union(otherSharedData.LabelsByLcid.Keys)
+                .OrderBy(x => x)
+                .Distinct())
+            {
+                string thisName = this.GetNameWithDefault(lcid);
+                string otherName = otherTerm.GetNameWithDefaultForConflict(otherSharedData, lcid, proposedNewLabelForOtherTerm);
+
+                if (thisName.Equals(otherName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return "The term name \"" + otherName + "\" is already in use by a sibling term (LCID="
+                        + lcid + ")";
+                }
+            }
+            return null;
+        }
+
+        private string GetNameWithDefaultForConflict(SharedData sharedData, int lcid, LocalTermLabel proposedNewLabelForOtherTerm)
+        {
+            if (proposedNewLabelForOtherTerm != null && lcid == proposedNewLabelForOtherTerm.Lcid)
+                return proposedNewLabelForOtherTerm.Value;
+
+            List<string> labelList = null;
+            if (!sharedData.LabelsByLcid.TryGetValue(lcid, out labelList)
+                || labelList.Count == 0)
+            {
+                lcid = this.DefaultLanguageLcid;
+
+                if (proposedNewLabelForOtherTerm != null && lcid == proposedNewLabelForOtherTerm.Lcid)
+                    return proposedNewLabelForOtherTerm.Value;
+
+                if (!sharedData.LabelsByLcid.TryGetValue(lcid, out labelList)
+                    || labelList.Count == 0)
+                {
+                    // this should never occur
+                    throw new InvalidOperationException("Assertion failed");
+                }
+            }
+            return labelList[0];
         }
 
         /// <summary>
